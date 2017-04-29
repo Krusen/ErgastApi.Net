@@ -11,7 +11,7 @@ namespace ErgastApi
             var query = new Query() as IEmptyQuery;
 
             query.Season(2017).LastRound.Drivers(Driver.ALO).DriverStandings(1).Limit(10).Offset(10);
-            query.Drivers("alonso").DriverStandings(1);
+            query.Drivers("alonso").DriverStandings();
         }
     }
 }

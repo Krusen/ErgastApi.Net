@@ -6,7 +6,7 @@ using ErgastApi.Interfaces.Queries;
 namespace ErgastApi.Interfaces.Methods
 {
     [Id("drivers")]
-    public interface IDrivers : IQuery, IDriversFilter
+    public interface IDrivers : IPageableQuery, IDriversFilter
     {
         IDriversQuery Drivers(string driverId);
         IDriversQuery Drivers(Driver driver);

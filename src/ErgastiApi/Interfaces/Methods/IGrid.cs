@@ -4,7 +4,7 @@ using ErgastApi.Interfaces.Queries;
 namespace ErgastApi.Interfaces.Methods
 {
     [Id("grid")]
-    public interface IGrid : IQuery
+    public interface IGrid : IPageableQuery
     {
         IGridQuery Grid(int startingPosition);
     }

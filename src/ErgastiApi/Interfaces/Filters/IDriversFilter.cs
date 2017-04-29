@@ -1,4 +1,5 @@
 ﻿using ErgastApi.Attributes;
+using ErgastApi.Interfaces.Queries;
 
 namespace ErgastApi.Interfaces.Filters
 {
@@ -6,6 +7,6 @@ namespace ErgastApi.Interfaces.Filters
     [Id("drivers")]
     public interface IDriversFilter
     {
-        IQuery Drivers();
+        IPageableQuery Drivers();
     }
 }

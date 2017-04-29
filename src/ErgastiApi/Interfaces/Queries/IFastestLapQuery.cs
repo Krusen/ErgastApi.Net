@@ -1,8 +1,9 @@
-﻿using ErgastApi.Interfaces.Methods;
+﻿using ErgastApi.Interfaces.Filters;
+using ErgastApi.Interfaces.Methods;
 
 namespace ErgastApi.Interfaces.Queries
 {
-    public interface IFastestLapQuery : IResults, Methods.IFinishingStatus
+    public interface IFastestLapQuery : IResults, IFinishingStatus, IQualifyingFilter
     {
     }
 }

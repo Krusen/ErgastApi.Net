@@ -5,9 +5,9 @@ using ErgastApi.Interfaces.Queries;
 namespace ErgastApi.Interfaces.Methods
 {
     [Id("constructorStandings")]
-    public interface IConstructorStandings : IQuery
+    public interface IConstructorStandings : IPageableQuery
     {
-        IQuery ConstructorStandings();
+        IPageableQuery ConstructorStandings();
         IConstructorStandingsQuery ConstructorStandings(int position);
     }
 }

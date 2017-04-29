@@ -2,9 +2,9 @@
 
 namespace ErgastApi.Interfaces.Methods
 {
-    public interface IDriverStandings : IQuery
+    public interface IDriverStandings : IPageableQuery
     {
-        IQuery DriverStandings();
+        IPageableQuery DriverStandings();
         IDriverStandingsQuery DriverStandings(int position);
     }
 }

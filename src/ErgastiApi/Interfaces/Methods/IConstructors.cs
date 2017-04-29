@@ -6,7 +6,7 @@ using ErgastApi.Interfaces.Queries;
 namespace ErgastApi.Interfaces.Methods
 {
     [Id("constructors")]
-    public interface IConstructors : IQuery, IConstructorsFilter
+    public interface IConstructors : IPageableQuery, IConstructorsFilter
     {
         IConstructorsQuery Constructors(string constructorId);
 

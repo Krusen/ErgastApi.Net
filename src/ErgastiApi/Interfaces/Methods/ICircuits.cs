@@ -6,7 +6,7 @@ using ErgastApi.Interfaces.Queries;
 namespace ErgastApi.Interfaces.Methods
 {
     [Id("circuits")]
-    public interface ICircuits : IQuery, ICircuitsFilter
+    public interface ICircuits : IPageableQuery, ICircuitsFilter
     {
         ICircuitsQuery Circuits(string circuitId);
         ICircuitsQuery Circuits(Circuit circuit);

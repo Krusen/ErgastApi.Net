@@ -3,7 +3,7 @@ using ErgastApi.Interfaces.Methods;
 
 namespace ErgastApi.Interfaces.Queries
 {
-    public interface ICircuitsQuery : IQuery, IDrivers, IConstructors, IFinishingStatus, IResults
+    public interface ICircuitsQuery : IPageableQuery, IDrivers, IConstructors, IFinishingStatus, IResults, IQualifyingFilter
     {
     }
 }

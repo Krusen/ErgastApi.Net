@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Text;
 using ErgastApi.Attributes;
 using ErgastApi.Enums;
-using ErgastApi.Interfaces;
 using ErgastApi.Interfaces.Filters;
 using ErgastApi.Interfaces.Methods;
 using ErgastApi.Interfaces.Queries;
@@ -12,8 +11,8 @@ namespace ErgastApi.Models
 {
     public class Query :
         IFormattable,
-        IQuery,
-        ILimitedQuery, IOffsetQuery, ILimitedOffsetQuery,
+        IPageableQuery,
+        ILimitedQuery, IOffsetQuery, IPagedQuery,
         IEmptyQuery,
         ICircuitsQuery,
         IConstructorsQuery,
@@ -51,7 +50,7 @@ namespace ErgastApi.Models
 
         private int? OffsetValue { get; set; }
 
-        public string Compile()
+        public string Build()
         {
             var url = new StringBuilder(Builder.ToString());
             url.Append(".json");
@@ -68,11 +67,11 @@ namespace ErgastApi.Models
             return url.ToString();
         }
 
-        public override string ToString() => Compile();
+        public override string ToString() => Build();
 
         public string ToString(string format, IFormatProvider formatProvider)
         {
-            return Compile();
+            return Build();
         }
 
         public Query Add<T>() => Add<T>(null);
@@ -112,12 +111,21 @@ namespace ErgastApi.Models
             return new Query(this) { OffsetValue = offset };
         }
 
-        ILimitedOffsetQuery IOffsetQuery.Limit(int limit)
+        public IPagedQuery Page(int page, int pageSize)
+        {
+            return new Query(this)
+            {
+                OffsetValue = (page - 1) * pageSize,
+                LimitValue = pageSize
+            };
+        }
+
+        IPagedQuery IOffsetQuery.Limit(int limit)
         {
             return new Query(this) { LimitValue = limit };
         }
 
-        ILimitedOffsetQuery ILimitedQuery.Offset(int offset)
+        IPagedQuery ILimitedQuery.Offset(int offset)
         {
             return new Query(this) { OffsetValue = offset };
         }
@@ -126,7 +134,7 @@ namespace ErgastApi.Models
 
         public IGridQuery Grid(int startingPosition) => Add<IGrid>(startingPosition);
 
-        public IQuery Seasons() => Add<ISeasonsFilter>();
+        public IPageableQuery Seasons() => Add<ISeasonsFilter>();
 
         public ISeasonQuery Season(int season) => Add<ISeason>(season);
 
@@ -138,19 +146,19 @@ namespace ErgastApi.Models
 
         public IRoundQuery NextRound => Add<IRound>("next");
 
-        public IQuery Circuits() => Add<ICircuitsFilter>();
+        public IPageableQuery Circuits() => Add<ICircuitsFilter>();
 
         public ICircuitsQuery Circuits(string circuitId) => Add<ICircuits>(circuitId);
 
         public ICircuitsQuery Circuits(Circuit circuit) => Circuits(circuit.GetEnumId());
 
-        public IQuery Drivers() => Add<IDriversFilter>();
+        public IPageableQuery Drivers() => Add<IDriversFilter>();
 
         public IDriversQuery Drivers(string driverId) => Add<IDrivers>(driverId);
 
         public IDriversQuery Drivers(Driver driver) => Drivers(driver.GetEnumId());
 
-        public IQuery Constructors() => Add<IConstructorsFilter>();
+        public IPageableQuery Constructors() => Add<IConstructorsFilter>();
 
         public IConstructorsQuery Constructors(string constructorId) => Add<IConstructors>(constructorId);
 
@@ -160,28 +168,28 @@ namespace ErgastApi.Models
 
         IResultsQuery IResults.Results(int position) => Add<IResults>(position);
 
-        IQuery IResultsFilter.Results() => Add<IResults>();
+        IPageableQuery IResultsFilter.Results() => Add<IResults>();
 
-        IQuery IResultsFilter.Results(int position) => Add<IResults>(position);
+        IPageableQuery IResultsFilter.Results(int position) => Add<IResults>(position);
 
-        public IQuery Status() => Add<IFinishingStatusFilter>();
+        public IPageableQuery Status() => Add<IFinishingStatusFilter>();
 
         public IFinishingStatusQuery Status(int statusId) => Add<IFinishingStatus>(statusId);
 
         public IFinishingStatusQuery Status(FinishingStatus status) => Add<IFinishingStatus>((int)status);
 
         // TODO: Separate IConstructorStandingsFilter infterface?
-        public IQuery ConstructorStandings() => Add<IConstructorStandings>();
+        public IPageableQuery ConstructorStandings() => Add<IConstructorStandings>();
 
         public IConstructorStandingsQuery ConstructorStandings(int position) => Add<IConstructorStandings>(position);
 
         // TODO: Separate IDriverStandingsFilter infterface?
-        public IQuery DriverStandings() => Add<IDriverStandings>();
+        public IPageableQuery DriverStandings() => Add<IDriverStandings>();
 
         public IDriverStandingsQuery DriverStandings(int position) => Add<IDriverStandings>(position);
 
-        public IQuery PitStops() => Add<IPitStopsFilter>();
+        public IPageableQuery PitStops() => Add<IPitStopsFilter>();
 
-        public IQuery PitStops(int stopNumber) => Add<IPitStopsFilter>(stopNumber);
+        public IPageableQuery PitStops(int stopNumber) => Add<IPitStopsFilter>(stopNumber);
     }
 }

@@ -1,8 +1,9 @@
-﻿using ErgastApi.Interfaces.Methods;
+﻿using ErgastApi.Interfaces.Filters;
+using ErgastApi.Interfaces.Methods;
 
 namespace ErgastApi.Interfaces.Queries
 {
-    public interface IGridQuery : IQuery, ICircuits, IConstructors, IDrivers, IResults, IFastestLap, IFinishingStatus
+    public interface IGridQuery : IPageableQuery, ICircuits, IConstructors, IDrivers, IResults, IFastestLap, IFinishingStatus, IQualifyingFilter
     {
     }
 }

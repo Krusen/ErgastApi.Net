@@ -1,8 +1,10 @@
-﻿namespace ErgastApi.Interfaces.Filters
+﻿using ErgastApi.Interfaces.Queries;
+
+namespace ErgastApi.Interfaces.Filters
 {
     public interface IResultsFilter
     {
-        IQuery Results();
-        IQuery Results(int position);
+        IPageableQuery Results();
+        IPageableQuery Results(int position);
     }
 }

@@ -1,12 +1,13 @@
 ﻿using ErgastApi.Attributes;
+using ErgastApi.Interfaces.Queries;
 
 namespace ErgastApi.Interfaces.Filters
 {
     [Id("pitstops")]
     public interface IPitStopsFilter
     {
-        IQuery PitStops();
+        IPageableQuery PitStops();
 
-        IQuery PitStops(int stopNumber);
+        IPageableQuery PitStops(int stopNumber);
     }
 }
