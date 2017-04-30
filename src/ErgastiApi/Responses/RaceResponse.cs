@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using ErgastApi.Responses.Models;
 using Newtonsoft.Json;
 
 namespace ErgastApi.Responses
 {
     public class RaceResponse : ErgastResponse
     {
-        public IList<Race> Races { get; }
+        public IList<Race> Races { get; set; }
     }
 
     // TODO: Make setters private and add JsonProperty attribute

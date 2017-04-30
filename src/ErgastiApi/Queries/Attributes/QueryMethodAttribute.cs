@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ErgastApi.Queries
+namespace ErgastApi.Queries.Attributes
 {
     // TODO: Implement QueryDependency attribute in QueryCompiler
     [AttributeUsage(AttributeTargets.Property)]

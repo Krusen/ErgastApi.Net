@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using ErgastApi.Queries.Attributes;
 
 namespace ErgastApi.Queries
 {

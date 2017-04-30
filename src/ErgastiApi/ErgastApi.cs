@@ -2,6 +2,7 @@
 using System.Net.Http;
 using System.Threading.Tasks;
 using ErgastApi.Queries;
+using ErgastApi.Queries.Standard;
 using ErgastApi.Responses;
 using ErgastApi.Serialization;
 using Newtonsoft.Json;
@@ -66,7 +67,7 @@ namespace ErgastApi
             throw new NotImplementedException("Use async version for now");
         }
 
-        public async Task<DriverResponse> ExecuteAsync(DriverInfoQuery query)
+        public async Task<IDriverResponse> ExecuteAsync(IDriverInfoQuery query)
         {
             {
                 var url = ApiRoot + QueryCompiler.Compile(query);

@@ -1,9 +1,15 @@
 ﻿
+using System.Threading.Tasks;
+using ErgastApi.Queries.Standard;
+using ErgastApi.Responses;
+
 namespace ErgastApi
 {
     public interface IErgastApi
     {
-        //IDriverResponse Execute(IDriverInfoQuery query);
+        // TODO: Sync methods?
+        // TODO: Rename GetResponseAsync()?
+        Task<IDriverResponse> ExecuteAsync(IDriverInfoQuery query);
 
         //IConstructorResponse Execute(IConstructorInfoQuery query);
 

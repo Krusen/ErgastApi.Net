@@ -1,4 +1,6 @@
-namespace ErgastApi.Queries
+using ErgastApi.Queries.Attributes;
+
+namespace ErgastApi.Queries.Standings
 {
     public class DriverStandingsQuery : StandingsQuery
     {

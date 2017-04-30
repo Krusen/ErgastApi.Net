@@ -1,4 +1,5 @@
 ﻿using ErgastApi.Queries;
+using ErgastApi.Queries.Standard;
 
 namespace ErgastApi
 {
