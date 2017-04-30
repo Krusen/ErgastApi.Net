@@ -14,10 +14,8 @@ namespace ErgastApi.Responses
         int Total { get; set; }
     }
 
-    [JsonConverter(typeof(JsonPathConverter))]
     public class ErgastResponse : IErgastResponse
     {
-        [JsonProperty("url")]
         public string Url { get; set; }
 
         public int Limit { get; set; }

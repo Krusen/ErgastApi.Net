@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using ErgastApi.Serialization;
 using Newtonsoft.Json;
+// ReSharper disable UnusedAutoPropertyAccessor.Local
 
 namespace ErgastApi.Responses
 {
@@ -12,7 +13,6 @@ namespace ErgastApi.Responses
         public IList<Driver> Drivers { get; set; }
     }
 
-    [JsonConverter(typeof(JsonPathConverter))]
     public class Driver
     {
         public string DriverId { get; private set; }

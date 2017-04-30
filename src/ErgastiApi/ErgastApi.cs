@@ -3,6 +3,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using ErgastApi.Queries;
 using ErgastApi.Responses;
+using ErgastApi.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
@@ -74,12 +75,13 @@ namespace ErgastApi
 
                 var data = await HttpClient.GetStringAsync(url).ConfigureAwait(false);
 
+                // TODO: Reuse
                 var settings = new JsonSerializerSettings
                 {
                     //NullValueHandling = NullValueHandling.Ignore,
-                    ContractResolver = new CamelCasePropertyNamesContractResolver()
+                    ContractResolver = new PrivatePropertyResolver()
                 };
-                //JsonConvert.DefaultSettings = () => settings;
+                JsonConvert.DefaultSettings = () => settings;
 
                 var json =  JsonConvert.DeserializeObject<JObject>(data);
 
