@@ -1,16 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
-using ErgastApi.Interfaces.Responses;
-using ErgastApi.Models;
 using ErgastApi.Queries;
 using ErgastApi.Responses;
-using Query = ErgastApi.Models.Query;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace ErgastApi
 {
+    // TODO: Rename to something like ErgastApiClient to avoid ErgastApi.ErgastApi usage
     public class ErgastApi
     {
         private string _apiRoot = "http://ergast.com/api/f1";
@@ -35,47 +33,60 @@ namespace ErgastApi
 
         protected IResponseParser ResponseParser { get; set; }
 
+        protected IQueryCompiler QueryCompiler { get; set; }
+
         public ErgastApi()
-            : this(new ResponseParser())
+            : this(new ResponseParser(), new QueryCompiler())
         {
 
         }
 
-        public ErgastApi(IResponseParser responseParser)
+        public ErgastApi(IResponseParser responseParser, IQueryCompiler queryCompiler)
         {
             ResponseParser = responseParser;
+            QueryCompiler = queryCompiler;
         }
 
         public ErgastApi(string apiRoot)
-            : this(apiRoot, new ResponseParser())
-        {
-
-        }
-
-        public ErgastApi(string apiRoot, IResponseParser responseParser)
-            : this(responseParser)
+            : this()
         {
             ApiRoot = apiRoot;
         }
 
-        public IEmptyQuery BeginQuery()
+        public ErgastApi(string apiRoot, IResponseParser responseParser, IQueryCompiler queryCompiler)
+            : this(responseParser, queryCompiler)
         {
-            return new Query();
+            ApiRoot = apiRoot;
         }
 
-        public RaceResponse Execute(IQuery query)
+        public DriverResponse Execute(DriverInfoQuery query)
         {
             throw new NotImplementedException("Use async version for now");
+        }
+
+        public async Task<DriverResponse> ExecuteAsync(DriverInfoQuery query)
+        {
+            {
+                var url = ApiRoot + QueryCompiler.Compile(query);
+
+                Console.WriteLine("Executing: " + url);
+
+                var data = await HttpClient.GetStringAsync(url).ConfigureAwait(false);
+
+                var json =  JsonConvert.DeserializeObject<JObject>(data);
+
+                return json.SelectToken("MRData").ToObject<DriverResponse>();
+            }
         }
 
         // TODO: We need one for each type of response/query because of the return type
         public async Task<RaceResponse> ExecuteAsync(IQuery query)
         {
-            var url = ApiRoot + query.BuildUrl();
+            var url = ApiRoot + QueryCompiler.Compile(query);
 
             Console.WriteLine("Executing: " + url);
 
-            var data = await HttpClient.GetStringAsync(url);
+            var data = await HttpClient.GetStringAsync(url).ConfigureAwait(false);
 
             var response = ResponseParser.Parse(data);
 

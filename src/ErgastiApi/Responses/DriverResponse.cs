@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using ErgastApi.Serialization;
 using Newtonsoft.Json;
 
 namespace ErgastApi.Responses
 {
-    public interface IDriverResponse : IErgastApi
+    public class DriverResponse : ErgastResponse
     {
-        IList<Driver> Drivers { get; }
+        [JsonProperty("DriverTable.Drivers")]
+        public IList<Driver> Drivers { get; set; }
     }
 
     public class Driver
@@ -35,9 +37,5 @@ namespace ErgastApi.Responses
         public DateTime DateOfBirth { get; private set; }
 
         public string Nationality { get; private set; }
-    }
-
-    public class DriverResponse
-    {
     }
 }

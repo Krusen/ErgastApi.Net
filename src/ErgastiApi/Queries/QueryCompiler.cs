@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using ErgastApi.Queries.Default.Info;
 
 namespace ErgastApi.Queries
 {
@@ -16,7 +13,7 @@ namespace ErgastApi.Queries
 
             var calls = new List<MethodCall>();
             MethodCall lastCall = null;
-            var properties = typeof(DriverQueryBase).GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+            var properties = query.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
             foreach (var prop in properties)
             {
                 var queryMethod = prop.GetCustomAttributes<QueryMethodAttribute>(true).FirstOrDefault();
@@ -25,6 +22,7 @@ namespace ErgastApi.Queries
                 if (queryMethod == null)
                     continue;
 
+                // TODO: Expand MethodCall with more info like PropertyInfo etc.
                 var call = new MethodCall
                 {
                     Name = queryMethod.MethodName,
@@ -57,9 +55,13 @@ namespace ErgastApi.Queries
                 {
                     if (call.Name != null)
                         output += $"/{call.Name}";
-                    output += $"/{call.Value}";
+
+                    if (call.Value != null)
+                        output += $"/{call.Value}";
                 }
             }
+
+            output += ".json";
 
             return output;
         }

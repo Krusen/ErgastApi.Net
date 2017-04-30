@@ -14,8 +14,8 @@ namespace ErgastApi.Queries
 
         public int CompareTo(MethodCall other)
         {
-            if (Object.ReferenceEquals(this, other)) return 0;
-            if (Object.ReferenceEquals(null, other)) return 1;
+            if (ReferenceEquals(this, other)) return 0;
+            if (ReferenceEquals(null, other)) return 1;
 
             // Sort '0' (i.e. not set) higher than anything else
             if (Order == 0) return 1;

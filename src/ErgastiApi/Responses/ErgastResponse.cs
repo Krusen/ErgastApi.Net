@@ -1,4 +1,7 @@
-﻿namespace ErgastApi.Responses
+﻿using ErgastApi.Serialization;
+using Newtonsoft.Json;
+
+namespace ErgastApi.Responses
 {
     public interface IErgastResponse
     {
@@ -11,8 +14,11 @@
         int Total { get; set; }
     }
 
-    public class ErgastResponse
+    [JsonConverter(typeof(JsonPathConverter))]
+
+    public class ErgastResponse : IErgastResponse
     {
+        [JsonProperty("url")]
         public string Url { get; set; }
 
         public int Limit { get; set; }
