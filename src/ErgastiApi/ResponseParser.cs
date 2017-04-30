@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using ErgastApi.Models.Responses;
+using ErgastApi.Responses;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 

@@ -5,7 +5,6 @@ using ErgastApi.Attributes;
 using ErgastApi.Enums;
 using ErgastApi.Interfaces.Filters;
 using ErgastApi.Interfaces.Methods;
-using ErgastApi.Interfaces.Queries;
 
 namespace ErgastApi.Models
 {

@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using ErgastApi.Interfaces.Queries;
 using ErgastApi.Interfaces.Responses;
 using ErgastApi.Models;
-using ErgastApi.Models.Responses;
+using ErgastApi.Queries;
+using ErgastApi.Responses;
 
 namespace ErgastApi
 {
