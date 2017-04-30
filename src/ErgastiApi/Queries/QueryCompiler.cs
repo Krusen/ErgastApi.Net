@@ -64,6 +64,15 @@ namespace ErgastApi.Queries
 
             output += ".json";
 
+            if (query.Limit != null)
+                output += "?limit=" + query.Limit;
+
+            if (query.Offset != null)
+            {
+                output += query.Limit == null ? "?" : "&";
+                output += "offset=" + query.Offset;
+            }
+
             return output;
         }
     }

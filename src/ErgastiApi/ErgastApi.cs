@@ -7,7 +7,6 @@ using ErgastApi.Responses;
 using ErgastApi.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using Newtonsoft.Json.Serialization;
 
 namespace ErgastApi
 {
@@ -62,11 +61,6 @@ namespace ErgastApi
             ApiRoot = apiRoot;
         }
 
-        public DriverResponse Execute(DriverInfoQuery query)
-        {
-            throw new NotImplementedException("Use async version for now");
-        }
-
         public async Task<IDriverResponse> ExecuteAsync(IDriverInfoQuery query)
         {
             {
@@ -75,6 +69,9 @@ namespace ErgastApi
                 Console.WriteLine("Executing: " + url);
 
                 var data = await HttpClient.GetStringAsync(url).ConfigureAwait(false);
+
+
+                // TODO: Move to ResponseParser
 
                 // TODO: Reuse
                 var settings = new JsonSerializerSettings
@@ -88,20 +85,6 @@ namespace ErgastApi
 
                 return json.SelectToken("MRData").ToObject<DriverResponse>();
             }
-        }
-
-        // TODO: We need one for each type of response/query because of the return type
-        public async Task<RaceResponse> ExecuteAsync(IQuery query)
-        {
-            var url = ApiRoot + QueryCompiler.Compile(query);
-
-            Console.WriteLine("Executing: " + url);
-
-            var data = await HttpClient.GetStringAsync(url).ConfigureAwait(false);
-
-            var response = ResponseParser.Parse(data);
-
-            return response;
         }
     }
 }
