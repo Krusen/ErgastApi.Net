@@ -7,6 +7,7 @@ using ErgastApi.Interfaces.Responses;
 using ErgastApi.Models;
 using ErgastApi.Queries;
 using ErgastApi.Responses;
+using Query = ErgastApi.Models.Query;
 
 namespace ErgastApi
 {

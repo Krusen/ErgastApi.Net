@@ -17,7 +17,7 @@ namespace ErgastApi
 
             var api = (IErgastApi) null;
 
-            var query = new DriverInfoQuery
+            var query = new DriverQueryBase
             {
                 Season = 2017,
                 Round = 2,

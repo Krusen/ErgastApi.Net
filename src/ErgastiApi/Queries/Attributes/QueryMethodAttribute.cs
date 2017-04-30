@@ -2,6 +2,8 @@
 
 namespace ErgastApi.Queries
 {
+    // TODO: Implement QueryDependency attribute in QueryCompiler
+    [AttributeUsage(AttributeTargets.Property)]
     public class QueryMethodAttribute : Attribute
     {
         public int Order { get; set; }

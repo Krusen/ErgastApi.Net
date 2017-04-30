@@ -10,6 +10,9 @@
 
   <ItemGroup>
     <Folder Include="Attributes\" />
+    <Folder Include="Queries\Other\" />
+    <Folder Include="Queries\Standard\" />
+    <Folder Include="Queries\Standings\" />
   </ItemGroup>
 
   <ItemGroup>
