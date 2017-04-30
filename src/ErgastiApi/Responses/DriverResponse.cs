@@ -5,12 +5,14 @@ using Newtonsoft.Json;
 
 namespace ErgastApi.Responses
 {
+    [JsonConverter(typeof(JsonPathConverter))]
     public class DriverResponse : ErgastResponse
     {
         [JsonProperty("DriverTable.Drivers")]
         public IList<Driver> Drivers { get; set; }
     }
 
+    [JsonConverter(typeof(JsonPathConverter))]
     public class Driver
     {
         public string DriverId { get; private set; }

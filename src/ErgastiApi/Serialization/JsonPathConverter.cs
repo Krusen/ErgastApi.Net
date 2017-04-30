@@ -4,11 +4,13 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Newtonsoft.Json.Serialization;
 
 namespace ErgastApi.Serialization
 {
     public class JsonPathConverter : JsonConverter
     {
+        // TODO: Not used by this project, maybe just delete it
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
             var properties = value.GetType().GetRuntimeProperties().Where(p => p.CanRead && p.CanWrite);
@@ -24,6 +26,13 @@ namespace ErgastApi.Serialization
                     .FirstOrDefault();
 
                 string jsonPath = (att != null ? att.PropertyName : prop.Name);
+
+                if (serializer.ContractResolver is DefaultContractResolver)
+                {
+                    var resolver = (DefaultContractResolver)serializer.ContractResolver;
+                    jsonPath = resolver.GetResolvedPropertyName(jsonPath);
+                }
+
                 var nesting = jsonPath.Split(new[] { '.' });
                 JToken lastLevel = main;
                 var arrayIndex = -1;
@@ -128,12 +137,22 @@ namespace ErgastApi.Serialization
 
                 string jsonPath = (att != null ? att.PropertyName : prop.Name);
 
-                if (!jsonPath.Contains(".") && !jsonPath.Contains("["))
+                if (serializer.ContractResolver is DefaultContractResolver)
                 {
-                    var a = jo[jsonPath];
+                    var resolver = (DefaultContractResolver)serializer.ContractResolver;
+                    jsonPath = resolver.GetResolvedPropertyName(jsonPath);
                 }
 
-                JToken token = jo.SelectToken(jsonPath);
+                // TODO: Handle array indexing (and cleanup)
+                var parts = jsonPath.Split('.');
+                JToken token = jo;
+                foreach (var part in parts)
+                {
+                    var obj = token as JObject;
+
+                    token = obj?.GetValue(part, StringComparison.OrdinalIgnoreCase);
+                }
+
 
                 if (token != null && token.Type != JTokenType.Null)
                 {

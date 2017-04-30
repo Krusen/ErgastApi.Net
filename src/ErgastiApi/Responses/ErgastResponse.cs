@@ -15,7 +15,6 @@ namespace ErgastApi.Responses
     }
 
     [JsonConverter(typeof(JsonPathConverter))]
-
     public class ErgastResponse : IErgastResponse
     {
         [JsonProperty("url")]

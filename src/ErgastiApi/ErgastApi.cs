@@ -5,6 +5,7 @@ using ErgastApi.Queries;
 using ErgastApi.Responses;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Newtonsoft.Json.Serialization;
 
 namespace ErgastApi
 {
@@ -72,6 +73,13 @@ namespace ErgastApi
                 Console.WriteLine("Executing: " + url);
 
                 var data = await HttpClient.GetStringAsync(url).ConfigureAwait(false);
+
+                var settings = new JsonSerializerSettings
+                {
+                    //NullValueHandling = NullValueHandling.Ignore,
+                    ContractResolver = new CamelCasePropertyNamesContractResolver()
+                };
+                //JsonConvert.DefaultSettings = () => settings;
 
                 var json =  JsonConvert.DeserializeObject<JObject>(data);
 
