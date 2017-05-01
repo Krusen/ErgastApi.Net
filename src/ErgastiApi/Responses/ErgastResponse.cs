@@ -1,17 +1,24 @@
-﻿using ErgastApi.Serialization;
+﻿using System;
+using ErgastApi.Serialization;
 using Newtonsoft.Json;
 
 namespace ErgastApi.Responses
 {
     public interface IErgastResponse
     {
-        string Url { get; set; }
+        string Url { get; }
 
-        int Limit { get; set; }
+        int Limit { get; }
 
-        int Offset { get; set; }
+        int Offset { get; }
 
-        int Total { get; set; }
+        int Total { get; }
+
+        int Page { get; }
+
+        int TotalPages { get; }
+
+        bool HasMorePages { get; }
     }
 
     public class ErgastResponse : IErgastResponse
@@ -23,5 +30,15 @@ namespace ErgastApi.Responses
         public int Offset { get; set; }
 
         public int Total { get; set; }
+
+        // TODO: Note that it can be inaccurate if limit/offset do not correlate
+        // TODO: Test with 0 values
+        public int Page => Offset / Limit;
+
+        // TODO: Test with 0 values
+        public int TotalPages => (int) Math.Ceiling(Total / (double)Limit);
+
+        // TODO: Test
+        public bool HasMorePages => Total > Limit + Offset;
     }
 }
