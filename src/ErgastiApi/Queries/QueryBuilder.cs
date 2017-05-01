@@ -1,20 +1,21 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using ErgastApi.Queries.Attributes;
+using ErgastApi.Requests;
+using ErgastApi.Requests.Attributes;
 
 namespace ErgastApi.Queries
 {
-    public class QueryCompiler : IQueryCompiler
+    public class QueryBuilder : IQueryBuilder
     {
         // TODO: Refactor/cleanup
-        public string Compile(IQuery query)
+        public string BuildUrl(IErgastRequest request)
         {
             // TODO: Refactor to check for QueryDependencyAttribute and that the dependent property value is not null
 
             var calls = new List<MethodCall>();
             MethodCall lastCall = null;
-            var properties = query.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+            var properties = request.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
             foreach (var prop in properties)
             {
                 var queryMethod = prop.GetCustomAttributes<QueryMethodAttribute>(true).FirstOrDefault();
@@ -28,7 +29,7 @@ namespace ErgastApi.Queries
                 {
                     Name = queryMethod.MethodName,
                     Order = queryMethod.Order,
-                    Value = prop.GetValue(query)?.ToString(),
+                    Value = prop.GetValue(request)?.ToString(),
                     IsTerminator = queryTerminator != null
                 };
 
@@ -64,13 +65,13 @@ namespace ErgastApi.Queries
 
             output += ".json";
 
-            if (query.Limit != null)
-                output += "?limit=" + query.Limit;
+            if (request.Limit != null)
+                output += "?limit=" + request.Limit;
 
-            if (query.Offset != null)
+            if (request.Offset != null)
             {
-                output += query.Limit == null ? "?" : "&";
-                output += "offset=" + query.Offset;
+                output += request.Limit == null ? "?" : "&";
+                output += "offset=" + request.Offset;
             }
 
             return output;

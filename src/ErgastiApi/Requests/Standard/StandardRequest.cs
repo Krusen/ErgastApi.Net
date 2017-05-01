@@ -1,10 +1,20 @@
 using ErgastApi.Enums;
-using ErgastApi.Queries.Attributes;
+using ErgastApi.Requests.Attributes;
+using ErgastApi.Responses;
 
-namespace ErgastApi.Queries.Standard
+namespace ErgastApi.Requests.Standard
 {
-    public abstract class StandardQuery : Query
+    public abstract class StandardRequest<TResponse> : ErgastRequest<TResponse> where TResponse : IErgastResponse
     {
+        protected StandardRequest()
+        {
+        }
+
+        protected StandardRequest(ErgastRequestSettings settings)
+            : base(settings)
+        {
+        }
+
         [QueryMethod("constructors")]
         public virtual string ConstructorId { get; set; }
 

@@ -6,13 +6,22 @@ using Newtonsoft.Json;
 
 namespace ErgastApi.Responses
 {
-    public class RaceResponse : ErgastResponse
+    /* TODO: Maybe create different interfaces for the different response types, i.e. IQualifyingResultsResponse instead of IRaceResponse<IRaceWithQualifyingResults>
+     * TODO: We can still use the other interfaces like IRaceWithQualiftyingResults
+     */
+    public interface IRaceResponse<T> : IErgastResponse where T : IRace
     {
-        public IList<Race> Races { get; set; }
+        IList<T> Races { get; set; }
+    }
+
+    public class RaceResponse<T> : ErgastResponse, IRaceResponse<T> where T : IRace
+    {
+        // TODO: Handle deserializing interfaces (and IEnumerable/IList of interfaces)
+        public IList<T> Races { get; set; }
     }
 
     // TODO: Make setters private and add JsonProperty attribute
-    public class Race : IRace, IRaceWithPitStops, IRaceWithLapTimes
+    public class Race : IRace, IRaceWithPitStops, IRaceWithLapTimes, IRaceWithResults, IRaceWithQualifyingResults
     {
         // TODO: Make season (year) an int as well?
         public string Season { get; set; }

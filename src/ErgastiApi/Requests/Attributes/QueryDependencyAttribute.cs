@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ErgastApi.Queries.Attributes
+namespace ErgastApi.Requests.Attributes
 {
     [AttributeUsage(AttributeTargets.Property)]
     public class QueryDependencyAttribute : Attribute

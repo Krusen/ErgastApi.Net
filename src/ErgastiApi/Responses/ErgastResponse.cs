@@ -1,6 +1,4 @@
 ﻿using System;
-using ErgastApi.Serialization;
-using Newtonsoft.Json;
 
 namespace ErgastApi.Responses
 {
@@ -21,7 +19,8 @@ namespace ErgastApi.Responses
         bool HasMorePages { get; }
     }
 
-    public class ErgastResponse : IErgastResponse
+    // TODO: Use internal/private constructors for all response types?
+    public abstract class ErgastResponse : IErgastResponse
     {
         public string Url { get; set; }
 

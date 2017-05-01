@@ -1,5 +1,5 @@
 ﻿using System;
-using ErgastApi.Queries.Attributes;
+using ErgastApi.Requests.Attributes;
 
 namespace ErgastApi.Queries
 {

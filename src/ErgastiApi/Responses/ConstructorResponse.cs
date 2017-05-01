@@ -1,11 +1,11 @@
 ﻿namespace ErgastApi.Responses
 {
-    public interface IConstructorResponse
+    public interface IConstructorResponse : IErgastResponse
     {
 
     }
 
-    public class ConstructorResponse
+    public class ConstructorResponse : ErgastResponse, IConstructorResponse
     {
     }
 }
