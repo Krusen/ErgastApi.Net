@@ -2,13 +2,16 @@
 using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
+using ErgastApi.Responses;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
 
 namespace ErgastApi.Serialization
 {
-    public class JsonPathConverter : JsonConverter
+    // TODO: Not used, but might want to implement as NuGet package or something
+    // TODO: ReadJson contains case-insensitive version of SelectToken of some sort
+    public class JsonPathConverter : InterfaceJsonConverter
     {
         // TODO: Not used by this project, maybe just delete it
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
@@ -128,19 +131,25 @@ namespace ErgastApi.Serialization
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
             JObject jo = JObject.Load(reader);
-            object targetObj = Activator.CreateInstance(objectType);
 
-            foreach (PropertyInfo prop in objectType.GetProperties()
-                .Where(p => p.CanRead && p.CanWrite))
+            var targetObjType = base.CanConvert(objectType) ? GetMatchingType(objectType) : objectType;
+            object targetObj = Activator.CreateInstance(targetObjType);
+
+            //var properties2 = new[] { objectType }.Concat(objectType.GetInterfaces()).SelectMany(i => i.GetProperties()).Where(p => p.CanWrite && p.CanRead);
+
+            //var properties = objectType.GetProperties().Where(p => p.CanRead && p.CanWrite);
+            var properties = targetObjType.GetProperties().Where(p => p.CanRead && p.CanWrite);
+
+            foreach (var prop in properties)
             {
                 JsonPropertyAttribute att = prop.GetCustomAttribute<JsonPropertyAttribute>(true);
 
                 string jsonPath = (att != null ? att.PropertyName : prop.Name);
 
-                if (serializer.ContractResolver is DefaultContractResolver)
+                var contractResolver = serializer.ContractResolver as DefaultContractResolver;
+                if (contractResolver != null)
                 {
-                    var resolver = (DefaultContractResolver)serializer.ContractResolver;
-                    jsonPath = resolver.GetResolvedPropertyName(jsonPath);
+                    jsonPath = contractResolver.GetResolvedPropertyName(jsonPath);
                 }
 
                 // TODO: Handle array indexing (and cleanup)
@@ -156,7 +165,11 @@ namespace ErgastApi.Serialization
 
                 if (token != null && token.Type != JTokenType.Null)
                 {
-                    object value = token.ToObject(prop.PropertyType, serializer);
+                    var propertyTypeImplementation = prop.PropertyType;
+                    if (base.CanConvert(propertyTypeImplementation))
+                        propertyTypeImplementation = GetMatchingType(propertyTypeImplementation);
+
+                    object value = token.ToObject(propertyTypeImplementation, serializer);
                     prop.SetValue(targetObj, value, null);
                 }
             }
@@ -166,10 +179,9 @@ namespace ErgastApi.Serialization
 
         public override bool CanWrite => true;
 
-        public override bool CanConvert(Type objectType)
-        {
-            // CanConvert is not called when [JsonConverter] attribute is used
-            return false;
-        }
+        //public override bool CanConvert(Type objectType)
+        //{
+        //    return typeof(IErgastResponse).IsAssignableFrom(objectType);
+        //}
     }
 }

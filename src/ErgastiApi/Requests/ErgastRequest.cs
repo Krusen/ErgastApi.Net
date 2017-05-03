@@ -90,11 +90,11 @@ namespace ErgastApi.Requests
             var settings = new JsonSerializerSettings
             {
                 //ConstructorHandling = ConstructorHandling.AllowNonPublicDefaultConstructor,
-                ContractResolver = new PrivatePropertyResolver()
+                ContractResolver = new InterfaceContractResolver()
             };
-            JsonConvert.DefaultSettings = () => settings;
 
-            var obj = JsonConvert.DeserializeObject<ErgastRootResponse<TResponse>>(data);
+
+            var obj = JsonConvert.DeserializeObject<ErgastRootResponse<TResponse>>(data, settings);
 
             return obj.Data;
         }

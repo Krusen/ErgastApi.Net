@@ -5,9 +5,9 @@ using Newtonsoft.Json;
 
 namespace ErgastApi.Responses.Models
 {
-    public class Driver
+    public class Driver : IDriver
     {
-        public string DriverId { get; private set; }
+        public string DriverId { get; set; }
 
         // TODO: Only for 2014+ (and might different than their actual number . i.e. #1 for champions
         /// <summary>
@@ -15,21 +15,21 @@ namespace ErgastApi.Responses.Models
         /// However, this may differ from the value of the number attribute of the Result element in earlier seasons or
         ///  where the reigning champion has chosen to use “1” rather than his permanent driver number.
         /// </summary>
-        public int? PermanentNumber { get; private set; }
+        public int? PermanentNumber { get; set; }
 
-        public string Code { get; private set; }
+        public string Code { get; set; }
 
         [JsonProperty("url")]
-        public string WikiUrl { get; private set; }
+        public string WikiUrl { get; set; }
 
         [JsonProperty("givenName")]
-        public string FirstName { get; private set; }
+        public string FirstName { get; set; }
 
         [JsonProperty("familyName")]
-        public string LastName { get; private set; }
+        public string LastName { get; set; }
 
-        public DateTime DateOfBirth { get; private set; }
+        public DateTime DateOfBirth { get; set; }
 
-        public string Nationality { get; private set; }
+        public string Nationality { get; set; }
     }
 }
