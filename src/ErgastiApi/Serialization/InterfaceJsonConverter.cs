@@ -78,10 +78,10 @@ namespace ErgastApi.Serialization
                 .ToList();
 
             if (!implementingTypes.Any())
-                throw new NotSupportedException("No types implementing the interface: " + objectType.Name);
+                throw new NotSupportedException("No types implementing the interface: " + objectType.FullName);
 
             if (implementingTypes.Count > 1)
-                throw new NotSupportedException("More than one type implements the interface: " + objectType.Name);
+                throw new NotSupportedException("More than one type implements the interface: " + objectType.FullName);
 
             matchingType = implementingTypes.First();
 

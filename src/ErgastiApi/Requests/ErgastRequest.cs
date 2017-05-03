@@ -4,6 +4,7 @@ using ErgastApi.Requests.Attributes;
 using ErgastApi.Responses;
 using ErgastApi.Serialization;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace ErgastApi.Requests
 {
@@ -80,7 +81,9 @@ namespace ErgastApi.Requests
         {
             var url = BuildUrl();
 
-            Console.WriteLine("Executing: " + url);
+            Console.WriteLine(url);
+
+            var traceWriter = new MemoryTraceWriter();
 
             // TODO: Don't use GetStringAsync, instead use GetAsync - then we can handle errors better
             // TODO: Should probably be moved to its own wrapper with specific methods instead of using HttpClient directly
@@ -89,12 +92,15 @@ namespace ErgastApi.Requests
             // TODO: Reuse/add to constructor?
             var settings = new JsonSerializerSettings
             {
+                TraceWriter = traceWriter,
                 //ConstructorHandling = ConstructorHandling.AllowNonPublicDefaultConstructor,
                 ContractResolver = new InterfaceContractResolver()
             };
 
 
             var obj = JsonConvert.DeserializeObject<ErgastRootResponse<TResponse>>(data, settings);
+
+            Console.WriteLine(traceWriter.ToString());
 
             return obj.Data;
         }
