@@ -4,13 +4,16 @@ namespace ErgastApi.Responses.Models
 {
     public class Circuit
     {
-        public string CircuitId { get; set; }
+        [JsonProperty("circuitId")]
+        public string CircuitId { get; private set; }
 
-        public string CircuitName { get; set; }
+        [JsonProperty("circuitName")]
+        public string CircuitName { get; private set; }
 
         [JsonProperty("url")]
-        public string WikiUrl { get; set; }
+        public string WikiUrl { get; private set; }
 
-        public Location Location { get; set; }
+        [JsonProperty("location")]
+        public Location Location { get; private set; }
     }
 }

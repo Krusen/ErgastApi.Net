@@ -7,6 +7,6 @@ namespace ErgastApi.Responses
     public class DriverResponse : ErgastResponse
     {
         [JsonPathProperty("DriverTable.Drivers")]
-        public IList<Driver> Drivers { get; set; }
+        public IList<Driver> Drivers { get; private set; }
     }
 }

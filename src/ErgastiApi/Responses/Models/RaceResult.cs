@@ -9,30 +9,38 @@ namespace ErgastApi.Responses.Models
     public class RaceResult : ResultBase
     {
         // TODO: Docu: equals Position or "R" retired, "D" disqualified, "E" excluded, "W" withdrawn, "F" failed to qualify, "N" not classified. See Status for more info
-        public string PositionText { get; set; }
+        [JsonProperty("positionText")]
+        public string PositionText { get; private set; }
 
-        public int Points { get; set; }
+        [JsonProperty("points")]
+        public int Points { get; private set; }
 
         // TODO: Docu: 0 means starting from pit lane
-        public int Grid { get; set; }
+        [JsonProperty("grid")]
+        public int Grid { get; private set; }
 
-        public int Laps { get; set; }
+        public bool StartedFromPitLane => Grid == 0;
+
+        [JsonProperty("laps")]
+        public int Laps { get; private set; }
 
         // TODO: Enum? (FinishingStatusId) Value contains stuff like "+1 Lap". Probably needs to be mapped on enum and then custom converter
-        public string Status { get; set; }
+        [JsonProperty("status")]
+        public string Status { get; private set; }
 
         public FinishingStatusId StatusId => FinishingStatusIdParser.Parse(Status);
 
-        public FastestLap FastestLap { get; set; }
+        [JsonProperty("FastestLap")]
+        public FastestLap FastestLap { get; private set; }
 
         // TODO: Docu: Null for lapped cars
         [JsonPathProperty("Time.millis")]
         [JsonConverter(typeof(TimeSpanMillisecondsConverter))]
-        public TimeSpan TotalRaceTime { get; set; }
+        public TimeSpan TotalRaceTime { get; private set; }
 
         // TODO: Docu: Null for winner and lapped cars
         [JsonPathProperty("Time.time")]
         [JsonConverter(typeof(TimeSpanStringGapConverter))]
-        public TimeSpan? GapToWinner { get; set; }
+        public TimeSpan? GapToWinner { get; private set; }
     }
 }

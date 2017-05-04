@@ -114,13 +114,6 @@ namespace ErgastApi.Requests
 
             public void Trace(TraceLevel level, string message, Exception ex)
             {
-                var color = "black";
-                switch (level)
-                {
-                    case TraceLevel.Error: color = "red"; break;
-                    case TraceLevel.Warning: color = "orange"; break;
-                }
-
                 Console.WriteLine(message);
                 if (ex != null)
                     Console.WriteLine(ex.ToString());

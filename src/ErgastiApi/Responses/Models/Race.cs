@@ -2,50 +2,58 @@
 using System.Collections.Generic;
 using System.Globalization;
 using Newtonsoft.Json;
+// ReSharper disable UnusedAutoPropertyAccessor.Local
 
 namespace ErgastApi.Responses.Models
 {
-    // TODO: Make setters private?
     public class Race
     {
         // TODO: Make season (year) an int as well?
-        public int Season { get; set; }
+        [JsonProperty("season")]
+        public int Season { get; private set; }
 
-        public int Round { get; set; }
+        [JsonProperty("round")]
+        public int Round { get; private set; }
 
-        public string RaceName { get; set; }
+        [JsonProperty("raceName")]
+        public string RaceName { get; private set; }
 
         [JsonProperty("url")]
-        public string WikiUrl { get; set; }
+        public string WikiUrl { get; private set; }
 
-        public Circuit Circuit { get; set; }
+        [JsonProperty("circuit")]
+        public Circuit Circuit { get; private set; }
 
         public DateTime StartTime => DateTime.Parse(DateRaw + " " + TimeRaw, CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal);
 
         [JsonProperty("date")]
-        internal string DateRaw { get; set; }
+        internal string DateRaw { get; private set; }
 
         [JsonProperty("time")]
-        internal string TimeRaw { get; set; }
+        internal string TimeRaw { get; private set; }
     }
 
     public class RaceWithResults : Race
     {
-        public IList<RaceResult> Results { get; set; }
+        [JsonProperty("Results")]
+        public IList<RaceResult> Results { get; private set; }
     }
 
     public class RaceWithPitStops : Race
     {
-        public IList<PitStopInfo> PitStops { get; set; }
+        [JsonProperty("PitStops")]
+        public IList<PitStopInfo> PitStops { get; private set; }
     }
 
     public class RaceWithLapTimes : Race
     {
-        public IList<Lap> Laps { get; set; }
+        [JsonProperty("Laps")]
+        public IList<Lap> Laps { get; private set; }
     }
 
     public class RaceWithQualifyingResults : Race
     {
-        public IList<QualifyingResult> QualifyingResults { get; set; }
+        [JsonProperty("QualifyingResults")]
+        public IList<QualifyingResult> QualifyingResults { get; private set; }
     }
 }

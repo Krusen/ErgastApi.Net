@@ -6,14 +6,17 @@ namespace ErgastApi.Responses
     // TODO: Use internal/private constructors for all response types?
     public abstract class ErgastResponse
     {
-        public string Url { get; set; }
+        [JsonProperty("url")]
+        public string RequestUrl { get; private set; }
 
-        public int Limit { get; set; }
+        [JsonProperty("limit")]
+        public int Limit { get; private set; }
 
-        public int Offset { get; set; }
+        [JsonProperty("offset")]
+        public int Offset { get; private set; }
 
         [JsonProperty("total")]
-        public int TotalResults { get; set; }
+        public int TotalResults { get; private set; }
 
         // TODO: Note that it can be inaccurate if limit/offset do not correlate
         // TODO: Test with 0 values

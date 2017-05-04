@@ -1,11 +1,14 @@
 ﻿using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace ErgastApi.Responses.Models
 {
     public class Lap
     {
-        public int Number { get; set; }
+        [JsonProperty("number")]
+        public int Number { get; private set; }
 
-        public IList<LapTiming> Timings { get; set; }
+        [JsonProperty("Timings")]
+        public IList<LapTiming> Timings { get; private set; }
     }
 }

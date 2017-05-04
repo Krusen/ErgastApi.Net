@@ -7,16 +7,17 @@ namespace ErgastApi.Responses.Models
 {
     public class FastestLap
     {
-        public int Rank { get; set; }
+        [JsonProperty("rank")]
+        public int Rank { get; private set; }
 
         [JsonProperty("lap")]
-        public int LapNumber { get; set; }
+        public int LapNumber { get; private set; }
 
-        // TODO: Does not have "time"/BehindWinner prop
         [JsonPathProperty("Time.time")]
         [JsonConverter(typeof(TimeSpanStringConverter))]
-        public TimeSpan LapTime { get; set; }
+        public TimeSpan LapTime { get; private set; }
 
-        public AverageSpeed AverageSpeed { get; set; }
+        [JsonProperty("AverageSpeed")]
+        public AverageSpeed AverageSpeed { get; private set; }
     }
 }

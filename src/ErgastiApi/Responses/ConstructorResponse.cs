@@ -7,6 +7,6 @@ namespace ErgastApi.Responses
     public class ConstructorResponse : ErgastResponse
     {
         [JsonPathProperty("ConstructorTable.Constructors")]
-        public IList<Constructor> Constructors { get; set; }
+        public IList<Constructor> Constructors { get; private set; }
     }
 }

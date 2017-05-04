@@ -6,11 +6,14 @@ namespace ErgastApi.Responses.Models
 {
     public class LapTiming
     {
-        public string DriverId { get; set; }
+        [JsonProperty("driverId")]
+        public string DriverId { get; private set; }
 
-        public int Position { get; set; }
+        [JsonProperty("position")]
+        public int Position { get; private set; }
 
+        [JsonProperty("time")]
         [JsonConverter(typeof(TimeSpanStringConverter))]
-        public TimeSpan Time { get; set; }
+        public TimeSpan Time { get; private set; }
     }
 }

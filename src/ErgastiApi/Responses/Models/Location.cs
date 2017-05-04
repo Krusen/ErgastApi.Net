@@ -5,13 +5,15 @@ namespace ErgastApi.Responses.Models
     public class Location
     {
         [JsonProperty("lat")]
-        public string Latitude { get; set; }
+        public string Latitude { get; private set; }
 
         [JsonProperty("long")]
-        public string Longitude { get; set; }
+        public string Longitude { get; private set; }
 
-        public string Locality { get; set; }
+        [JsonProperty("locality")]
+        public string Locality { get; private set; }
 
-        public string Country { get; set; }
+        [JsonProperty("country")]
+        public string Country { get; private set; }
     }
 }

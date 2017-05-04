@@ -1,10 +1,14 @@
+using Newtonsoft.Json;
+
 namespace ErgastApi.Responses.Models
 {
     public class AverageSpeed
     {
         // TODO: Units enum - kph/mph
-        public string Units { get; set; }
+        [JsonProperty("units")]
+        public string Units { get; private set; }
 
-        public double Speed { get; set; }
+        [JsonProperty("speed")]
+        public double Speed { get; private set; }
     }
 }

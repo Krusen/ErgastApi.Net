@@ -4,13 +4,16 @@ namespace ErgastApi.Responses.Models
 {
     public class Constructor
     {
-        public string ConstructorId { get; set; }
+        [JsonProperty("constructorId")]
+        public string ConstructorId { get; private set; }
 
         [JsonProperty("url")]
-        public string WikiUrl { get; set; }
+        public string WikiUrl { get; private set; }
 
-        public string Name { get; set; }
+        [JsonProperty("name")]
+        public string Name { get; private set; }
 
-        public string Nationality { get; set; }
+        [JsonProperty("nationality")]
+        public string Nationality { get; private set; }
     }
 }

@@ -7,6 +7,6 @@ namespace ErgastApi.Responses
     public class FinishingStatusResponse : ErgastResponse
     {
         [JsonPathProperty("StatusTable.Status")]
-        public IList<FinishingStatus> Statuses { get; set; }
+        public IList<FinishingStatus> Statuses { get; private set; }
     }
 }

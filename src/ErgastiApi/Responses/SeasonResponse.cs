@@ -7,6 +7,6 @@ namespace ErgastApi.Responses
     public class SeasonResponse : ErgastResponse
     {
         [JsonPathProperty("SeasonTable.Seasons")]
-        public IList<Season> Seasons { get; set; }
+        public IList<Season> Seasons { get; private set; }
     }
 }

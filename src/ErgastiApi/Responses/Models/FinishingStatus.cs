@@ -1,13 +1,17 @@
 ﻿using ErgastApi.Enums;
+using Newtonsoft.Json;
 
 namespace ErgastApi.Responses.Models
 {
     public class FinishingStatus
     {
-        public FinishingStatusId StatusId { get; set; }
+        [JsonProperty("statusId")]
+        public FinishingStatusId StatusId { get; private set; }
 
-        public int Count { get; set; }
+        [JsonProperty("count")]
+        public int Count { get; private set; }
 
-        public string Status { get; set; }
+        [JsonProperty("status")]
+        public string Status { get; private set; }
     }
 }

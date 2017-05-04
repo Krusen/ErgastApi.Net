@@ -7,6 +7,6 @@ namespace ErgastApi.Responses
     public class CircuitResponse : ErgastResponse
     {
         [JsonPathProperty("CircuitTable.Circuits")]
-        public IList<Circuit> Circuits { get; set; }
+        public IList<Circuit> Circuits { get; private set; }
     }
 }

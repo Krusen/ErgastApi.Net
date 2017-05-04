@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace ErgastApi.Responses.Models
 {
@@ -11,9 +6,9 @@ namespace ErgastApi.Responses.Models
     {
         // TODO: Naming? int/string?
         [JsonProperty("season")]
-        public int Year { get; set; }
+        public int Year { get; private set; }
 
         [JsonProperty("url")]
-        public string WikiUrl { get; set; }
+        public string WikiUrl { get; private set; }
     }
 }

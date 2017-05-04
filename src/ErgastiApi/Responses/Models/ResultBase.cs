@@ -1,13 +1,19 @@
-﻿namespace ErgastApi.Responses.Models
+﻿using Newtonsoft.Json;
+
+namespace ErgastApi.Responses.Models
 {
     public abstract class ResultBase
     {
-        public int Number { get; set; }
+        [JsonProperty("number")]
+        public int Number { get; private set; }
 
-        public int Position { get; set; }
+        [JsonProperty("position")]
+        public int Position { get; private set; }
 
-        public Driver Driver { get; set; }
+        [JsonProperty("Driver")]
+        public Driver Driver { get; private set; }
 
-        public Constructor Constructor { get; set; }
+        [JsonProperty("Constructor")]
+        public Constructor Constructor { get; private set; }
     }
 }
