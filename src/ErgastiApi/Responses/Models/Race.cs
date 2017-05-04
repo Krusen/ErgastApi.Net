@@ -36,13 +36,12 @@ namespace ErgastApi.Responses.Models
 
     public class RaceWithPitStops : Race
     {
-        public IList<PitStop> PitStops { get; set; }
+        public IList<PitStopInfo> PitStops { get; set; }
     }
 
     public class RaceWithLapTimes : Race
     {
-        [JsonProperty("Laps")]
-        public IList<Lap> LapTimes { get; set; }
+        public IList<Lap> Laps { get; set; }
     }
 
     public class RaceWithQualifyingResults : Race

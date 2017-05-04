@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 
 namespace ErgastApi.Responses.Models
 {
-    public class LapInfo
+    public class LapTiming
     {
         public string DriverId { get; set; }
 

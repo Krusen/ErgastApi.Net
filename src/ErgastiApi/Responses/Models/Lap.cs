@@ -6,6 +6,6 @@ namespace ErgastApi.Responses.Models
     {
         public int Number { get; set; }
 
-        public IList<LapInfo> Timings { get; set; }
+        public IList<LapTiming> Timings { get; set; }
     }
 }

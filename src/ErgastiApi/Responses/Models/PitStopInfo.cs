@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 
 namespace ErgastApi.Responses.Models
 {
-    public class PitStop
+    public class PitStopInfo
     {
         public string DriverId { get; set; }
 
