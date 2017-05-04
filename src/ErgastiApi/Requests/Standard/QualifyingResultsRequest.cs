@@ -1,10 +1,9 @@
 using ErgastApi.Requests.Attributes;
 using ErgastApi.Responses;
-using ErgastApi.Responses.Models;
 
 namespace ErgastApi.Requests.Standard
 {
-    public class QualifyingResultsRequest : StandardRequest<RaceResponse<RaceWithQualifyingResults>>
+    public class QualifyingResultsRequest : StandardRequest<QualifyingResultsResponse>
     {
         public QualifyingResultsRequest()
         {

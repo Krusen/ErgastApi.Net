@@ -1,10 +1,9 @@
 using ErgastApi.Requests.Attributes;
 using ErgastApi.Responses;
-using ErgastApi.Responses.Models;
 
 namespace ErgastApi.Requests.Standard
 {
-    public class RaceListRequest : StandardRequest<RaceResponse<Race>>
+    public class RaceListRequest : StandardRequest<RaceListResponse>
     {
         public RaceListRequest()
         {

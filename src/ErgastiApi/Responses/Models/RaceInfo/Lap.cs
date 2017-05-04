@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace ErgastApi.Responses.Models
+namespace ErgastApi.Responses.Models.RaceInfo
 {
     public class Lap
     {

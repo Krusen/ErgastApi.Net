@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
 using Newtonsoft.Json;
-// ReSharper disable UnusedAutoPropertyAccessor.Local
 
-namespace ErgastApi.Responses.Models
+namespace ErgastApi.Responses.Models.RaceInfo
 {
     public class Race
     {
@@ -31,29 +29,5 @@ namespace ErgastApi.Responses.Models
 
         [JsonProperty("time")]
         internal string TimeRaw { get; private set; }
-    }
-
-    public class RaceWithResults : Race
-    {
-        [JsonProperty("Results")]
-        public IList<RaceResult> Results { get; private set; }
-    }
-
-    public class RaceWithPitStops : Race
-    {
-        [JsonProperty("PitStops")]
-        public IList<PitStopInfo> PitStops { get; private set; }
-    }
-
-    public class RaceWithLapTimes : Race
-    {
-        [JsonProperty("Laps")]
-        public IList<Lap> Laps { get; private set; }
-    }
-
-    public class RaceWithQualifyingResults : Race
-    {
-        [JsonProperty("QualifyingResults")]
-        public IList<QualifyingResult> QualifyingResults { get; private set; }
     }
 }

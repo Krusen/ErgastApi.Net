@@ -1,10 +1,9 @@
 using ErgastApi.Requests.Attributes;
 using ErgastApi.Responses;
-using ErgastApi.Responses.Models;
 
 namespace ErgastApi.Requests.Other
 {
-    public class PitStopsRequest : ErgastRequest<RaceResponse<RaceWithPitStops>>
+    public class PitStopsRequest : ErgastRequest<PitStopsResponse>
     {
         public PitStopsRequest()
         {
