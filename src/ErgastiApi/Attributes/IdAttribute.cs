@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using System.Reflection;
-using ErgastApi.Enums;
 using ErgastApi.Extensions;
 
 namespace ErgastApi.Attributes

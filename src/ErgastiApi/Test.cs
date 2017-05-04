@@ -1,9 +1,4 @@
-﻿using System.Linq;
-using ErgastApi.Requests;
-using ErgastApi.Requests.Standard;
-using ErgastApi.Requests.Standings;
-using ErgastApi.Responses;
-using Newtonsoft.Json;
+﻿using ErgastApi.Requests.Standings;
 
 namespace ErgastApi
 {
