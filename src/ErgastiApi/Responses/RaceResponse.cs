@@ -136,10 +136,9 @@ namespace ErgastApi.Responses
         public int Lap { get; set; }
 
         // TODO: Does not have "time"/BehindWinner prop
-        // TODO: Handle custom converters inside InterfaceJsonConverter (well, JsonPath converter)
-        //[JsonPathProperty("Time.time")]
-        //[JsonConverter(typeof(TimeSpanStringConverter))]
-        //public TimeSpan Time { get; set; }
+        [JsonPathProperty("Time.time")]
+        [JsonConverter(typeof(TimeSpanStringConverter))]
+        public TimeSpan Time { get; set; }
 
         public AverageSpeed AverageSpeed { get; set; }
     }

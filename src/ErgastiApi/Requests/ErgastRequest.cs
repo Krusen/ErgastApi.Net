@@ -93,7 +93,7 @@ namespace ErgastApi.Requests
             {
                 TraceWriter = new TraceWriter(),
                 //ConstructorHandling = ConstructorHandling.AllowNonPublicDefaultConstructor,
-                ContractResolver = new InterfaceContractResolver()
+                ContractResolver = new JsonPathContractResolver()
             };
 
 

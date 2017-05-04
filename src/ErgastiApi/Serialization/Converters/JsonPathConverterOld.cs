@@ -11,7 +11,7 @@ namespace ErgastApi.Serialization
 {
     // TODO: Not used, but might want to implement as NuGet package or something
     // TODO: ReadJson contains case-insensitive version of SelectToken of some sort
-    public class JsonPathConverter : InterfaceJsonConverter
+    public class JsonPathConverterOld : InterfaceJsonConverter
     {
         // TODO: Not used by this project, maybe just delete it
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
