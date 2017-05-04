@@ -3,7 +3,7 @@ using ErgastApi.Responses;
 
 namespace ErgastApi.Requests.Standard
 {
-    public class ConstructorInfoRequest : StandardRequest<IConstructorResponse>
+    public class ConstructorInfoRequest : StandardRequest<ConstructorResponse>
     {
         public ConstructorInfoRequest()
         {

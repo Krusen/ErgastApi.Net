@@ -1,11 +1,11 @@
-﻿namespace ErgastApi.Responses
+﻿using System.Collections.Generic;
+using ErgastApi.Serialization;
+
+namespace ErgastApi.Responses
 {
-    public interface IConstructorResponse : IErgastResponse
+    public class ConstructorResponse : ErgastResponse
     {
-
-    }
-
-    public class ConstructorResponse : ErgastResponse, IConstructorResponse
-    {
+        [JsonPathProperty("ConstructorTable.Constructors")]
+        public IList<Constructor> Constructors { get; set; }
     }
 }
