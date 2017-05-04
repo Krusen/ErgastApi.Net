@@ -91,10 +91,12 @@ namespace ErgastApi.Requests
             // TODO: Reuse/add to constructor?
             var settings = new JsonSerializerSettings
             {
-                TraceWriter = new TraceWriter(),
+                //TraceWriter = new TraceWriter(),
                 //ConstructorHandling = ConstructorHandling.AllowNonPublicDefaultConstructor,
                 ContractResolver = new JsonPathContractResolver()
             };
+
+            // TODO: Make all property setters private for all models/responses
 
 
             var obj = JsonConvert.DeserializeObject<ErgastRootResponse<TResponse>>(data, settings);
