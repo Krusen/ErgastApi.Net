@@ -3,7 +3,7 @@ using ErgastApi.Responses;
 
 namespace ErgastApi.Requests.Standard
 {
-    public class DriverInfoRequest : StandardRequest<IDriverResponse>
+    public class DriverInfoRequest : StandardRequest<DriverResponse>
     {
         public DriverInfoRequest()
         {

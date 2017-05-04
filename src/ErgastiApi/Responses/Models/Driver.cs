@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 
 namespace ErgastApi.Responses.Models
 {
-    public class Driver : IDriver
+    public class Driver
     {
         public string DriverId { get; set; }
 

@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using ErgastApi.Queries;
 using ErgastApi.Requests;
 using ErgastApi.Requests.Standard;
 using ErgastApi.Requests.Standings;

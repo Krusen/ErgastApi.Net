@@ -1,4 +1,3 @@
-using ErgastApi.Queries;
 using ErgastApi.Requests.Attributes;
 using ErgastApi.Responses;
 

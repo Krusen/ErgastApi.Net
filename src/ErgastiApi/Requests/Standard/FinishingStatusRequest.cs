@@ -4,7 +4,7 @@ using ErgastApi.Responses;
 
 namespace ErgastApi.Requests.Standard
 {
-    public class FinishingStatusRequest : StandardRequest<IFinishingStatusResponse>
+    public class FinishingStatusRequest : StandardRequest<FinishingStatusResponse>
     {
         public FinishingStatusRequest()
         {

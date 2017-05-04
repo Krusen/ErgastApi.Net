@@ -2,7 +2,7 @@
 
 namespace ErgastApi.Requests.Attributes
 {
-    // TODO: Implement QueryDependency attribute in QueryBuilder
+    // TODO: Implement QueryDependency attribute in UrlBuilder
     [AttributeUsage(AttributeTargets.Property)]
     public class QueryMethodAttribute : Attribute
     {

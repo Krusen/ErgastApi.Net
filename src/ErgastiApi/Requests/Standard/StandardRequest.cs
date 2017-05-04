@@ -4,7 +4,7 @@ using ErgastApi.Responses;
 
 namespace ErgastApi.Requests.Standard
 {
-    public abstract class StandardRequest<TResponse> : ErgastRequest<TResponse> where TResponse : IErgastResponse
+    public abstract class StandardRequest<TResponse> : ErgastRequest<TResponse> where TResponse : ErgastResponse
     {
         protected StandardRequest()
         {

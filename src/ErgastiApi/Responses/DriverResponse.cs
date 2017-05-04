@@ -4,9 +4,9 @@ using ErgastApi.Serialization;
 
 namespace ErgastApi.Responses
 {
-    public class DriverResponse : ErgastResponse, IDriverResponse
+    public class DriverResponse : ErgastResponse
     {
         [JsonPathProperty("DriverTable.Drivers")]
-        public IList<IDriver> Drivers { get; set; }
+        public IList<Driver> Drivers { get; set; }
     }
 }

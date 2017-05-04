@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
 
-namespace ErgastApi.Serialization
+namespace ErgastApi.Serialization.Converters
 {
     // TODO: Rename to indicate JsonPath support as well
     public class InterfaceJsonConverter : JsonConverter

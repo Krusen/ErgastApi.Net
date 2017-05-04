@@ -3,7 +3,7 @@ using ErgastApi.Responses;
 
 namespace ErgastApi.Requests.Standings
 {
-    public abstract class StandingsRequest<TResponse> : ErgastRequest<TResponse> where TResponse : IErgastResponse
+    public abstract class StandingsRequest<TResponse> : ErgastRequest<TResponse> where TResponse : ErgastResponse
     {
         protected StandingsRequest()
         {

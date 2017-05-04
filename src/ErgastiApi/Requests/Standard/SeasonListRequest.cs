@@ -3,7 +3,7 @@ using ErgastApi.Responses;
 
 namespace ErgastApi.Requests.Standard
 {
-    public class SeasonListRequest : StandardRequest<ISeasonResponse>
+    public class SeasonListRequest : StandardRequest<SeasonResponse>
     {
         public SeasonListRequest()
         {

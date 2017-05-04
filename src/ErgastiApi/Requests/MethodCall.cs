@@ -1,6 +1,6 @@
 using System;
 
-namespace ErgastApi.Queries
+namespace ErgastApi.Requests
 {
     public class MethodCall : IComparable<MethodCall>
     {

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Linq;
+using ErgastApi.Serialization.Converters;
 using Newtonsoft.Json.Serialization;
 
 namespace ErgastApi.Serialization

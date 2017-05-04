@@ -9,7 +9,7 @@ using Newtonsoft.Json.Serialization;
 
 namespace ErgastApi.Requests
 {
-    public abstract class ErgastRequest<TResponse> : IErgastRequest where TResponse : IErgastResponse
+    public abstract class ErgastRequest<TResponse> : IErgastRequest where TResponse : ErgastResponse
     {
         public ErgastRequestSettings Settings { get; }
 
@@ -75,7 +75,7 @@ namespace ErgastApi.Requests
 
         protected virtual string BuildUrl()
         {
-            return Settings.ApiRoot + Settings.QueryBuilder.BuildUrl(this);
+            return Settings.ApiRoot + Settings.UrlBuilder.Build(this);
         }
 
         public virtual async Task<TResponse> ExecuteAsync()

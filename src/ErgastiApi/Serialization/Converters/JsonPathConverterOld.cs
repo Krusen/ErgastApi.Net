@@ -2,12 +2,11 @@
 using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
-using ErgastApi.Responses;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
 
-namespace ErgastApi.Serialization
+namespace ErgastApi.Serialization.Converters
 {
     // TODO: Not used, but might want to implement as NuGet package or something
     // TODO: ReadJson contains case-insensitive version of SelectToken of some sort

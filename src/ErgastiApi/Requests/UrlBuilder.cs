@@ -1,15 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using ErgastApi.Requests;
 using ErgastApi.Requests.Attributes;
 
-namespace ErgastApi.Queries
+namespace ErgastApi.Requests
 {
-    public class QueryBuilder : IQueryBuilder
+    public class UrlBuilder : IUrlBuilder
     {
         // TODO: Refactor/cleanup
-        public string BuildUrl(IErgastRequest request)
+        public string Build(IErgastRequest request)
         {
             // TODO: Refactor to check for QueryDependencyAttribute and that the dependent property value is not null
 

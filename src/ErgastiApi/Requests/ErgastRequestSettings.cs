@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Net.Http;
-using ErgastApi.Queries;
 
 namespace ErgastApi.Requests
 {
     public class ErgastRequestSettings
     {
         // TODO: Use by requests if not otherwise specified
-        public static Func<ErgastRequestSettings> Defaults = () => new ErgastRequestSettings();
+        public static Func<ErgastRequestSettings> Defaults { get; set; } = () => new ErgastRequestSettings();
 
         private string _apiRoot = "http://ergast.com/api/f1";
 
@@ -26,9 +25,9 @@ namespace ErgastApi.Requests
             }
         }
 
-        // TODO: Interface
+        // TODO: Interface?
         public HttpClient HttpClient { get; set; } = new HttpClient();
 
-        public IQueryBuilder QueryBuilder { get; set; } = new QueryBuilder();
+        public IUrlBuilder UrlBuilder { get; set; } = new UrlBuilder();
     }
 }

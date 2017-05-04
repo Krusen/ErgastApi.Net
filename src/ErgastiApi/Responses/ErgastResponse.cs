@@ -2,25 +2,8 @@
 
 namespace ErgastApi.Responses
 {
-    public interface IErgastResponse
-    {
-        string Url { get; }
-
-        int Limit { get; }
-
-        int Offset { get; }
-
-        int Total { get; }
-
-        int Page { get; }
-
-        int TotalPages { get; }
-
-        bool HasMorePages { get; }
-    }
-
     // TODO: Use internal/private constructors for all response types?
-    public abstract class ErgastResponse : IErgastResponse
+    public abstract class ErgastResponse
     {
         public string Url { get; set; }
 
