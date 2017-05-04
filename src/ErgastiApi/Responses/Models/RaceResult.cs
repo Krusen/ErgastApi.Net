@@ -1,4 +1,5 @@
 using System;
+using ErgastApi.Enums;
 using ErgastApi.Serialization;
 using ErgastApi.Serialization.Converters;
 using Newtonsoft.Json;
@@ -19,6 +20,8 @@ namespace ErgastApi.Responses.Models
 
         // TODO: Enum? (FinishingStatusId) Value contains stuff like "+1 Lap". Probably needs to be mapped on enum and then custom converter
         public string Status { get; set; }
+
+        public FinishingStatusId StatusId => FinishingStatusIdParser.Parse(Status);
 
         public FastestLap FastestLap { get; set; }
 
