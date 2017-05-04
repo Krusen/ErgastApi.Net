@@ -1,6 +1,6 @@
 ﻿using ErgastApi.Responses.Models.RaceInfo;
 
-namespace ErgastApi.Responses
+namespace ErgastApi.Responses.RaceInfo
 {
     public class RaceListResponse : RaceResponse<Race>
     {

@@ -1,11 +1,10 @@
 using System;
 using ErgastApi.Enums;
-using ErgastApi.Responses.Models.RaceInfo;
 using ErgastApi.Serialization;
 using ErgastApi.Serialization.Converters;
 using Newtonsoft.Json;
 
-namespace ErgastApi.Responses.Models.Results
+namespace ErgastApi.Responses.Models.RaceInfo
 {
     public class RaceResult : ResultBase
     {

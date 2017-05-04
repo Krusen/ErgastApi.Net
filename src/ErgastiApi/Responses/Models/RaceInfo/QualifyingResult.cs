@@ -2,7 +2,7 @@
 using ErgastApi.Serialization.Converters;
 using Newtonsoft.Json;
 
-namespace ErgastApi.Responses.Models.Results
+namespace ErgastApi.Responses.Models.RaceInfo
 {
     public class QualifyingResult : ResultBase
     {

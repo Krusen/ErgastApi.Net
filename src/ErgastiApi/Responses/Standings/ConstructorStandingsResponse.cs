@@ -1,6 +1,6 @@
 using ErgastApi.Responses.Models.Standings;
 
-namespace ErgastApi.Responses
+namespace ErgastApi.Responses.Standings
 {
     public class ConstructorStandingsResponse : StandingsResponse<ConstructorStandingsList>
     {

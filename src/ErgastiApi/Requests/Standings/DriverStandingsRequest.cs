@@ -1,5 +1,6 @@
 using ErgastApi.Requests.Attributes;
 using ErgastApi.Responses;
+using ErgastApi.Responses.Standings;
 
 namespace ErgastApi.Requests.Standings
 {

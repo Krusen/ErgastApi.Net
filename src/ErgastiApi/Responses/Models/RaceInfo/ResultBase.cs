@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace ErgastApi.Responses.Models.Results
+namespace ErgastApi.Responses.Models.RaceInfo
 {
     public abstract class ResultBase
     {
