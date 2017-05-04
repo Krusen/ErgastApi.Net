@@ -1,4 +1,5 @@
 ﻿using System;
+using Newtonsoft.Json;
 
 namespace ErgastApi.Responses
 {
@@ -11,16 +12,17 @@ namespace ErgastApi.Responses
 
         public int Offset { get; set; }
 
-        public int Total { get; set; }
+        [JsonProperty("total")]
+        public int TotalResults { get; set; }
 
         // TODO: Note that it can be inaccurate if limit/offset do not correlate
         // TODO: Test with 0 values
-        public int Page => Offset / Limit;
+        public int Page => Offset / Limit + 1;
 
         // TODO: Test with 0 values
-        public int TotalPages => (int) Math.Ceiling(Total / (double)Limit);
+        public int TotalPages => (int) Math.Ceiling(TotalResults / (double)Limit);
 
         // TODO: Test
-        public bool HasMorePages => Total > Limit + Offset;
+        public bool HasMorePages => TotalResults > Limit + Offset;
     }
 }
