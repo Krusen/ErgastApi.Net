@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
@@ -31,7 +28,7 @@ namespace ErgastApi.Serialization.Converters
 
             var token = JObject.Load(reader);
 
-            //var value = token.ToObject(objectType);
+            // contract.DefaultCreator() + serializer.Populate used to avoid infinite loop by calling this same converter for the root object
             var value = contract.DefaultCreator();
             serializer.Populate(token.CreateReader(), value);
 

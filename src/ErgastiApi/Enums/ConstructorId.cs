@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using ErgastApi.Attributes;
+﻿using ErgastApi.Attributes;
 
 namespace ErgastApi.Enums
 {
-    public enum Constructor
+    public enum ConstructorId
     {
         [Id("ferrari")]
         Ferrari,

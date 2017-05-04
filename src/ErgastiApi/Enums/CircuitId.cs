@@ -2,7 +2,7 @@
 
 namespace ErgastApi.Enums
 {
-    public enum Circuit
+    public enum CircuitId
     {
         /// <summary>Albert Park Grand Prix Circuit, Melbourne, Australia</summary>
         [Id("albert_park")] Australia = 1,

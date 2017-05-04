@@ -94,7 +94,7 @@ namespace ErgastApi.Responses
 
         public int Laps { get; set; }
 
-        // TODO: Enum? (FinishingStatus) Value contains stuff like "+1 Lap". Probably needs to be mapped on enum and then custom converter
+        // TODO: Enum? (FinishingStatusId) Value contains stuff like "+1 Lap". Probably needs to be mapped on enum and then custom converter
         public string Status { get; set; }
 
         public FastestLap FastestLap { get; set; }

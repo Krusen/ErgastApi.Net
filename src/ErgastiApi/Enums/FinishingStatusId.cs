@@ -1,6 +1,6 @@
 ﻿namespace ErgastApi.Enums
 {
-    public enum FinishingStatus
+    public enum FinishingStatusId
     {
         Finished = 1,
         Disqualified = 2,

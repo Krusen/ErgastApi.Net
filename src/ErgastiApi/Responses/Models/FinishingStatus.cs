@@ -1,9 +1,10 @@
-﻿namespace ErgastApi.Responses.Models
+﻿using ErgastApi.Enums;
+
+namespace ErgastApi.Responses.Models
 {
     public class FinishingStatus
     {
-        // TODO: Rename enums, maybe to {Enum}Id?
-        public Enums.FinishingStatus StatusId { get; set; }
+        public FinishingStatusId StatusId { get; set; }
 
         public int Count { get; set; }
 

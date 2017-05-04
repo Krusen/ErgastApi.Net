@@ -32,6 +32,6 @@ namespace ErgastApi.Requests.Standard
         public virtual int? QualifyingPosition { get; set; }
 
         [QueryMethod("status")]
-        public virtual FinishingStatus? FinishingStatus { get; set; }
+        public virtual FinishingStatusId? FinishingStatus { get; set; }
     }
 }

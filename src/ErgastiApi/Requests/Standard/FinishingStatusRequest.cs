@@ -15,6 +15,6 @@ namespace ErgastApi.Requests.Standard
         }
 
         [QueryTerminator]
-        public override FinishingStatus? FinishingStatus { get; set; }
+        public override FinishingStatusId? FinishingStatus { get; set; }
     }
 }
