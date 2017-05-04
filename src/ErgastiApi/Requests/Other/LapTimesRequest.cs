@@ -1,5 +1,6 @@
 using ErgastApi.Requests.Attributes;
 using ErgastApi.Responses;
+using ErgastApi.Responses.Models;
 
 namespace ErgastApi.Requests.Other
 {

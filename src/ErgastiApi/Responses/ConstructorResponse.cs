@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using ErgastApi.Responses.Models;
 using ErgastApi.Serialization;
 
 namespace ErgastApi.Responses
