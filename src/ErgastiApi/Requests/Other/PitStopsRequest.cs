@@ -4,13 +4,13 @@ using ErgastApi.Responses;
 
 namespace ErgastApi.Requests.Other
 {
-    public class PitStopsRequests : ErgastRequest<IRaceResponse<IRaceWithPitStops>>
+    public class PitStopsRequest : ErgastRequest<RaceResponse<RaceWithPitStops>>
     {
-        public PitStopsRequests()
+        public PitStopsRequest()
         {
         }
 
-        public PitStopsRequests(ErgastRequestSettings settings) : base(settings)
+        public PitStopsRequest(ErgastRequestSettings settings) : base(settings)
         {
         }
 

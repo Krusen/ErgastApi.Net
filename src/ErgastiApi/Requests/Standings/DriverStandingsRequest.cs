@@ -3,7 +3,7 @@ using ErgastApi.Responses;
 
 namespace ErgastApi.Requests.Standings
 {
-    public class DriverStandingsRequest : StandingsRequest<IDriverStandingsResponse>
+    public class DriverStandingsRequest : StandingsRequest<DriverStandingsResponse>
     {
         public DriverStandingsRequest()
         {

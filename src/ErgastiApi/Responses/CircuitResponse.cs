@@ -1,11 +1,11 @@
-﻿namespace ErgastApi.Responses
+﻿using System.Collections.Generic;
+using ErgastApi.Serialization;
+
+namespace ErgastApi.Responses
 {
-    public interface ICircuitResponse : IErgastResponse
+    public class CircuitResponse : ErgastResponse
     {
-
-    }
-
-    public class CircuitResponse : ErgastResponse, ICircuitResponse
-    {
+        [JsonPathProperty("CircuitTable.Circuits")]
+        public IList<Circuit> Circuits { get; set; }
     }
 }

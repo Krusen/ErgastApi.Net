@@ -29,7 +29,7 @@ namespace ErgastApi.Serialization
 
             var type = GetMatchingType(objectType);
 
-            var value = token.ToObject(type, serializer);
+            var value = token.ToObject(type);
 
             var resolver = new InterfaceContractResolver();
 

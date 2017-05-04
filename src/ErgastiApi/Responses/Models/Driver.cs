@@ -22,6 +22,8 @@ namespace ErgastApi.Responses.Models
         [JsonProperty("url")]
         public string WikiUrl { get; set; }
 
+        public string FullName => $"{FirstName} {LastName}";
+
         [JsonProperty("givenName")]
         public string FirstName { get; set; }
 

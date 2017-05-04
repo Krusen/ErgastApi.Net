@@ -3,7 +3,7 @@ using ErgastApi.Responses;
 
 namespace ErgastApi.Requests.Other
 {
-    public class LapTimesRequest : ErgastRequest<IRaceResponse<IRaceWithLapTimes>>
+    public class LapTimesRequest : ErgastRequest<RaceResponse<RaceWithLapTimes>>
     {
         public LapTimesRequest()
         {

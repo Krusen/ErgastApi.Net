@@ -3,7 +3,7 @@ using ErgastApi.Responses;
 
 namespace ErgastApi.Requests.Standings
 {
-    public class ConstructorStandingsRequest : StandingsRequest<IConstructorStandingsResponse>
+    public class ConstructorStandingsRequest : StandingsRequest<ConstructorStandingsResponse>
     {
         public ConstructorStandingsRequest()
         {

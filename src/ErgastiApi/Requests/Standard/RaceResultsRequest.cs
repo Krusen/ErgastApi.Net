@@ -3,7 +3,7 @@ using ErgastApi.Responses;
 
 namespace ErgastApi.Requests.Standard
 {
-    public class RaceResultsRequest : StandardRequest<IRaceResponse<IRaceWithResults>>
+    public class RaceResultsRequest : StandardRequest<RaceResponse<RaceWithResults>>
     {
         public RaceResultsRequest()
         {

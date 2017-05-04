@@ -2,29 +2,23 @@
 using System.Collections.Generic;
 using System.Globalization;
 using ErgastApi.Responses.Models;
+using ErgastApi.Serialization;
+using ErgastApi.Serialization.Converters;
 using Newtonsoft.Json;
 
 namespace ErgastApi.Responses
 {
-    /* TODO: Maybe create different interfaces for the different response types, i.e. IQualifyingResultsResponse instead of IRaceResponse<IRaceWithQualifyingResults>
-     * TODO: We can still use the other interfaces like IRaceWithQualiftyingResults
-     */
-    public interface IRaceResponse<T> : IErgastResponse where T : IRace
+    public class RaceResponse<T> : ErgastResponse where T : Race
     {
-        IList<T> Races { get; set; }
-    }
-
-    public class RaceResponse<T> : ErgastResponse, IRaceResponse<T> where T : IRace
-    {
-        // TODO: Handle deserializing interfaces (and IEnumerable/IList of interfaces)
+        [JsonPathProperty("RaceTable.Races")]
         public IList<T> Races { get; set; }
     }
 
-    // TODO: Make setters private and add JsonProperty attribute
-    public class Race : IRace, IRaceWithPitStops, IRaceWithLapTimes, IRaceWithResults, IRaceWithQualifyingResults
+    // TODO: Make setters private?
+    public class Race
     {
         // TODO: Make season (year) an int as well?
-        public string Season { get; set; }
+        public int Season { get; set; }
 
         public int Round { get; set; }
 
@@ -42,62 +36,39 @@ namespace ErgastApi.Responses
 
         [JsonProperty("time")]
         internal string TimeRaw { get; set; }
+    }
 
+    public class RaceWithResults : Race
+    {
         public IList<RaceResult> Results { get; set; }
+    }
 
-        public IList<QualifyingResult> QualifyingResults { get; set; }
-
+    public class RaceWithPitStops : Race
+    {
         public IList<PitStop> PitStops { get; set; }
-
-        [JsonProperty("laps")]
-        public IList<LapTime> LapTimes { get; set; }
     }
 
-    public interface IRace
+    public class RaceWithLapTimes : Race
     {
-        string Season { get; set; }
-
-        int Round { get; set; }
-
-        string RaceName { get; set; }
-
-        string WikiUrl { get; set; }
-
-        Circuit Circuit { get; set; }
-
-        DateTime StartTime { get; }
+        [JsonProperty("Laps")]
+        public IList<Lap> LapTimes { get; set; }
     }
 
-    public interface IRaceWithResults : IRace
+    public class RaceWithQualifyingResults : Race
     {
-        IList<RaceResult> Results { get; }
+        public IList<QualifyingResult> QualifyingResults { get; set; }
     }
 
-    public interface IRaceWithQualifyingResults : IRace
+   public class Circuit
     {
-        IList<QualifyingResult> QualifyingResults { get; }
-    }
+        public string CircuitId { get; set; }
 
-    public interface IRaceWithPitStops : IRace
-    {
-        IList<PitStop> PitStops { get; }
-    }
-
-    public interface IRaceWithLapTimes : IRace
-    {
-        IList<LapTime> LapTimes { get; }
-    }
-
-    public class Circuit
-    {
-        public string CircuitId { get; }
-
-        public string CircuitName { get; }
+        public string CircuitName { get; set; }
 
         [JsonProperty("url")]
-        public string WikiUrl { get; }
+        public string WikiUrl { get; set; }
 
-        public Location Location { get; }
+        public Location Location { get; set; }
     }
 
     public abstract class ResultBase
@@ -134,10 +105,13 @@ namespace ErgastApi.Responses
 
     public class QualifyingResult : ResultBase
     {
+        [JsonConverter(typeof(TimeSpanStringConverter))]
         public TimeSpan Q1 { get; set; }
 
+        [JsonConverter(typeof(TimeSpanStringConverter))]
         public TimeSpan Q2 { get; set; }
 
+        [JsonConverter(typeof(TimeSpanStringConverter))]
         public TimeSpan Q3 { get; set; }
     }
 
@@ -162,7 +136,10 @@ namespace ErgastApi.Responses
         public int Lap { get; set; }
 
         // TODO: Does not have "time"/BehindWinner prop
-        public Time Time { get; set; }
+        // TODO: Handle custom converters inside InterfaceJsonConverter (well, JsonPath converter)
+        //[JsonPathProperty("Time.time")]
+        //[JsonConverter(typeof(TimeSpanStringConverter))]
+        //public TimeSpan Time { get; set; }
 
         public AverageSpeed AverageSpeed { get; set; }
     }
@@ -171,11 +148,13 @@ namespace ErgastApi.Responses
     public class Time
     {
         [JsonProperty("millis")]
+        [JsonConverter(typeof(TimeSpanMillisecondsConverter))]
         public TimeSpan RaceTime { get; set; }
 
         // TODO: Custom converter for "+67.7" format
         [JsonProperty("time")]
-        public TimeSpan BehindWinner { get; set; }
+        [JsonConverter(typeof(TimeSpanStringGapConverter))]
+        public TimeSpan? BehindWinner { get; set; }
     }
 
     // TODO: Rename?
@@ -196,18 +175,27 @@ namespace ErgastApi.Responses
         public int Stop { get; set; }
 
         [JsonProperty("time")]
+        [JsonConverter(typeof(TimeSpanStringConverter))]
         public TimeSpan TimeOfDay { get; set; }
 
-        // TODO: Custom TimeSpan converter from seconds (double)
+        [JsonConverter(typeof(TimeSpanSecondsConverter))]
         public TimeSpan Duration { get; set; }
     }
 
-    public class LapTime
+    public class Lap
+    {
+        public int Number { get; set; }
+
+        public IList<LapInfo> Timings { get; set; }
+    }
+
+    public class LapInfo
     {
         public string DriverId { get; set; }
 
         public int Position { get; set; }
 
+        [JsonConverter(typeof(TimeSpanStringConverter))]
         public TimeSpan Time { get; set; }
     }
 

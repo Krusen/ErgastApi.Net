@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Linq;
 using Newtonsoft.Json.Serialization;
 
 namespace ErgastApi.Serialization
@@ -15,6 +16,12 @@ namespace ErgastApi.Serialization
         protected override JsonObjectContract CreateObjectContract(Type objectType)
         {
             var contract = base.CreateObjectContract(objectType);
+
+            if (contract.Properties.Any(x => x.AttributeProvider.GetAttributes(typeof(JsonPathPropertyAttribute), true)
+                .Any()))
+            {
+                contract.Converter = new InterfaceJsonConverter();
+            }
 
             if (!CanHandleType(objectType))
                 return contract;

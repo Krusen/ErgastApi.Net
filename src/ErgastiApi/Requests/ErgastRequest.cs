@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using ErgastApi.Requests.Attributes;
 using ErgastApi.Responses;
@@ -83,8 +84,6 @@ namespace ErgastApi.Requests
 
             Console.WriteLine(url);
 
-            var traceWriter = new MemoryTraceWriter();
-
             // TODO: Don't use GetStringAsync, instead use GetAsync - then we can handle errors better
             // TODO: Should probably be moved to its own wrapper with specific methods instead of using HttpClient directly
             var data = await Settings.HttpClient.GetStringAsync(url).ConfigureAwait(false);
@@ -92,7 +91,7 @@ namespace ErgastApi.Requests
             // TODO: Reuse/add to constructor?
             var settings = new JsonSerializerSettings
             {
-                TraceWriter = traceWriter,
+                TraceWriter = new TraceWriter(),
                 //ConstructorHandling = ConstructorHandling.AllowNonPublicDefaultConstructor,
                 ContractResolver = new InterfaceContractResolver()
             };
@@ -100,9 +99,30 @@ namespace ErgastApi.Requests
 
             var obj = JsonConvert.DeserializeObject<ErgastRootResponse<TResponse>>(data, settings);
 
-            Console.WriteLine(traceWriter.ToString());
 
             return obj.Data;
+        }
+
+        public class TraceWriter : ITraceWriter
+        {
+            public TraceLevel LevelFilter
+            {
+                get { return TraceLevel.Verbose; }
+            }
+
+            public void Trace(TraceLevel level, string message, Exception ex)
+            {
+                var color = "black";
+                switch (level)
+                {
+                    case TraceLevel.Error: color = "red"; break;
+                    case TraceLevel.Warning: color = "orange"; break;
+                }
+
+                Console.WriteLine(message);
+                if (ex != null)
+                    Console.WriteLine(ex.ToString());
+            }
         }
 
         // TODO: Move and rename

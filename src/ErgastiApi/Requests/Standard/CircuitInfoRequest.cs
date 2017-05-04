@@ -3,7 +3,7 @@ using ErgastApi.Responses;
 
 namespace ErgastApi.Requests.Standard
 {
-    public class CircuitInfoRequest : StandardRequest<ICircuitResponse>
+    public class CircuitInfoRequest : StandardRequest<CircuitResponse>
     {
         public CircuitInfoRequest()
         {
