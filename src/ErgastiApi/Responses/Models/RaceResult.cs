@@ -1,3 +1,8 @@
+using System;
+using ErgastApi.Serialization;
+using ErgastApi.Serialization.Converters;
+using Newtonsoft.Json;
+
 namespace ErgastApi.Responses.Models
 {
     public class RaceResult : ResultBase
@@ -17,7 +22,14 @@ namespace ErgastApi.Responses.Models
 
         public FastestLap FastestLap { get; set; }
 
-        // TODO: Docu: Might be null (lapped cars?)
-        public Time Time { get; set; }
+        // TODO: Docu: Null for lapped cars
+        [JsonPathProperty("Time.millis")]
+        [JsonConverter(typeof(TimeSpanMillisecondsConverter))]
+        public TimeSpan TotalRaceTime { get; set; }
+
+        // TODO: Docu: Null for winner and lapped cars
+        [JsonPathProperty("Time.time")]
+        [JsonConverter(typeof(TimeSpanStringGapConverter))]
+        public TimeSpan? GapToWinner { get; set; }
     }
 }

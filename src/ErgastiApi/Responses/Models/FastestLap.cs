@@ -9,12 +9,13 @@ namespace ErgastApi.Responses.Models
     {
         public int Rank { get; set; }
 
-        public int Lap { get; set; }
+        [JsonProperty("lap")]
+        public int LapNumber { get; set; }
 
         // TODO: Does not have "time"/BehindWinner prop
         [JsonPathProperty("Time.time")]
         [JsonConverter(typeof(TimeSpanStringConverter))]
-        public TimeSpan Time { get; set; }
+        public TimeSpan LapTime { get; set; }
 
         public AverageSpeed AverageSpeed { get; set; }
     }

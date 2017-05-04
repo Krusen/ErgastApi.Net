@@ -22,9 +22,11 @@ namespace ErgastApi.Responses.Models
 
         public DateTime StartTime => DateTime.Parse(DateRaw + " " + TimeRaw, CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal);
 
+        // TODO: Parse date
         [JsonProperty("date")]
         internal string DateRaw { get; set; }
 
+        // TODO: Parse time
         [JsonProperty("time")]
         internal string TimeRaw { get; set; }
     }
