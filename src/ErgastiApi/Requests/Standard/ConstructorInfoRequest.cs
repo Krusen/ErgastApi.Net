@@ -5,15 +5,7 @@ namespace ErgastApi.Requests.Standard
 {
     public class ConstructorInfoRequest : StandardRequest<ConstructorResponse>
     {
-        public ConstructorInfoRequest()
-        {
-        }
-
-        public ConstructorInfoRequest(ErgastRequestSettings settings) : base(settings)
-        {
-        }
-
-        [QueryTerminator]
+        [UrlTerminator]
         public override string ConstructorId { get; set; }
     }
 }

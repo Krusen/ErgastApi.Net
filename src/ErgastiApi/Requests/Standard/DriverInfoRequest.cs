@@ -5,15 +5,7 @@ namespace ErgastApi.Requests.Standard
 {
     public class DriverInfoRequest : StandardRequest<DriverResponse>
     {
-        public DriverInfoRequest()
-        {
-        }
-
-        public DriverInfoRequest(ErgastRequestSettings settings) : base(settings)
-        {
-        }
-
-        [QueryTerminator]
+        [UrlTerminator]
         public override string DriverId { get; set; }
     }
 }

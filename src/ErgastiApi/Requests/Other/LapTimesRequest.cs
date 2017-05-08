@@ -5,18 +5,10 @@ namespace ErgastApi.Requests.Other
 {
     public class LapTimesRequest : ErgastRequest<LapTimesResponse>
     {
-        public LapTimesRequest()
-        {
-        }
-
-        public LapTimesRequest(ErgastRequestSettings settings) : base(settings)
-        {
-        }
-
-        [QueryTerminator, QueryMethod("laps")]
+        [UrlTerminator, UrlSegment("laps")]
         public int? Lap { get; set; }
 
-        [QueryMethod("pitstops")]
+        [UrlSegment("pitstops")]
         public int? PitStop { get; set; }
     }
 }

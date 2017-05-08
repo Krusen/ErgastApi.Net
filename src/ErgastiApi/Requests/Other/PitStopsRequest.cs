@@ -5,18 +5,10 @@ namespace ErgastApi.Requests.Other
 {
     public class PitStopsRequest : ErgastRequest<PitStopsResponse>
     {
-        public PitStopsRequest()
-        {
-        }
-
-        public PitStopsRequest(ErgastRequestSettings settings) : base(settings)
-        {
-        }
-
-        [QueryMethod("laps")]
+        [UrlSegment("laps")]
         public int? Lap { get; set; }
 
-        [QueryTerminator, QueryMethod("pitstops")]
+        [UrlTerminator, UrlSegment("pitstops")]
         public int? PitStop { get; set; }
     }
 }

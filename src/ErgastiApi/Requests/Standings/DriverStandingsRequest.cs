@@ -5,15 +5,7 @@ namespace ErgastApi.Requests.Standings
 {
     public class DriverStandingsRequest : StandingsRequest<DriverStandingsResponse>
     {
-        public DriverStandingsRequest()
-        {
-        }
-
-        public DriverStandingsRequest(ErgastRequestSettings settings) : base(settings)
-        {
-        }
-
-        [QueryTerminator, QueryMethod("driverStandings")]
+        [UrlTerminator, UrlSegment("driverStandings")]
         public int? DriverStanding { get; set; }
     }
 }

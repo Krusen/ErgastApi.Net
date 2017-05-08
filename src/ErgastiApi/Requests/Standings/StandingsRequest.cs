@@ -5,15 +5,7 @@ namespace ErgastApi.Requests.Standings
 {
     public abstract class StandingsRequest<TResponse> : ErgastRequest<TResponse> where TResponse : ErgastResponse
     {
-        protected StandingsRequest()
-        {
-        }
-
-        protected StandingsRequest(ErgastRequestSettings settings) : base(settings)
-        {
-        }
-
-        [QueryMethod("constructors")]
+        [UrlSegment("constructors")]
         public virtual string ConstructorId { get; set; }
     }
 }

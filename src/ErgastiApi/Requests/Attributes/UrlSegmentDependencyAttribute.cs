@@ -3,11 +3,11 @@
 namespace ErgastApi.Requests.Attributes
 {
     [AttributeUsage(AttributeTargets.Property)]
-    public class QueryDependencyAttribute : Attribute
+    public class UrlSegmentDependencyAttribute : Attribute
     {
         public string PropertyName { get; set; }
 
-        public QueryDependencyAttribute(string propertyName)
+        public UrlSegmentDependencyAttribute(string propertyName)
         {
             PropertyName = propertyName;
         }

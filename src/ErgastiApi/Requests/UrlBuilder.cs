@@ -10,21 +10,21 @@ namespace ErgastApi.Requests
         // TODO: Refactor/cleanup
         public string Build(IErgastRequest request)
         {
-            // TODO: Refactor to check for QueryDependencyAttribute and that the dependent property value is not null
+            // TODO: Refactor to check for UrlSegmentDependencyAttribute and that the dependent property value is not null
 
-            var calls = new List<MethodCall>();
-            MethodCall lastCall = null;
+            var calls = new List<UrlSegmentInfo>();
+            UrlSegmentInfo lastCall = null;
             var properties = request.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
             foreach (var prop in properties)
             {
-                var queryMethod = prop.GetCustomAttributes<QueryMethodAttribute>(true).FirstOrDefault();
-                var queryTerminator = prop.GetCustomAttributes<QueryTerminatorAttribute>(true).FirstOrDefault();
+                var queryMethod = prop.GetCustomAttributes<UrlSegmentAttribute>(true).FirstOrDefault();
+                var queryTerminator = prop.GetCustomAttributes<UrlTerminatorAttribute>(true).FirstOrDefault();
 
                 if (queryMethod == null)
                     continue;
 
-                // TODO: Expand MethodCall with more info like PropertyInfo etc.
-                var call = new MethodCall
+                // TODO: Expand UrlSegmentInfo with more info like PropertyInfo etc.
+                var call = new UrlSegmentInfo
                 {
                     Name = queryMethod.MethodName,
                     Order = queryMethod.Order,

@@ -5,15 +5,7 @@ namespace ErgastApi.Requests.Standard
 {
     public class RaceResultsRequest : StandardRequest<RaceResultsResponse>
     {
-        public RaceResultsRequest()
-        {
-        }
-
-        public RaceResultsRequest(ErgastRequestSettings settings) : base(settings)
-        {
-        }
-
-        [QueryTerminator]
+        [UrlTerminator]
         public override int? FinishingPosition { get; set; }
     }
 }

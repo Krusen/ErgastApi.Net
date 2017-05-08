@@ -5,15 +5,7 @@ namespace ErgastApi.Requests.Standings
 {
     public class ConstructorStandingsRequest : StandingsRequest<ConstructorStandingsResponse>
     {
-        public ConstructorStandingsRequest()
-        {
-        }
-
-        public ConstructorStandingsRequest(ErgastRequestSettings settings) : base(settings)
-        {
-        }
-
-        [QueryTerminator, QueryMethod("constructorStandings")]
+        [UrlTerminator, UrlSegment("constructorStandings")]
         public int? ConstructorStanding { get; set; }
     }
 }

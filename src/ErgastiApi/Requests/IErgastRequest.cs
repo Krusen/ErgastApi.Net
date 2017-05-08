@@ -2,8 +2,6 @@
 {
     public interface IErgastRequest
     {
-        ErgastRequestSettings Settings { get; }
-
         int? Limit { get; set; }
 
         int? Offset { get; set; }

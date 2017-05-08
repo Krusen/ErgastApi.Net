@@ -5,17 +5,8 @@ namespace ErgastApi.Requests.Standard
 {
     public class RaceListRequest : StandardRequest<RaceListResponse>
     {
-        public RaceListRequest()
-        {
-        }
-
-        public RaceListRequest(ErgastRequestSettings settings) : base(settings)
-        {
-        }
-
-        // Value not used
         // ReSharper disable once UnassignedGetOnlyAutoProperty
-        [QueryTerminator, QueryMethod("races")]
+        [UrlTerminator, UrlSegment("races")]
         protected object Races { get; }
     }
 }

@@ -4,17 +4,17 @@ namespace ErgastApi.Requests.Attributes
 {
     // TODO: Implement QueryDependency attribute in UrlBuilder
     [AttributeUsage(AttributeTargets.Property)]
-    public class QueryMethodAttribute : Attribute
+    public class UrlSegmentAttribute : Attribute
     {
         public int Order { get; set; }
 
         public string MethodName { get; set; }
 
-        public QueryMethodAttribute()
+        public UrlSegmentAttribute()
         {
         }
 
-        public QueryMethodAttribute(string methodName)
+        public UrlSegmentAttribute(string methodName)
         {
             MethodName = methodName;
         }

@@ -5,16 +5,9 @@ namespace ErgastApi.Requests.Standard
 {
     public class SeasonListRequest : StandardRequest<SeasonResponse>
     {
-        public SeasonListRequest()
-        {
-        }
-
-        public SeasonListRequest(ErgastRequestSettings settings) : base(settings)
-        {
-        }
-
         // Value not used
-        [QueryTerminator, QueryMethod("seasons")]
+        // ReSharper disable once UnassignedGetOnlyAutoProperty
+        [UrlTerminator, UrlSegment("seasons")]
         protected object Seasons { get; }
     }
 }

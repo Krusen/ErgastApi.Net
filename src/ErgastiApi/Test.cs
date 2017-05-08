@@ -28,6 +28,7 @@ namespace ErgastApi
 
             var req = new DriverStandingsRequest();
 
+            var t = new ErgastClient().ExecuteAsync(req).Result;
         }
     }
 }

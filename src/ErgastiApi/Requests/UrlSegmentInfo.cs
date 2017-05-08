@@ -2,7 +2,7 @@ using System;
 
 namespace ErgastApi.Requests
 {
-    public class MethodCall : IComparable<MethodCall>
+    public class UrlSegmentInfo : IComparable<UrlSegmentInfo>
     {
         public int Order { get; set; }
 
@@ -12,7 +12,7 @@ namespace ErgastApi.Requests
 
         public bool IsTerminator { get; set; }
 
-        public int CompareTo(MethodCall other)
+        public int CompareTo(UrlSegmentInfo other)
         {
             if (ReferenceEquals(this, other)) return 0;
             if (ReferenceEquals(null, other)) return 1;

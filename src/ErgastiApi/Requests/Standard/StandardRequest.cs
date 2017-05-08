@@ -6,32 +6,23 @@ namespace ErgastApi.Requests.Standard
 {
     public abstract class StandardRequest<TResponse> : ErgastRequest<TResponse> where TResponse : ErgastResponse
     {
-        protected StandardRequest()
-        {
-        }
-
-        protected StandardRequest(ErgastRequestSettings settings)
-            : base(settings)
-        {
-        }
-
-        [QueryMethod("constructors")]
+        [UrlSegment("constructors")]
         public virtual string ConstructorId { get; set; }
 
-        [QueryMethod("circuits")]
+        [UrlSegment("circuits")]
         public virtual string CircuitId { get; set; }
 
-        [QueryMethod("fastests")]
+        [UrlSegment("fastests")]
         public virtual int? FastestLapRank { get; set; }
 
-        [QueryMethod("results")]
+        [UrlSegment("results")]
         public virtual int? FinishingPosition { get; set; }
 
         // Grid / starting position
-        [QueryMethod("grid")]
+        [UrlSegment("grid")]
         public virtual int? QualifyingPosition { get; set; }
 
-        [QueryMethod("status")]
+        [UrlSegment("status")]
         public virtual FinishingStatusId? FinishingStatus { get; set; }
     }
 }
