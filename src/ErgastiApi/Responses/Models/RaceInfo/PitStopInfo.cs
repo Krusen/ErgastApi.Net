@@ -16,11 +16,11 @@ namespace ErgastApi.Responses.Models.RaceInfo
         public int Stop { get; private set; }
 
         [JsonProperty("time")]
-        [JsonConverter(typeof(TimeSpanStringConverter))]
+        [JsonConverter(typeof(StringTimeSpanConverter))]
         public TimeSpan TimeOfDay { get; private set; }
 
         [JsonProperty("duration")]
-        [JsonConverter(typeof(TimeSpanSecondsConverter))]
+        [JsonConverter(typeof(SecondsTimeSpanConverter))]
         public TimeSpan Duration { get; private set; }
     }
 }

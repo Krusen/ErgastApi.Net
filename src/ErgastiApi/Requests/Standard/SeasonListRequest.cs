@@ -1,4 +1,4 @@
-using ErgastApi.Requests.Attributes;
+using ErgastApi.Client.Attributes;
 using ErgastApi.Responses;
 
 namespace ErgastApi.Requests.Standard

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text.RegularExpressions;
 
-namespace ErgastApi.Enums
+namespace ErgastApi.Ids
 {
     // TODO: Maybe move
     public static class FinishingStatusIdParser

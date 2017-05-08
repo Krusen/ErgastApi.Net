@@ -1,5 +1,5 @@
 ﻿using System;
-using ErgastApi.Requests.Attributes;
+using ErgastApi.Client.Attributes;
 using ErgastApi.Responses;
 
 namespace ErgastApi.Requests
@@ -45,7 +45,7 @@ namespace ErgastApi.Requests
         [UrlSegment("drivers")]
         public virtual string DriverId { get; set; }
 
-        public void Page(int page, int pageSize)
+        public virtual void Page(int page, int pageSize)
         {
             if (page < 1)
                 throw new ArgumentOutOfRangeException(nameof(page), "Page number cannot be lower than 1");

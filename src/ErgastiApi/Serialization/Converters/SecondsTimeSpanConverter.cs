@@ -1,9 +1,10 @@
 ﻿using System;
+using System.Globalization;
 using Newtonsoft.Json;
 
 namespace ErgastApi.Serialization.Converters
 {
-    public class TimeSpanMillisecondsConverter : JsonConverter
+    public class SecondsTimeSpanConverter : JsonConverter
     {
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
@@ -13,19 +14,19 @@ namespace ErgastApi.Serialization.Converters
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
-            if (reader.TokenType == JsonToken.Integer)
+            if (reader.TokenType == JsonToken.Float)
             {
-                var milliseconds = (long) reader.Value;
-                return TimeSpan.FromMilliseconds(milliseconds);
+                var milliseconds = (double)reader.Value;
+                return TimeSpan.FromSeconds(milliseconds);
             }
 
             if (reader.TokenType == JsonToken.String)
             {
-                var milliseconds = long.Parse((string)reader.Value);
-                return TimeSpan.FromMilliseconds(milliseconds);
+                var milliseconds = double.Parse((string)reader.Value, CultureInfo.InvariantCulture);
+                return TimeSpan.FromSeconds(milliseconds);
             }
 
-            throw new JsonException($"Wrong token type '{reader.TokenType}' for reading TimeStamp as milliseconds.");
+            throw new JsonException($"Wrong token type '{reader.TokenType}' for reading TimeStamp as seconds.");
         }
 
         public override bool CanConvert(Type objectType)

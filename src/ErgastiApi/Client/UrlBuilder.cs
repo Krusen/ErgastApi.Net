@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using ErgastApi.Requests.Attributes;
+using ErgastApi.Client.Attributes;
+using ErgastApi.Requests;
 
-namespace ErgastApi.Requests
+namespace ErgastApi.Client
 {
     public class UrlBuilder : IUrlBuilder
     {

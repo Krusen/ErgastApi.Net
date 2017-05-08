@@ -1,7 +1,7 @@
-using ErgastApi.Requests.Attributes;
+using ErgastApi.Client.Attributes;
 using ErgastApi.Responses.RaceInfo;
 
-namespace ErgastApi.Requests.Other
+namespace ErgastApi.Requests
 {
     public class LapTimesRequest : ErgastRequest<LapTimesResponse>
     {

@@ -3,14 +3,15 @@ using Newtonsoft.Json;
 
 namespace ErgastApi.Serialization.Converters
 {
-    public class TimeSpanStringGapConverter : JsonConverter
+    public class StringTimeSpanConverter : JsonConverter
     {
         private static readonly string[] Formats =
         {
-            "'+'mm':'ss'.'fff",
-            "'+'m':'ss'.'fff",
-            "'+'ss'.'fff",
-            "'+'s'.'fff",
+            "hh':'mm':'ss",
+            "hh':'mm':'ss'.'fff",
+            "h':'mm':'ss'.'fff",
+            "mm':'ss'.'fff",
+            "m':'ss'.'fff"
         };
 
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
@@ -23,7 +24,7 @@ namespace ErgastApi.Serialization.Converters
             if (reader.TokenType != JsonToken.String)
                 throw new JsonException($"Wrong token type '{reader.TokenType}' for reading TimeStamp in format 'hh:mm:ss.fff'.");
 
-            var value = (string)reader.Value;
+            var value = (string) reader.Value;
 
             TimeSpan result;
             if (TimeSpan.TryParseExact(value, Formats, null, out result))

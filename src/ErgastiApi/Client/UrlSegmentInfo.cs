@@ -1,6 +1,6 @@
 using System;
 
-namespace ErgastApi.Requests
+namespace ErgastApi.Client
 {
     public class UrlSegmentInfo : IComparable<UrlSegmentInfo>
     {

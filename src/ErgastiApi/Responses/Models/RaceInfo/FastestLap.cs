@@ -14,7 +14,7 @@ namespace ErgastApi.Responses.Models.RaceInfo
         public int LapNumber { get; private set; }
 
         [JsonPathProperty("Time.time")]
-        [JsonConverter(typeof(TimeSpanStringConverter))]
+        [JsonConverter(typeof(StringTimeSpanConverter))]
         public TimeSpan LapTime { get; private set; }
 
         [JsonProperty("AverageSpeed")]

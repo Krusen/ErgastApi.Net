@@ -1,4 +1,4 @@
-﻿using ErgastApi.Enums;
+﻿using ErgastApi.Ids;
 using Newtonsoft.Json;
 
 namespace ErgastApi.Responses.Models

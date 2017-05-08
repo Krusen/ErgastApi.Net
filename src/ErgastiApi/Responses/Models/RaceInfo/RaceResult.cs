@@ -1,5 +1,5 @@
 using System;
-using ErgastApi.Enums;
+using ErgastApi.Ids;
 using ErgastApi.Serialization;
 using ErgastApi.Serialization.Converters;
 using Newtonsoft.Json;
@@ -35,12 +35,12 @@ namespace ErgastApi.Responses.Models.RaceInfo
 
         // TODO: Docu: Null for lapped cars
         [JsonPathProperty("Time.millis")]
-        [JsonConverter(typeof(TimeSpanMillisecondsConverter))]
+        [JsonConverter(typeof(MillisecondsTimeSpanConverter))]
         public TimeSpan TotalRaceTime { get; private set; }
 
         // TODO: Docu: Null for winner and lapped cars
         [JsonPathProperty("Time.time")]
-        [JsonConverter(typeof(TimeSpanStringGapConverter))]
+        [JsonConverter(typeof(StringGapTimeSpanConverter))]
         public TimeSpan? GapToWinner { get; private set; }
     }
 }

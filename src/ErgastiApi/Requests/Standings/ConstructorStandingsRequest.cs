@@ -1,4 +1,4 @@
-using ErgastApi.Requests.Attributes;
+using ErgastApi.Client.Attributes;
 using ErgastApi.Responses.Standings;
 
 namespace ErgastApi.Requests.Standings

@@ -3,15 +3,14 @@ using System.Linq;
 using System.Reflection;
 using ErgastApi.Extensions;
 
-namespace ErgastApi.Attributes
+namespace ErgastApi.Ids
 {
-    // TODO: Maybe rename this to ErgastId
     [AttributeUsage(AttributeTargets.Interface | AttributeTargets.Field, AllowMultiple = false, Inherited = false)]
-    public class IdAttribute : Attribute
+    public class ErgastIdAttribute : Attribute
     {
         public string Id { get; }
 
-        public IdAttribute(string id)
+        public ErgastIdAttribute(string id)
         {
             Id = id;
         }
@@ -22,7 +21,7 @@ namespace ErgastApi.Attributes
         // TODO: Maybe rename methods
         internal static string GetId(this Type type)
         {
-            return type.GetCustomAttribute<IdAttribute>().Id;
+            return type.GetCustomAttribute<ErgastIdAttribute>().Id;
         }
 
         internal static string GetEnumId<TEnum>(this TEnum value)
@@ -31,7 +30,7 @@ namespace ErgastApi.Attributes
             return value.GetType()
                 .GetMember(value.ToString())
                 .First()
-                .GetCustomAttribute<IdAttribute>()
+                .GetCustomAttribute<ErgastIdAttribute>()
                 .Id;
         }
     }

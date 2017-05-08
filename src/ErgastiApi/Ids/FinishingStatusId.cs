@@ -1,4 +1,4 @@
-﻿namespace ErgastApi.Enums
+﻿namespace ErgastApi.Ids
 {
     public enum FinishingStatusId
     {

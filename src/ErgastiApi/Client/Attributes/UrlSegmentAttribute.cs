@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ErgastApi.Requests.Attributes
+namespace ErgastApi.Client.Attributes
 {
     // TODO: Implement QueryDependency attribute in UrlBuilder
     [AttributeUsage(AttributeTargets.Property)]

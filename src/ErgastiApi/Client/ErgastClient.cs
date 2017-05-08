@@ -6,7 +6,7 @@ using ErgastApi.Responses;
 using ErgastApi.Serialization;
 using Newtonsoft.Json;
 
-namespace ErgastApi
+namespace ErgastApi.Client
 {
     public class ErgastClient
     {

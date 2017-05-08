@@ -1,174 +1,172 @@
-﻿using ErgastApi.Attributes;
-
-namespace ErgastApi.Enums
+﻿namespace ErgastApi.Ids
 {
     public enum DriverId
     {
         // TODO: Fix IDs (they are not the 3-letter code)
 
         /// <summary>Fernando Alonso</summary>
-        [Id("alonso")] ALO,
-        [Id("alonso")] Alonso,
+        [ErgastId("alonso")] ALO,
+        [ErgastId("alonso")] Alonso,
         /// <summary>Fernando Alonso</summary>
-        [Id("ALO")] FernandoAlonso,
+        [ErgastId("ALO")] FernandoAlonso,
 
         /// <summary>Valtteri Bottas</summary>
-        [Id("BOT")] BOT,
+        [ErgastId("BOT")] BOT,
         /// <summary>Valtteri Bottas</summary>
-        [Id("BOT")] Bottas,
-        [Id("BOT")] ValtteriBottas,
+        [ErgastId("BOT")] Bottas,
+        [ErgastId("BOT")] ValtteriBottas,
 
         /// <summary>Jenson Button</summary>
-        [Id("BUT")] BUT,
+        [ErgastId("BUT")] BUT,
         /// <summary>Jenson Button</summary>
-        [Id("BUT")] Button,
-        [Id("BUT")] JensonButton,
+        [ErgastId("BUT")] Button,
+        [ErgastId("BUT")] JensonButton,
 
         /// <summary>Marcus Ericsson</summary>
-        [Id("ERI")] ERI,
+        [ErgastId("ERI")] ERI,
         /// <summary>Marcus Ericsson</summary>
-        [Id("ERI")] Ericsson,
-        [Id("ERI")] MarcusEricsson,
+        [ErgastId("ERI")] Ericsson,
+        [ErgastId("ERI")] MarcusEricsson,
 
         /// <summary>
         /// Romain Grosjean
         /// </summary>
-        [Id("GRO")] GRO,
+        [ErgastId("GRO")] GRO,
         /// <summary>
         /// Romain Grosjean
         /// </summary>
-        [Id("GRO")] Grosjean,
-        [Id("GRO")] RomainGrosjean,
+        [ErgastId("GRO")] Grosjean,
+        [ErgastId("GRO")] RomainGrosjean,
 
         /// <summary>
         /// Lewis Hamilton
         /// </summary>
-        [Id("HAM")] HAM,
+        [ErgastId("HAM")] HAM,
         /// <summary>
         /// Lewis Hamilton
         /// </summary>
-        [Id("HAM")] Hamilton,
-        [Id("HAM")] LewisHamilton,
+        [ErgastId("HAM")] Hamilton,
+        [ErgastId("HAM")] LewisHamilton,
 
         /// <summary>
         /// Nico Hülkenberg
         /// </summary>
-        [Id("HUL")] HUL,
+        [ErgastId("HUL")] HUL,
         /// <summary>
         /// Nico Hülkenberg
         /// </summary>
-        [Id("HUL")] Hulkenberg,
-        [Id("HUL")] NicoHulkenberg,
+        [ErgastId("HUL")] Hulkenberg,
+        [ErgastId("HUL")] NicoHulkenberg,
 
         /// <summary>
         /// Daniil Kvyat
         /// </summary>
-        [Id("KVY")] KVY,
+        [ErgastId("KVY")] KVY,
         /// <summary>
         /// Danieel Kvyat
         /// </summary>
-        [Id("KVY")] Kvyat,
-        [Id("KVY")] DaniilKvyat,
+        [ErgastId("KVY")] Kvyat,
+        [ErgastId("KVY")] DaniilKvyat,
 
         /// <summary>
         /// Kevin Magnussen
         /// </summary>
-        [Id("MAG")] MAG,
+        [ErgastId("MAG")] MAG,
         /// <summary>
         /// Kevin Magnussen
         /// </summary>
-        [Id("MAG")] Magnussen,
-        [Id("MAG")] KevinMagnussen,
+        [ErgastId("MAG")] Magnussen,
+        [ErgastId("MAG")] KevinMagnussen,
 
         /// <summary>
         /// Pastor "Maldozer" Maldonado
         /// </summary>
-        [Id("MAL")] MAL,
+        [ErgastId("MAL")] MAL,
         /// <summary>
         /// Pastor "Maldozer" Maldonado
         /// </summary>
-        [Id("MAL")] Maldonado,
+        [ErgastId("MAL")] Maldonado,
         /// <summary>
         /// Pastor "Maldozer" Maldonado
         /// </summary>
-        [Id("MAL")] Maldozer,
-        [Id("MAL")] PastorMaldonado,
+        [ErgastId("MAL")] Maldozer,
+        [ErgastId("MAL")] PastorMaldonado,
 
         /// <summary>
         /// Felipe Mazza
         /// </summary>
-        [Id("MAS")] MAS,
-        [Id("MAS")] Massa,
-        [Id("MAS")] FelipeMassa,
+        [ErgastId("MAS")] MAS,
+        [ErgastId("MAS")] Massa,
+        [ErgastId("MAS")] FelipeMassa,
 
         /// <summary>
         /// Sergio Pérez
         /// </summary>
-        [Id("PER")] PER,
+        [ErgastId("PER")] PER,
         /// <summary>
         /// Sergio Pérez
         /// </summary>
-        [Id("PER")] Perez,
-        [Id("PER")] SergioPerez,
+        [ErgastId("PER")] Perez,
+        [ErgastId("PER")] SergioPerez,
 
         /// <summary>
         /// Kimi Räikkönen
         /// </summary>
-        [Id("RAI")] RAI,
+        [ErgastId("RAI")] RAI,
         /// <summary>
         /// Kimi Räikkönen
         /// </summary>
-        [Id("RAI")] Raikkonen,
-        [Id("RAI")] KimiRaikkonen,
+        [ErgastId("RAI")] Raikkonen,
+        [ErgastId("RAI")] KimiRaikkonen,
 
         /// <summary>
         /// Daniel Ricciardo
         /// </summary>
-        [Id("RIC")] RIC,
+        [ErgastId("RIC")] RIC,
         /// <summary>
         /// Daniel Ricciardo
         /// </summary>
-        [Id("RIC")] Ricciardo,
-        [Id("RIC")] DanielRicciardo,
+        [ErgastId("RIC")] Ricciardo,
+        [ErgastId("RIC")] DanielRicciardo,
 
         /// <summary>
         /// Max Verstappen
         /// </summary>
-        [Id("VER")] VER,
+        [ErgastId("VER")] VER,
         /// <summary>
         /// Max Verstappen
         /// </summary>
-        [Id("RIC")] Verstappen,
-        [Id("RIC")] MaxVerstappen,
+        [ErgastId("RIC")] Verstappen,
+        [ErgastId("RIC")] MaxVerstappen,
 
         /// <summary>
         /// Nico Rosberg
         /// </summary>
-        [Id("ROS")] ROS,
+        [ErgastId("ROS")] ROS,
         /// <summary>
         /// Nico Rosberg
         /// </summary>
-        [Id("ROS")] Rosberg,
-        [Id("ROS")] NicoRosberg,
+        [ErgastId("ROS")] Rosberg,
+        [ErgastId("ROS")] NicoRosberg,
 
         /// <summary>
         /// Adrian Sutil
         /// </summary>
-        [Id("SUT")] SUT,
+        [ErgastId("SUT")] SUT,
         /// <summary>
         /// Adrian Sutil
         /// </summary>
-        [Id("SUT")] Sutil,
-        [Id("SUT")] AdrianSutil,
+        [ErgastId("SUT")] Sutil,
+        [ErgastId("SUT")] AdrianSutil,
 
         /// <summary>
         /// Sebastian Vettel
         /// </summary>
-        [Id("VET")] VET,
+        [ErgastId("VET")] VET,
         /// <summary>
         /// Sebastian Vettel
         /// </summary>
-        [Id("VET")] Vettel,
-        [Id("VET")] SebastianVettel
+        [ErgastId("VET")] Vettel,
+        [ErgastId("VET")] SebastianVettel
     }
 }
