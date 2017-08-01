@@ -8,14 +8,39 @@ namespace ErgastApi.Responses.Models.RaceInfo
 {
     public class RaceResult : ResultBase
     {
-        // TODO: Docu: equals Position or "R" retired, "D" disqualified, "E" excluded, "W" withdrawn, "F" failed to qualify, "N" not classified. See Status for more info
+        /// <summary>
+        /// Finishing position.
+        /// R = Retired, D = Disqualified, E = Excluded, W = Withdrawn, F = Failed to qualify, N = Not classified.
+        /// See <see cref="StatusText"/> for more info.
+        /// </summary>
         [JsonProperty("positionText")]
         public string PositionText { get; private set; }
+
+        public bool Retired
+        {
+            get
+            {
+                if (PositionText == "R")
+                    return true;
+
+                return Status > FinishingStatusId.Disqualified && !Status.ToString().StartsWith("Laps");
+            }
+        }
+
+        public bool Disqualified => PositionText == "D";
+
+        /// <summary>
+        /// Indicates if the driver was classified (not retired and finished 90% of the race).
+        /// </summary>
+        public bool Classified => int.TryParse(PositionText, out _);
 
         [JsonProperty("points")]
         public int Points { get; private set; }
 
-        // TODO: Docu: 0 means starting from pit lane
+        /// <summary>
+        /// Grid position, i.e. starting position.
+        /// A value of 0 means the driver started from the pit lane.
+        /// </summary>
         [JsonProperty("grid")]
         public int Grid { get; private set; }
 
@@ -24,7 +49,6 @@ namespace ErgastApi.Responses.Models.RaceInfo
         [JsonProperty("laps")]
         public int Laps { get; private set; }
 
-        // TODO: Enum? (FinishingStatusId) Value contains stuff like "+1 Lap". Probably needs to be mapped on enum and then custom converter
         [JsonProperty("status")]
         public string StatusText { get; private set; }
 
@@ -34,12 +58,16 @@ namespace ErgastApi.Responses.Models.RaceInfo
         [JsonProperty("FastestLap")]
         public FastestLap FastestLap { get; private set; }
 
-        // TODO: Docu: Null for lapped cars
+        /// <summary>
+        /// Total race time. This is null for lapped cars.
+        /// </summary>
         [JsonPathProperty("Time.millis")]
         [JsonConverter(typeof(MillisecondsTimeSpanConverter))]
         public TimeSpan? TotalRaceTime { get; private set; }
 
-        // TODO: Docu: Null for winner and lapped cars
+        /// <summary>
+        /// Gap to winner. This is null for the winner and lapped cars.
+        /// </summary>
         [JsonPathProperty("Time.time")]
         [JsonConverter(typeof(StringGapTimeSpanConverter))]
         public TimeSpan? GapToWinner { get; private set; }
