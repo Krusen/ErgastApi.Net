@@ -8,9 +8,9 @@
 
         void Page(int page, int pageSize);
 
-        int? Season { get; set; }
+        string Season { get; set; }
 
-        int? Round { get; set; }
+        string Round { get; set; }
 
         string DriverId { get; set; }
     }
