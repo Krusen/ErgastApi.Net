@@ -26,9 +26,10 @@ namespace ErgastApi.Responses.Models.RaceInfo
 
         // TODO: Enum? (FinishingStatusId) Value contains stuff like "+1 Lap". Probably needs to be mapped on enum and then custom converter
         [JsonProperty("status")]
-        public string Status { get; private set; }
+        public string StatusText { get; private set; }
 
-        public FinishingStatusId StatusId => FinishingStatusIdParser.Parse(Status);
+        [JsonIgnore]
+        public FinishingStatusId Status => FinishingStatusIdParser.Parse(StatusText);
 
         [JsonProperty("FastestLap")]
         public FastestLap FastestLap { get; private set; }
@@ -36,7 +37,7 @@ namespace ErgastApi.Responses.Models.RaceInfo
         // TODO: Docu: Null for lapped cars
         [JsonPathProperty("Time.millis")]
         [JsonConverter(typeof(MillisecondsTimeSpanConverter))]
-        public TimeSpan TotalRaceTime { get; private set; }
+        public TimeSpan? TotalRaceTime { get; private set; }
 
         // TODO: Docu: Null for winner and lapped cars
         [JsonPathProperty("Time.time")]

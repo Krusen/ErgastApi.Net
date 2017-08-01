@@ -20,7 +20,7 @@ namespace ErgastApi.Ids
 
             value = Regex.Replace(value, @"\s", "");
 
-            Enum.TryParse(value, out statusId);
+            Enum.TryParse(value, true, out statusId);
 
             return statusId;
         }
