@@ -4,7 +4,6 @@ namespace ErgastApi.Responses.Models
 {
     public class Season
     {
-        // TODO: Naming? int/string?
         [JsonProperty("season")]
         public int Year { get; private set; }
 
