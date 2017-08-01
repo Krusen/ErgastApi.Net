@@ -38,7 +38,6 @@ namespace ErgastApi.Requests
         public virtual string Season { get; set; }
 
         [UrlSegment(Order = 2)]
-        [UrlSegmentDependency(nameof(Season))]
         public virtual string Round { get; set; }
 
         [UrlSegment("drivers")]
