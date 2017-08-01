@@ -1,172 +1,93 @@
 ﻿namespace ErgastApi.Ids
 {
-    public enum DriverId
+    public static class DriverIds
     {
-        // TODO: Fix IDs (they are not the 3-letter code)
+        public const string AntonioGiovinazzi = "giovinazzi";
+        public const string CarlosSainz = "sainz";
+        /// <summary>#3 RIC</summary>
+        public const string DanielRicciardo = "ricciardo";
+        public const string DaniilKvyat = "kvyat";
+        public const string EstebanGutierrez = "gutierrez";
+        public const string EstebanOcon = "ocon";
+        /// <summary>#19 MAS</summary>
+        public const string FelipeMassa = "massa";
+        public const string FelipeNasr = "nasr";
+        public const string FernandoAlonso = "alonso";
+        public const string JeanEricVergne = "vergne";
+        public const string JensonButton = "button";
+        public const string JolyonPalmer = "jolyon_palmer";
+        public const string JulesBianchi = "jules_bianchi";
+        public const string KamuiKobayashi = "kobayashi";
+        public const string KevinMagnussen = "kevin_magnussen";
+        /// <summary>#7 RAI</summary>
+        public const string KimiRaikkonen = "raikkonen";
+        public const string LanceStroll = "stroll";
+        public const string LewisHamilton = "hamilton";
+        public const string MarcusEricsson = "ericsson";
+        public const string MaxChilton = "chilton";
+        public const string MaxVerstappen = "max_verstappen";
+        public const string NicoHulkenberg = "hulkenberg";
+        /// <summary>#6 ROS</summary>
+        public const string NicoRosberg = "rosberg";
+        public const string PascalWehrlein = "wehrlein";
+        /// <summary>#13 MAL</summary>
+        public const string PastorMaldonado = "maldonado";
+        public const string PaulDiResta = "resta";
+        public const string RioHaryanto = "haryanto";
+        public const string RomainGrosjean = "grosjean";
+        /// <summary>#5 VET</summary>
+        public const string SebastianVettel = "vettel";
+        /// <summary>#11 PER</summary>
+        public const string SergioPerez = "perez";
+        public const string StoffelVandoorne = "vandoorne";
+        public const string ValtteriBottas = "bottas";
+        public const string WillStevens = "stevens";
 
-        /// <summary>Fernando Alonso</summary>
-        [ErgastId("alonso")] ALO,
-        [ErgastId("alonso")] Alonso,
-        /// <summary>Fernando Alonso</summary>
-        [ErgastId("ALO")] FernandoAlonso,
 
-        /// <summary>Valtteri Bottas</summary>
-        [ErgastId("BOT")] BOT,
-        /// <summary>Valtteri Bottas</summary>
-        [ErgastId("BOT")] Bottas,
-        [ErgastId("BOT")] ValtteriBottas,
 
-        /// <summary>Jenson Button</summary>
-        [ErgastId("BUT")] BUT,
-        /// <summary>Jenson Button</summary>
-        [ErgastId("BUT")] Button,
-        [ErgastId("BUT")] JensonButton,
+        public const string HeikkiKovalainen = "kovalainen";
+        public const string GiedoVanDerGarde = "garde";
+        /// <summary>WEB</summary>
+        public const string MarcWebber = "webber";
+        public const string TimoGlock = "glock";
+        /// <summary>MSC</summary>
+        public const string MichaelSchumacher = "michael_schumacher";
+        public const string RalfSchumacher = "ralf_schumacher";
+        public const string BrunoSenna = "bruno_senna";
+        public const string NickHeidfeld = "heidfeld";
+        public const string RubensBarrichello = "barrichello";
+        public const string JarnoTrulli = "trulli";
+        public const string RobertKubica = "kubica";
+        public const string GiancarloFisichella = "fisichella";
+        public const string NelsonPiquetJr = "piquet_jr";
+        public const string DavidCoulthard = "coulthard";
+        public const string AnthonyDavidson = "davidson";
+        public const string ScottSpeed = "speed";
+        public const string JuanPabloMontoya = "montoya";
+        public const string JacquesVilleneuve = "villeneuve";
+        public const string HeinzHaraldFrentzen = "frentzen";
+        public const string NicolasKiesa = "kiesa";
+        public const string OlivierPanis = "panis";
+        public const string JosVerstappen = "verstappen";
+        public const string EddieIrvine = "irvine";
+        public const string MikaHakkinen = "hakkinen";
+        public const string DamonHill = "damon_hill";
+        public const string GrahamHill = "hill";
+        public const string JuanFangio = "fangio";
+        public const string AlbertoAscari = "fangio";
+        public const string JackBrabham = "jack_brabham";
+        public const string JimClark = "clark";
+        public const string JohnSurtees = "surtees";
+        public const string JackieStewart = "stewart";
+        public const string EmersonFittipaldi = "emerson_fittipaldi";
+        public const string NikiLauda = "lauda";
+        public const string JamesHunt = "hunt";
+        public const string MarioAndretti = "mario_andretti";
+        public const string NelsonPiquet = "piquet";
+        public const string KekeRosberg = "keke_rosberg";
+        public const string AlainProst = "prost";
+        public const string AyrtonSenna = "senna";
+        public const string NigelMansell = "mansell";
 
-        /// <summary>Marcus Ericsson</summary>
-        [ErgastId("ERI")] ERI,
-        /// <summary>Marcus Ericsson</summary>
-        [ErgastId("ERI")] Ericsson,
-        [ErgastId("ERI")] MarcusEricsson,
-
-        /// <summary>
-        /// Romain Grosjean
-        /// </summary>
-        [ErgastId("GRO")] GRO,
-        /// <summary>
-        /// Romain Grosjean
-        /// </summary>
-        [ErgastId("GRO")] Grosjean,
-        [ErgastId("GRO")] RomainGrosjean,
-
-        /// <summary>
-        /// Lewis Hamilton
-        /// </summary>
-        [ErgastId("HAM")] HAM,
-        /// <summary>
-        /// Lewis Hamilton
-        /// </summary>
-        [ErgastId("HAM")] Hamilton,
-        [ErgastId("HAM")] LewisHamilton,
-
-        /// <summary>
-        /// Nico Hülkenberg
-        /// </summary>
-        [ErgastId("HUL")] HUL,
-        /// <summary>
-        /// Nico Hülkenberg
-        /// </summary>
-        [ErgastId("HUL")] Hulkenberg,
-        [ErgastId("HUL")] NicoHulkenberg,
-
-        /// <summary>
-        /// Daniil Kvyat
-        /// </summary>
-        [ErgastId("KVY")] KVY,
-        /// <summary>
-        /// Danieel Kvyat
-        /// </summary>
-        [ErgastId("KVY")] Kvyat,
-        [ErgastId("KVY")] DaniilKvyat,
-
-        /// <summary>
-        /// Kevin Magnussen
-        /// </summary>
-        [ErgastId("MAG")] MAG,
-        /// <summary>
-        /// Kevin Magnussen
-        /// </summary>
-        [ErgastId("MAG")] Magnussen,
-        [ErgastId("MAG")] KevinMagnussen,
-
-        /// <summary>
-        /// Pastor "Maldozer" Maldonado
-        /// </summary>
-        [ErgastId("MAL")] MAL,
-        /// <summary>
-        /// Pastor "Maldozer" Maldonado
-        /// </summary>
-        [ErgastId("MAL")] Maldonado,
-        /// <summary>
-        /// Pastor "Maldozer" Maldonado
-        /// </summary>
-        [ErgastId("MAL")] Maldozer,
-        [ErgastId("MAL")] PastorMaldonado,
-
-        /// <summary>
-        /// Felipe Mazza
-        /// </summary>
-        [ErgastId("MAS")] MAS,
-        [ErgastId("MAS")] Massa,
-        [ErgastId("MAS")] FelipeMassa,
-
-        /// <summary>
-        /// Sergio Pérez
-        /// </summary>
-        [ErgastId("PER")] PER,
-        /// <summary>
-        /// Sergio Pérez
-        /// </summary>
-        [ErgastId("PER")] Perez,
-        [ErgastId("PER")] SergioPerez,
-
-        /// <summary>
-        /// Kimi Räikkönen
-        /// </summary>
-        [ErgastId("RAI")] RAI,
-        /// <summary>
-        /// Kimi Räikkönen
-        /// </summary>
-        [ErgastId("RAI")] Raikkonen,
-        [ErgastId("RAI")] KimiRaikkonen,
-
-        /// <summary>
-        /// Daniel Ricciardo
-        /// </summary>
-        [ErgastId("RIC")] RIC,
-        /// <summary>
-        /// Daniel Ricciardo
-        /// </summary>
-        [ErgastId("RIC")] Ricciardo,
-        [ErgastId("RIC")] DanielRicciardo,
-
-        /// <summary>
-        /// Max Verstappen
-        /// </summary>
-        [ErgastId("VER")] VER,
-        /// <summary>
-        /// Max Verstappen
-        /// </summary>
-        [ErgastId("RIC")] Verstappen,
-        [ErgastId("RIC")] MaxVerstappen,
-
-        /// <summary>
-        /// Nico Rosberg
-        /// </summary>
-        [ErgastId("ROS")] ROS,
-        /// <summary>
-        /// Nico Rosberg
-        /// </summary>
-        [ErgastId("ROS")] Rosberg,
-        [ErgastId("ROS")] NicoRosberg,
-
-        /// <summary>
-        /// Adrian Sutil
-        /// </summary>
-        [ErgastId("SUT")] SUT,
-        /// <summary>
-        /// Adrian Sutil
-        /// </summary>
-        [ErgastId("SUT")] Sutil,
-        [ErgastId("SUT")] AdrianSutil,
-
-        /// <summary>
-        /// Sebastian Vettel
-        /// </summary>
-        [ErgastId("VET")] VET,
-        /// <summary>
-        /// Sebastian Vettel
-        /// </summary>
-        [ErgastId("VET")] Vettel,
-        [ErgastId("VET")] SebastianVettel
     }
 }
