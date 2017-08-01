@@ -8,15 +8,15 @@ namespace ErgastApi.Client.Attributes
     {
         public int Order { get; set; }
 
-        public string MethodName { get; set; }
+        public string SegmentName { get; set; }
 
         public UrlSegmentAttribute()
         {
         }
 
-        public UrlSegmentAttribute(string methodName)
+        public UrlSegmentAttribute(string segmentName)
         {
-            MethodName = methodName;
+            SegmentName = segmentName;
         }
     }
 }

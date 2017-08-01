@@ -7,11 +7,15 @@ namespace ErgastApi.Client
     {
         public int? Order { get; set; }
 
+        public string PropertyName { get; set; }
+
         public string Name { get; set; }
 
         public string Value { get; set; }
 
         public bool IsTerminator { get; set; }
+
+        public IEnumerable<string> DependentPropertyNames { get; set; } = new List<string>();
 
         public int CompareTo(UrlSegmentInfo other)
         {
