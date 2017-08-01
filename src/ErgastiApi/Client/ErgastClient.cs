@@ -67,11 +67,14 @@ namespace ErgastApi.Client
         {
             var url = ApiRoot + UrlBuilder.Build(request);
 
+            // TODO: Remove this
             Console.WriteLine(url);
 
             var response = Cache.Get<T>(url);
             if (response != null)
                 return response;
+
+            EnsureValidRequest(request);
 
             var responseMessage = await HttpClient.GetAsync(url).ConfigureAwait(false);
             responseMessage.EnsureSuccessStatusCode();
@@ -83,6 +86,12 @@ namespace ErgastApi.Client
             Cache.AddOrReplace(url, response);
 
             return response;
+        }
+
+        protected void EnsureValidRequest(IErgastRequest request)
+        {
+            if (request.Round != null && request.Season == null)
+                throw new Exception("You cannot specify a round without also specifying a season.");
         }
 
         public void Dispose()
