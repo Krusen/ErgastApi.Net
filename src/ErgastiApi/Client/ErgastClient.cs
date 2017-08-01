@@ -9,7 +9,7 @@ using Newtonsoft.Json;
 
 namespace ErgastApi.Client
 {
-    public class ErgastClient : IDisposable, IErgastClient
+    public class ErgastClient : IErgastClient, IDisposable
     {
         private string _apiRoot = "https://ergast.com/api/f1";
 
