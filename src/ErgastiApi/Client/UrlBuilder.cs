@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using ErgastApi.Client.Attributes;
@@ -9,80 +8,83 @@ namespace ErgastApi.Client
 {
     public class UrlBuilder : IUrlBuilder
     {
-        // TODO: Refactor/cleanup
         public string Build(IErgastRequest request)
         {
-            // TODO: Refactor to check for UrlSegmentDependencyAttribute and that the dependent property value is not null
+            var segments = GetSegments(request);
 
-            var calls = new List<UrlSegmentInfo>();
-            UrlSegmentInfo lastCall = null;
+            var url = "";
+            foreach (var segment in segments)
+            {
+                if (segment.Name != null)
+                    url += $"/{segment.Name}";
+
+                if (segment.Value != null)
+                    url += $"/{segment.Value}";
+            }
+
+            url += ".json";
+
+            if (request.Limit != null)
+                url += "?limit=" + request.Limit;
+
+            if (request.Offset != null)
+            {
+                url += request.Limit == null ? "?" : "&";
+                url += "offset=" + request.Offset;
+            }
+
+            return url;
+        }
+
+        // TODO: Extend to check for UrlSegmentDependencyAttribute and that the dependent property value is not null
+        private static IList<UrlSegmentInfo> GetSegments(IErgastRequest request)
+        {
+            var segments = new List<UrlSegmentInfo>();
             var properties = request.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
             foreach (var prop in properties)
             {
-                var queryMethod = prop.GetCustomAttributes<UrlSegmentAttribute>(true).FirstOrDefault();
-                var queryTerminator = prop.GetCustomAttributes<UrlTerminatorAttribute>(true).FirstOrDefault();
+                var urlSegment = prop.GetCustomAttributes<UrlSegmentAttribute>(true).FirstOrDefault();
+                var urlTerminator = prop.GetCustomAttributes<UrlTerminatorAttribute>(true).FirstOrDefault();
 
-                if (queryMethod == null)
+                if (urlSegment == null)
                     continue;
 
                 // TODO: Expand UrlSegmentInfo with more info like PropertyInfo etc.
 
-                // Use int value of enums
-                var value = prop.GetValue(request);
-                if (value?.GetType().IsEnum == true)
-                    value = (int) value;
-
-                var call = new UrlSegmentInfo
+                var segment = new UrlSegmentInfo
                 {
-                    Name = queryMethod.MethodName,
-                    Order = queryMethod.Order,
-                    Value = value?.ToString(),
-                    IsTerminator = queryTerminator != null
+                    Name = urlSegment.MethodName,
+                    Order = NormalizeOrder(urlSegment.Order),
+                    Value = GetSegmentValue(prop, request),
+                    IsTerminator = urlTerminator != null
                 };
 
-                if (call.IsTerminator)
-                {
-                    lastCall = call;
-                }
-                else
-                {
-                    calls.Add(call);
-                }
+                if (segment.Value == null && !segment.IsTerminator)
+                    continue;
+
+                segments.Add(segment);
             }
 
-            // TODO: Sort by order value first, then alphabetically
-            calls.Sort();
+            segments.Sort();
 
-            if (lastCall != null)
-            {
-                calls.Add(lastCall);
-            }
+            return segments;
+        }
 
-            var output = "";
-            foreach (var call in calls)
-            {
-                if (call.Value != null || call.IsTerminator)
-                {
-                    if (call.Name != null)
-                        output += $"/{call.Name}";
+        private static string GetSegmentValue(PropertyInfo property, IErgastRequest request)
+        {
+            var value = property.GetValue(request);
+            if (value?.GetType().IsEnum == true)
+                value = (int) value;
 
-                    if (call.Value != null)
-                        output += $"/{call.Value}";
-                }
-            }
+            return value?.ToString();
+        }
 
-            output += ".json";
-
-            if (request.Limit != null)
-                output += "?limit=" + request.Limit;
-
-            if (request.Offset != null)
-            {
-                output += request.Limit == null ? "?" : "&";
-                output += "offset=" + request.Offset;
-            }
-
-            return output;
+        /// <summary>
+        /// Converts 0 to null.
+        /// </summary>
+        private static int? NormalizeOrder(int order)
+        {
+            return order == 0 ? null : (int?) order;
         }
     }
 }
