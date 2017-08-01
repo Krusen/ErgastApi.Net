@@ -41,8 +41,10 @@ namespace ErgastApi.Serialization
 
             prop.Writable = prop.Writable ? prop.Writable : HasPrivateSetter(member);
 
-            // TODO: Clean up a bit. Ignores attributes with JsonPathProperty attribute in default serializer
-            prop.Ignored = prop.Ignored || prop.AttributeProvider.GetAttributes(typeof(JsonPathPropertyAttribute), true).Any();
+            if (!prop.Ignored)
+            {
+                prop.Ignored = prop.HasAttribute<JsonPathPropertyAttribute>();
+            }
 
             return prop;
         }

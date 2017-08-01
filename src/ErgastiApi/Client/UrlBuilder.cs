@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Reflection;
 using ErgastApi.Client.Attributes;
 using ErgastApi.Requests;
@@ -41,22 +39,21 @@ namespace ErgastApi.Client
         {
             var segments = new List<UrlSegmentInfo>();
             var properties = request.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+
             foreach (var prop in properties)
             {
-                var urlSegment = prop.GetCustomAttributes<UrlSegmentAttribute>(true).FirstOrDefault();
-                var urlTerminator = prop.GetCustomAttributes<UrlTerminatorAttribute>(true).FirstOrDefault();
+                var urlSegment = prop.GetCustomAttribute<UrlSegmentAttribute>(true);
+                var urlTerminator = prop.GetCustomAttribute<UrlTerminatorAttribute>(true);
 
                 if (urlSegment == null)
                     continue;
-
-                // TODO: Expand UrlSegmentInfo with more info like PropertyInfo etc.
 
                 var segment = new UrlSegmentInfo
                 {
                     Order = NormalizeOrder(urlSegment.Order),
                     Name = urlSegment.SegmentName,
                     Value = GetSegmentValue(prop, request),
-                    IsTerminator = urlTerminator != null,
+                    IsTerminator = urlTerminator != null
                 };
 
                 if (segment.Value == null && !segment.IsTerminator)
