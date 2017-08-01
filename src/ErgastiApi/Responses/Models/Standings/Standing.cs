@@ -4,8 +4,10 @@ namespace ErgastApi.Responses.Models.Standings
     {
         public int Position { get; set; }
 
-        // TODO: Some of these values are not relevant for standings (if any)
-        // TODO: Docu: equals Position or "R" retired, "D" disqualified, "E" excluded, "W" withdrawn, "F" failed to qualify, "N" not classified. See Status for more info
+        /// <summary>
+        /// Finishing position.
+        /// R = Retired, D = Disqualified, E = Excluded, W = Withdrawn, F = Failed to qualify, N = Not classified.
+        /// </summary>
         public string PositionText { get; set; }
 
         public int Points { get; set; }
