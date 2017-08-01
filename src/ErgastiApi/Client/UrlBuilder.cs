@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using ErgastApi.Client.Attributes;
@@ -25,11 +26,17 @@ namespace ErgastApi.Client
                     continue;
 
                 // TODO: Expand UrlSegmentInfo with more info like PropertyInfo etc.
+
+                // Use int value of enums
+                var value = prop.GetValue(request);
+                if (value?.GetType().IsEnum == true)
+                    value = (int) value;
+
                 var call = new UrlSegmentInfo
                 {
                     Name = queryMethod.MethodName,
                     Order = queryMethod.Order,
-                    Value = prop.GetValue(request)?.ToString(),
+                    Value = value?.ToString(),
                     IsTerminator = queryTerminator != null
                 };
 
