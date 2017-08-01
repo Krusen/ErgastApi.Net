@@ -29,8 +29,16 @@ namespace ErgastApi.Serialization
         {
             var contract = base.CreateObjectContract(objectType);
 
+            var jsonPathProperties = contract.Properties
+                    .Where(x => x.HasAttribute<JsonPathPropertyAttribute>())
+                    .Select(x => new JsonPathPropertyInfo
+                    {
+                        JsonProperty = x,
+                        Path = x.GetAttribute<JsonPathPropertyAttribute>().Path
+                    });
+
             if (HasPropertiesUsingJsonPath(contract))
-                contract.Converter = new JsonPathConverter();
+                contract.Converter = new JsonPathConverter(jsonPathProperties);
 
             return contract;
         }

@@ -9,5 +9,10 @@ namespace ErgastApi.Serialization
         {
             return property.AttributeProvider.GetAttributes(typeof(T), true).Any();
         }
+
+        public static T GetAttribute<T>(this JsonProperty property) where T : class
+        {
+            return property.AttributeProvider.GetAttributes(typeof(T), true).FirstOrDefault() as T;
+        }
     }
 }
