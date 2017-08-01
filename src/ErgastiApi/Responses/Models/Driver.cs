@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System;0
 using Newtonsoft.Json;
 
 namespace ErgastApi.Responses.Models
@@ -8,11 +8,10 @@ namespace ErgastApi.Responses.Models
         [JsonProperty("driverId")]
         public string DriverId { get; private set; }
 
-        // TODO: Only for 2014+ (and might different than their actual number . i.e. #1 for champions
         /// <summary>
         /// Drivers who participated in the 2014 season onwards have a permanent driver number.
-        /// However, this may differ from the value of the number attribute of the Result element in earlier seasons or
-        ///  where the reigning champion has chosen to use “1” rather than his permanent driver number.
+        /// However, this may differ from the value of the number attribute of the Result element in earlier seasons
+        /// or  where the reigning champion has chosen to use "1" rather than his permanent driver number.
         /// </summary>
         [JsonProperty("permanentNumber")]
         public int? PermanentNumber { get; private set; }
