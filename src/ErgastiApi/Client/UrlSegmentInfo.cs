@@ -19,8 +19,14 @@ namespace ErgastApi.Client
 
             // Sort '0' (i.e. not set) higher than anything else
             if (Order == 0) return 1;
+            if (other.Order == 0) return -1;
 
-            return Order.CompareTo(other.Order);
+            var comparison = Order.CompareTo(other.Order);
+
+            if (comparison != 0)
+                return comparison;
+
+            return string.Compare(Name, other.Name, StringComparison.OrdinalIgnoreCase);
         }
     }
 }
