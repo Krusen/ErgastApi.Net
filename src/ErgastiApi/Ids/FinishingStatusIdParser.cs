@@ -3,7 +3,6 @@ using System.Text.RegularExpressions;
 
 namespace ErgastApi.Ids
 {
-    // TODO: Maybe move
     public static class FinishingStatusIdParser
     {
         public static FinishingStatusId Parse(string value)
