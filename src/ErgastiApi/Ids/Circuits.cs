@@ -1,6 +1,9 @@
 ﻿namespace ErgastApi.Ids
 {
-    public static class CircuitIds
+    /// <summary>
+    /// Constants for circuit IDs. The list may not always be complete or up to date.
+    /// </summary>
+    public static class Circuits
     {
         public const string Australia = AlbertPark;
         public const string Melbourne = AlbertPark;

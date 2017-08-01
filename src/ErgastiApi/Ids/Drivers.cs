@@ -1,6 +1,9 @@
 ﻿namespace ErgastApi.Ids
 {
-    public static class DriverIds
+    /// <summary>
+    /// Constants for driver IDs. The list may not always be complete or up to date.
+    /// </summary>
+    public static class Drivers
     {
         public const string AntonioGiovinazzi = "giovinazzi";
         public const string CarlosSainz = "sainz";

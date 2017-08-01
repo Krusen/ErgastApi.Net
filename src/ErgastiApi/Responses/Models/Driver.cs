@@ -1,4 +1,4 @@
-﻿using System;0
+﻿using System;
 using Newtonsoft.Json;
 
 namespace ErgastApi.Responses.Models

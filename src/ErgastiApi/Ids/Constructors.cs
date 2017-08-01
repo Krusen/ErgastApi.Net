@@ -1,6 +1,9 @@
 ﻿namespace ErgastApi.Ids
 {
-    public static class ConstructorIds
+    /// <summary>
+    /// Constants for constructor IDs. The list may not always be complete or up to date.
+    /// </summary>
+    public static class Constructors
     {
         public const string Ferrari = "ferrari";
         public const string ForceIndia = "force_india";

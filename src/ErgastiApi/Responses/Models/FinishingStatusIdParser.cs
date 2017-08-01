@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text.RegularExpressions;
 
-namespace ErgastApi.Ids
+namespace ErgastApi.Responses.Models
 {
     public static class FinishingStatusIdParser
     {
