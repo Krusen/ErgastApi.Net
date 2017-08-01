@@ -55,6 +55,9 @@ namespace ErgastApi.Responses.Models.RaceInfo
         [JsonIgnore]
         public FinishingStatusId Status => FinishingStatusIdParser.Parse(StatusText);
 
+        /// <summary>
+        /// Fastest lap info. Only included from 2004 season and onwards.
+        /// </summary>
         [JsonProperty("FastestLap")]
         public FastestLap FastestLap { get; private set; }
 
