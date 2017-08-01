@@ -43,6 +43,7 @@ namespace ErgastApi.Client
                 }
             }
 
+            // TODO: Sort by order value first, then alphabetically
             calls.Sort();
 
             if (lastCall != null)
