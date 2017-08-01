@@ -8,14 +8,6 @@ namespace ErgastApi.Serialization.Converters
 {
     public class JsonPathConverter : JsonConverter
     {
-        private JsonObjectContract ObjectContract { get; }
-
-        public JsonPathConverter(JsonObjectContract contract)
-        {
-            // TODO: Remove, not used
-            ObjectContract = contract;
-        }
-
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
             throw new NotImplementedException();
@@ -24,7 +16,6 @@ namespace ErgastApi.Serialization.Converters
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
             var contract = serializer.ContractResolver.ResolveContract(objectType) as JsonObjectContract;
-
 
             var token = JObject.Load(reader);
 

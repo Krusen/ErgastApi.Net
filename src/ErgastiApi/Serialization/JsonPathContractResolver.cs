@@ -30,7 +30,7 @@ namespace ErgastApi.Serialization
             var contract = base.CreateObjectContract(objectType);
 
             if (HasPropertiesUsingJsonPath(contract))
-                contract.Converter = new JsonPathConverter(contract);
+                contract.Converter = new JsonPathConverter();
 
             return contract;
         }
