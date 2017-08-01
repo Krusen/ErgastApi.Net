@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -72,7 +71,7 @@ namespace ErgastApi.Client.Caching
             while (!cancellationToken.IsCancellationRequested)
             {
                 var now = DateTimeOffset.UtcNow;
-                var expiredEntries = Enumerable.Where<KeyValuePair<string, CacheEntry<ErgastResponse>>>(Cache, x => x.Value.Expiration < now);
+                var expiredEntries = Cache.Where(x => x.Value.Expiration < now);
 
                 foreach (var entry in expiredEntries)
                 {
@@ -81,7 +80,7 @@ namespace ErgastApi.Client.Caching
 
                 try
                 {
-                    await Task.Delay((TimeSpan) CleanupTaskInterval, cancellationToken);
+                    await Task.Delay(CleanupTaskInterval, cancellationToken).ConfigureAwait(false);
                 }
                 catch (OperationCanceledException)
                 {
