@@ -11,7 +11,7 @@ namespace ErgastApi.Client
 {
     public class ErgastClient : IDisposable, IErgastClient
     {
-        private string _apiRoot = "http://ergast.com/api/f1";
+        private string _apiRoot = "https://ergast.com/api/f1";
 
         private JsonSerializerSettings SerializerSettings { get; } = new JsonSerializerSettings { ContractResolver = new JsonPathContractResolver() };
 
