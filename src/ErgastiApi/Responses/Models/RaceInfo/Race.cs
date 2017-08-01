@@ -6,7 +6,6 @@ namespace ErgastApi.Responses.Models.RaceInfo
 {
     public class Race
     {
-        // TODO: Make season (year) an int as well?
         [JsonProperty("season")]
         public int Season { get; private set; }
 

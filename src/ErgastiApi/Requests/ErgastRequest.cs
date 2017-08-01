@@ -37,7 +37,6 @@ namespace ErgastApi.Requests
         [UrlSegment(Order = 1)]
         public virtual int? Season { get; set; }
 
-        // TODO: Require season to be not null
         [UrlSegment(Order = 2)]
         [UrlSegmentDependency(nameof(Season))]
         public virtual int? Round { get; set; }
