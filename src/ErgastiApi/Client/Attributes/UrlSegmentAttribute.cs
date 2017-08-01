@@ -2,7 +2,6 @@
 
 namespace ErgastApi.Client.Attributes
 {
-    // TODO: Implement QueryDependency attribute in UrlBuilder
     [AttributeUsage(AttributeTargets.Property)]
     public class UrlSegmentAttribute : Attribute
     {
