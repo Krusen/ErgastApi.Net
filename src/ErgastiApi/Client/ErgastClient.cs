@@ -9,9 +9,11 @@ using Newtonsoft.Json;
 
 namespace ErgastApi.Client
 {
-    public class ErgastClient : IDisposable
+    public class ErgastClient : IDisposable, IErgastClient
     {
         private string _apiRoot = "http://ergast.com/api/f1";
+
+        private JsonSerializerSettings SerializerSettings { get; } = new JsonSerializerSettings { ContractResolver = new JsonPathContractResolver() };
 
         public string ApiRoot
         {
@@ -28,7 +30,7 @@ namespace ErgastApi.Client
             }
         }
 
-        // TODO: Interface?
+        // TODO: Interface for unit tests?
         public HttpClient HttpClient { get; set; } = new HttpClient();
 
         public IUrlBuilder UrlBuilder { get; set; } = new UrlBuilder();
@@ -71,18 +73,15 @@ namespace ErgastApi.Client
             if (response != null)
                 return response;
 
-            // TODO: Don't use GetStringAsync, instead use GetAsync - then we can handle errors better
-            // TODO: Should probably be moved to its own wrapper with specific methods instead of using HttpClient directly
-            var data = await HttpClient.GetStringAsync(url).ConfigureAwait(false);
+            var responseMessage = await HttpClient.GetAsync(url).ConfigureAwait(false);
+            responseMessage.EnsureSuccessStatusCode();
 
-            // TODO: Reuse/add to constructor?
-            var settings = new JsonSerializerSettings { ContractResolver = new JsonPathContractResolver() };
+            var content = await responseMessage.Content.ReadAsStringAsync().ConfigureAwait(false);
+            var rootResponse = JsonConvert.DeserializeObject<ErgastRootResponse<T>>(content, SerializerSettings);
 
-            // TODO: Make all property setters private for all models/responses
-
-            var obj = JsonConvert.DeserializeObject<ErgastRootResponse<T>>(data, settings);
-            response = obj.Data;
+            response = rootResponse.Data;
             Cache.AddOrReplace(url, response);
+
             return response;
         }
 
@@ -100,7 +99,6 @@ namespace ErgastApi.Client
             Cache?.Dispose();
         }
 
-        // TODO: Move and rename?
         private class ErgastRootResponse<T>
         {
             [JsonProperty("MRData")]
