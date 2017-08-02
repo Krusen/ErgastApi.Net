@@ -49,7 +49,7 @@ namespace ErgastApi.Client
             if (Order == null) return 1;
             if (other.Order == null) return -1;
 
-            return Order.Value.CompareTo(other.Order);
+            return Order.Value.CompareTo(other.Order.Value);
         }
 
         private int CompareName(UrlSegmentInfo other)

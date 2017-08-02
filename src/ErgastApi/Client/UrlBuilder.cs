@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Reflection;
 using ErgastApi.Client.Attributes;
+using ErgastApi.Extensions;
 using ErgastApi.Requests;
 
 namespace ErgastApi.Client
@@ -70,7 +71,7 @@ namespace ErgastApi.Client
         private static string GetSegmentValue(PropertyInfo property, IErgastRequest request)
         {
             var value = property.GetValue(request);
-            if (value?.GetType().IsEnum == true)
+            if (value?.GetType().IsEnum() == true)
                 value = (int) value;
 
             return value?.ToString();

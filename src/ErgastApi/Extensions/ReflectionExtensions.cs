@@ -3,11 +3,15 @@ using System.Reflection;
 
 namespace ErgastApi.Extensions
 {
-    public static class ReflectionExtensions
+    internal static class ReflectionExtensions
     {
-        internal static T GetCustomAttribute<T>(this Type type) where T : Attribute
+        internal static bool IsEnum(this Type type)
         {
-            return type.GetTypeInfo().GetCustomAttribute<T>();
+#if NETSTANDARD
+            return type.GetTypeInfo().IsEnum;
+#else
+            return type.IsEnum;
+#endif
         }
     }
 }
