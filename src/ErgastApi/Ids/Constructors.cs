@@ -5,6 +5,8 @@
     /// </summary>
     public static class Constructors
     {
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+
         public const string Ferrari = "ferrari";
         public const string ForceIndia = "force_india";
         public const string Hass = "haas";
@@ -42,5 +44,7 @@
         public const string Prost = "prost";
         public const string Stewart = "stewart";
         public const string Tyrrell = "Tyrrell";
+
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
     }
 }
