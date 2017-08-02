@@ -6,7 +6,6 @@
     public static class Drivers
     {
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
-
         public const string AntonioGiovinazzi = "giovinazzi";
         public const string CarlosSainz = "sainz";
         /// <summary>#3 RIC</summary>
@@ -93,7 +92,6 @@
         public const string AlainProst = "prost";
         public const string AyrtonSenna = "senna";
         public const string NigelMansell = "mansell";
-
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
     }
 }

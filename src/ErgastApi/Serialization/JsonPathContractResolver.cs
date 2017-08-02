@@ -25,6 +25,7 @@ namespace ErgastApi.Serialization
                 .Any());
         }
 
+        /// <inheritdoc />
         protected override JsonObjectContract CreateObjectContract(Type objectType)
         {
             var contract = base.CreateObjectContract(objectType);
@@ -43,6 +44,7 @@ namespace ErgastApi.Serialization
             return contract;
         }
 
+        /// <inheritdoc />
         protected override JsonProperty CreateProperty(MemberInfo member, MemberSerialization memberSerialization)
         {
             var prop = base.CreateProperty(member, memberSerialization);

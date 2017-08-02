@@ -6,7 +6,6 @@
     public static class Circuits
     {
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
-
         public const string Australia = AlbertPark;
         public const string Melbourne = AlbertPark;
         public const string AlbertPark = "albert_park";
@@ -72,7 +71,6 @@
         public const string UAE = YasMarina;
         public const string AbuDhabi = YasMarina;
         public const string YasMarina = "yas_marina";
-
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
     }
 }

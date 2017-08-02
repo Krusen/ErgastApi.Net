@@ -2,6 +2,7 @@
 {
     public enum FinishingStatusId
     {
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         Finished = 1,
         Disqualified = 2,
         Accident = 3,
@@ -12,14 +13,23 @@
         Clutch = 8,
         Hydraulics = 9,
         Electrical = 10,
+        /// <summary>+1 Lap</summary>
         Laps1 = 11,
+        /// <summary>+2 Laps</summary>
         Laps2 = 12,
+        /// <summary>+3 Laps</summary>
         Laps3 = 13,
+        /// <summary>+4 Laps</summary>
         Laps4 = 14,
+        /// <summary>+5 Laps</summary>
         Laps5 = 15,
+        /// <summary>+6 Laps</summary>
         Laps6 = 16,
+        /// <summary>+7 Laps</summary>
         Laps7 = 17,
+        /// <summary>+8 Laps</summary>
         Laps8 = 18,
+        /// <summary>+9 Laps</summary>
         Laps9 = 19,
         SpunOff = 20,
         Radiator = 21,
@@ -46,17 +56,22 @@
         HeatShieldFire = 42,
         Exhaust = 43,
         OilLeak = 44,
+        /// <summary>+11 Laps</summary>
         Laps11 = 45,
         WheelRim = 46,
         WaterLeak = 47,
         FuelPump = 48,
         TrackRod = 49,
+        /// <summary>+17 Laps</summary>
         Laps17 = 50,
         OilPressure = 51,
+        /// <summary>+13 Laps</summary>
         Laps13 = 53,
         Withdrew = 54,
+        /// <summary>+12 Laps</summary>
         Laps12 = 55,
         EngineFire = 56,
+        /// <summary>+26 Laps</summary>
         Laps26 = 58,
         TyrePuncture = 59,
         OutOfFuel = 60,
@@ -87,6 +102,7 @@
         Stalled = 85,
         Halfshaft = 86,
         Crankshaft = 87,
+        /// <summary>+10 Laps</summary>
         Laps10 = 88,
         SafetyConcerns = 89,
         NotRestarted = 90,
@@ -110,28 +126,45 @@
         OilPipe = 108,
         Axle = 109,
         WaterPipe = 110,
+        /// <summary>+14 Laps</summary>
         Laps14 = 111,
+        /// <summary>+15 Laps</summary>
         Laps15 = 112,
+        /// <summary>+25 Laps</summary>
         Laps25 = 113,
+        /// <summary>+18 Laps</summary>
         Laps18 = 114,
+        /// <summary>+22 Laps</summary>
         Laps22 = 115,
+        /// <summary>+16 Laps</summary>
         Laps16 = 116,
+        /// <summary>+24 Laps</summary>
         Laps24 = 117,
+        /// <summary>+29 Laps</summary>
         Laps29 = 118,
+        /// <summary>+23 Laps</summary>
         Laps23 = 119,
+        /// <summary>+21 Laps</summary>
         Laps21 = 120,
         Magneto = 121,
+        /// <summary>+44 Laps</summary>
         Laps44 = 122,
+        /// <summary>+30 Laps</summary>
         Laps30 = 123,
+        /// <summary>+19 Laps</summary>
         Laps19 = 124,
+        /// <summary>+46 Laps</summary>
         Laps46 = 125,
         Supercharger = 126,
+        /// <summary>+20 Laps</summary>
         Laps20 = 127,
+        /// <summary>+42 Laps</summary>
         Laps42 = 128,
         EngineMisfire = 129,
         CollisionDamage = 130,
         PowerUnit = 131,
         ERS = 132,
         BrakeDuct = 135
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
     }
 }
