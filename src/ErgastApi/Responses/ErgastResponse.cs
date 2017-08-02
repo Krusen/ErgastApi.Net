@@ -7,25 +7,33 @@ namespace ErgastApi.Responses
     public abstract class ErgastResponse
     {
         [JsonProperty("url")]
-        public virtual string RequestUrl { get; private set; }
+        public string RequestUrl { get; protected set; }
 
         [JsonProperty("limit")]
-        public virtual int Limit { get; private set; }
+        public int Limit { get; protected set; }
 
         [JsonProperty("offset")]
-        public virtual int Offset { get; private set; }
+        public int Offset { get; protected set; }
 
         [JsonProperty("total")]
-        public virtual int TotalResults { get; private set; }
+        public int TotalResults { get; protected set; }
 
-        // TODO: Note that it can be inaccurate if limit/offset do not correlate
-        // TODO: Test with 0 values
-        public virtual int Page => Offset / Limit + 1;
+        // TODO: Note that it can be inaccurate if limit/offset do not divide evenly
+        public int Page
+        {
+            get
+            {
+                if (Limit <= 0)
+                    return 1;
+
+                return (int) Math.Ceiling((double) Offset / Limit) + 1;
+            }
+        }
 
         // TODO: Test with 0 values
-        public virtual int TotalPages => (int) Math.Ceiling(TotalResults / (double)Limit);
+        public int TotalPages => (int) Math.Ceiling(TotalResults / (double) Limit);
 
         // TODO: Test
-        public virtual bool HasMorePages => TotalResults > Limit + Offset;
+        public bool HasMorePages => TotalResults > Limit + Offset;
     }
 }
