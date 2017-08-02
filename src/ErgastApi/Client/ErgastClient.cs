@@ -67,9 +67,6 @@ namespace ErgastApi.Client
         {
             var url = ApiRoot + UrlBuilder.Build(request);
 
-            // TODO: Remove this
-            Console.WriteLine(url);
-
             var response = Cache.Get<T>(url);
             if (response != null)
                 return response;
