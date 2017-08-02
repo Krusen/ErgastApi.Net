@@ -1,0 +1,136 @@
+# Ergast Developer API .NET Client
+
+[![AppVeyor](https://ci.appveyor.com/api/projects/status/kaibsj29lcn9aqt1?svg=true)](https://ci.appveyor.com/project/Krusen/ergastapi-net)
+[![NuGet](https://buildstats.info/nuget/ergastapi?includePreReleases=false)](https://www.nuget.org/packages/ErgastApi/)
+
+This a C# library wrapping the Ergast Developer API (http://ergast.com/mrd).
+
+The library makes it easy to explore and use the API and also takes care of caching the responses to minimize the load on API server.
+
+he Ergast Developer API is an experimental web service which provides access a historical record of motor racing data for non-commercial purposes.
+Please read the [terms and conditions of use](http://ergast.com/mrd/terms).
+
+The API provides data for the Formula One series, from the beginning of the world championships in 1950.
+
+Non-programmers can query the database using the [manual interface](http://ergast.com/mrd/query).
+
+## Installation
+
+
+Install the package **ErgastApi** from [NuGet](https://www.nuget.org/packages/ErgastApi/) 
+or install it from the [Package Manager Console](https://docs.microsoft.com/da-dk/nuget/tools/package-manager-console):
+
+```
+PM> Install-Package ErgastApi
+```
+
+
+## Usage
+
+The library is easy to use.
+
+Start by creating an `ErgastClient`. Then create on of the request types and set parameters to narrow down your query.
+Then execute the request throughe the client with the `ExecuteAsync(IErgastRequest)` method.
+
+Below is an example of how to get the race results of the 11th race of the 2017 season.
+
+```C#
+// Relevant imports
+using ErgastApi.Client;
+using ErgastApi.Ids;
+using ErgastApi.Requests;
+
+// The client should be stored and reused during the lifetime of your application
+var client = new ErgastClient();
+
+// All request properties are optional (except 'Season' if 'Round' is set)
+var request = new RaceResultsRequest
+{
+    Season = "2017",     // or Seasons.Current for current season
+    Round = "11",        // or Rounds.Last or Rounds.Next for last or next round
+    DriverId = "vettel", // or Drivers.SebastianVettel
+
+    Limit = 30      // Limit the number of results returned
+    Offset = 0      // Result offset (used for paging)
+};
+
+// RaceResultsRequest returns a RaceResultsResponse - other requests returns other response types
+RaceResultsResponse response = await client.ExecuteAsync(request
+```
+
+The following request types are available:
+
+- Race & Results
+  - `CircuitInfoRequest`
+  - `ConstructorInfoRequest` 
+  - `DriverInfoRequest`
+  - `FinishingStatusRequest`
+  - `QualifyingStatusRequest`
+  - `RaceListRequest`
+  - `RaceResultsRequest`
+  - `SeasonListRequest`
+- Standings
+  - `ConstructorStandingsRequest`
+  - `DriverStandingsRequest`
+- Lap Times & Pit Stops
+  - `LapTimesRequest`
+  - `PitStopsRequest`
+
+
+### Driver, constructor and circuit IDs
+
+Most current IDs are stored as constants in the `Drivers`, `Constructors` and `Circuits` static classes.
+
+```C#
+Drivers.SebastianVettel // "vettel"
+Constructors.Ferrari    // "ferrari"
+Circuits.Monza          // "monza"
+```
+
+If the ID you are looking for is not listed there, then you will have to query the API with either
+a `DriverInfoRequest`, `ConstructorInfoRequest` or `CircuitInfoRequest`.
+
+Here is how you could find the ID of Fernando Alonso:
+
+```C#
+// Get drivers in current season (leave out season to get a list of all drivers ever (requires paging))
+var request = new DriverInfoRequest { Limit = 1000 }
+var response = await client.ExecuteAsync(request);
+
+response.Drivers.Single(x => x.FullName == "Fernando Alonso").DriverId;
+```
+
+
+### Paging
+
+Some responses will have a lot of results. Every request type has two properties used for paging - `Limit` and `Offset`.
+
+The `Limit` property allows you to limit the number of returned results.
+The maximum value is 1000 but please use the smallest value that you can. If not set it defaults to 30.
+
+The `Offset` property specifies an offset into the result set (i.e. start from this position).
+If not set it defaults to zero.
+
+The response object returned from `ErgastClient.ExecuteAsync()` contains the following information to help you with paging:
+
+- `Limit` and `Offset` (the values used for the response)
+- `TotalResults`
+- `Page`
+- `TotalPages`
+- `HasMorePages`
+
+
+### Caching
+
+`ErgastClient` caches the response for all requests to minimize the load on the API server. Requests are cached by the resulting URL.
+
+The default cache lifetime is one hour. You can change this by setting `client.Cache.CacheEntryLifetime` to a different `TimeSpan` value.
+
+You can clear the cache by calling `client.Cache.Clear()`.
+
+
+## TODOs
+
+- Add helper methods for getting next/previous page
+- Add more XML documentation for better intellisense
+- Add more unit tests
