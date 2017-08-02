@@ -31,7 +31,7 @@ namespace ErgastApi.Responses.Models
         public string LastName { get; private set; }
 
         [JsonProperty("dateOfBirth")]
-        public DateTime DateOfBirth { get; private set; }
+        public DateTime? DateOfBirth { get; private set; }
 
         [JsonProperty("nationality")]
         public string Nationality { get; private set; }
