@@ -22,6 +22,11 @@ Task("Set-Build-Version")
     version = string.Join(".", parts[0], parts[1], buildNumber);
     XmlPoke(projectFile, versionPokeXpath, version);
 
+    if (BuildSystem.IsRunningOnAppVeyor)
+    {
+        AppVeyor.UpdateBuildVersion(version);
+    }
+
     Information("Set project version to " + version);
 });
 
