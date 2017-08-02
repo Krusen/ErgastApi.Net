@@ -17,32 +17,29 @@ namespace ErgastApi.Client.Caching
 
         protected ConcurrentDictionary<string, CacheEntry<ErgastResponse>> Cache { get; } = new ConcurrentDictionary<string, CacheEntry<ErgastResponse>>();
 
-        public TimeSpan DefaultCacheEntryLifetime { get; protected set; } = TimeSpan.FromHours(1);
+        public TimeSpan CacheEntryLifetime { get; set; } = TimeSpan.FromHours(1);
 
         public ErgastMemoryCache()
         {
             CleanupTask = RemoveExpiredEntries(CleanupTaskCancellationTokenSource.Token);
         }
 
-        public ErgastMemoryCache(TimeSpan defaultCacheEntryLifetime)
+        public ErgastMemoryCache(TimeSpan cacheEntryLifetime)
             : this()
         {
-            DefaultCacheEntryLifetime = defaultCacheEntryLifetime;
+            CacheEntryLifetime = cacheEntryLifetime;
         }
 
         public void AddOrReplace(string url, ErgastResponse response)
         {
-            var expiration = DateTimeOffset.UtcNow + DefaultCacheEntryLifetime;
-            AddOrReplace(url, response, expiration);
-        }
+            var expiration = DateTimeOffset.UtcNow + CacheEntryLifetime;
 
-        public void AddOrReplace(string url, ErgastResponse response, DateTimeOffset expiration)
-        {
             var entry = new CacheEntry<ErgastResponse>
             {
                 Item = response,
                 Expiration = expiration
             };
+
             Cache.AddOrUpdate(url, key => entry, (key, value) => entry);
         }
 

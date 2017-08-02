@@ -5,9 +5,10 @@ namespace ErgastApi.Client.Caching
 {
     public interface IErgastCache : IDisposable
     {
-        void AddOrReplace(string url, ErgastResponse response);
+        // TODO: Doc: Only used for new entries
+        TimeSpan CacheEntryLifetime { get; set; }
 
-        void AddOrReplace(string url, ErgastResponse response, DateTimeOffset expiration);
+        void AddOrReplace(string url, ErgastResponse response);
 
         T Get<T>(string url) where T : ErgastResponse;
 
