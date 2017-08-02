@@ -13,8 +13,6 @@ namespace ErgastApi.Client
 
         public bool IsTerminator { get; set; }
 
-        public IEnumerable<string> DependentPropertyNames { get; set; } = new List<string>();
-
         public int CompareTo(UrlSegmentInfo other)
         {
             if (ReferenceEquals(this, other)) return 0;
