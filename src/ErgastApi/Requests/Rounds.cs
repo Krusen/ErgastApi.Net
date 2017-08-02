@@ -1,5 +1,6 @@
 ﻿namespace ErgastApi.Requests
 {
+    // TODO: Move to Ids namespace together with Drivers, Circuits etc.? Or the other way around?
     /// <summary>
     /// Constants for querying relative rounds, e.g. last round.
     /// </summary>
