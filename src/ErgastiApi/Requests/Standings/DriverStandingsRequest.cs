@@ -1,7 +1,7 @@
 using ErgastApi.Client.Attributes;
-using ErgastApi.Responses.Standings;
+using ErgastApi.Responses;
 
-namespace ErgastApi.Requests.Standings
+namespace ErgastApi.Requests
 {
     public class DriverStandingsRequest : StandingsRequest<DriverStandingsResponse>
     {

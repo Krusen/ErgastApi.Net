@@ -1,9 +1,8 @@
 using ErgastApi.Client.Attributes;
-using ErgastApi.Ids;
 using ErgastApi.Responses;
 using ErgastApi.Responses.Models;
 
-namespace ErgastApi.Requests.Standard
+namespace ErgastApi.Requests
 {
     public class FinishingStatusRequest : StandardRequest<FinishingStatusResponse>
     {

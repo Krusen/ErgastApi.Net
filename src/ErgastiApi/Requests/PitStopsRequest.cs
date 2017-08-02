@@ -1,5 +1,5 @@
 using ErgastApi.Client.Attributes;
-using ErgastApi.Responses.RaceInfo;
+using ErgastApi.Responses;
 
 namespace ErgastApi.Requests
 {

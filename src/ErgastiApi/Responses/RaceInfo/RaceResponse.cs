@@ -2,7 +2,7 @@
 using ErgastApi.Responses.Models.RaceInfo;
 using ErgastApi.Serialization;
 
-namespace ErgastApi.Responses.RaceInfo
+namespace ErgastApi.Responses
 {
     public abstract class RaceResponse<T> : ErgastResponse where T : Race
     {
