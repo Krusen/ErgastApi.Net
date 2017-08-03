@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Reflection;
 using ErgastApi.Client.Attributes;
 using ErgastApi.Extensions;
@@ -46,10 +44,7 @@ namespace ErgastApi.Client
             foreach (var prop in properties)
             {
                 var urlSegment = prop.GetCustomAttribute<UrlSegmentAttribute>(true);
-                var urlTerminators = prop.GetCustomAttributes<UrlTerminatorAttribute>(true).ToList();
-
-                if (urlTerminators.Count > 1)
-                    throw new Exception("A request can only have a single UrlTerminatorAttribute");
+                var urlTerminator = prop.GetCustomAttribute<UrlTerminatorAttribute>(true);
 
                 if (urlSegment == null)
                     continue;
@@ -59,7 +54,7 @@ namespace ErgastApi.Client
                     Order = urlSegment.NullableOrder,
                     Name = urlSegment.SegmentName,
                     Value = GetSegmentValue(prop, request),
-                    IsTerminator = urlTerminators.Any()
+                    IsTerminator = urlTerminator != null
                 };
 
                 if (segment.Value == null && !segment.IsTerminator)
