@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using ErgastApi.Client.Attributes;
 using ErgastApi.Extensions;
@@ -62,6 +64,9 @@ namespace ErgastApi.Client
 
                 segments.Add(segment);
             }
+
+            if (segments.Count(x => x.IsTerminator) > 1)
+                throw new Exception("A request can only have one property with the UrlTerminator attribute");
 
             segments.Sort();
 
