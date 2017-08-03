@@ -44,6 +44,7 @@ namespace ErgastApi.Client
 
         private int CompareOrder(UrlSegmentInfo other)
         {
+            if (Order == null && other.Order == null) return 0;
             if (Order == null) return 1;
             if (other.Order == null) return -1;
 
