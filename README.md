@@ -1,7 +1,7 @@
 # Ergast Developer API .NET Client
 
 [![AppVeyor](https://ci.appveyor.com/api/projects/status/kaibsj29lcn9aqt1?svg=true)](https://ci.appveyor.com/project/Krusen/ergastapi-net)
-[![NuGet](https://buildstats.info/nuget/ergastapi?includePreReleases=false)](https://www.nuget.org/packages/ErgastApi/)
+[![NuGet](https://buildstats.info/nuget/ergastapiclient?includePreReleases=false)](https://www.nuget.org/packages/ErgastApiClient/)
 
 This a C# library wrapping the Ergast Developer API (http://ergast.com/mrd).
 
@@ -17,11 +17,11 @@ Non-programmers can query the database using the [manual interface](http://ergas
 ## Installation
 
 
-Install the package **ErgastApi** from [NuGet](https://www.nuget.org/packages/ErgastApi/) 
+Install the package **ErgastApiClient** from [NuGet](https://www.nuget.org/packages/ErgastApiClient/) 
 or install it from the [Package Manager Console](https://docs.microsoft.com/da-dk/nuget/tools/package-manager-console):
 
 ```
-PM> Install-Package ErgastApi
+PM> Install-Package ErgastApiClient
 ```
 
 
