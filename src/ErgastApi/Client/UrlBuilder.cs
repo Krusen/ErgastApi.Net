@@ -56,7 +56,7 @@ namespace ErgastApi.Client
 
                 var segment = new UrlSegmentInfo
                 {
-                    Order = NormalizeOrder(urlSegment.Order),
+                    Order = urlSegment.NullableOrder,
                     Name = urlSegment.SegmentName,
                     Value = GetSegmentValue(prop, request),
                     IsTerminator = urlTerminators.Any()
@@ -80,14 +80,6 @@ namespace ErgastApi.Client
                 value = (int) value;
 
             return value?.ToString();
-        }
-
-        /// <summary>
-        /// Converts 0 to null.
-        /// </summary>
-        private static int? NormalizeOrder(int order)
-        {
-            return order == 0 ? null : (int?) order;
         }
     }
 }
