@@ -9,11 +9,21 @@ namespace ErgastApi.Client.Caching
 {
     public class ErgastMemoryCache : IErgastCache
     {
-        private static readonly TimeSpan CleanupTaskInterval = TimeSpan.FromSeconds(60);
+        private TimeSpan _cleanupInterval = TimeSpan.FromSeconds(60);
 
-        private Task CleanupTask { get; }
+        public TimeSpan CleanupInterval
+        {
+            get => _cleanupInterval;
+            set
+            {
+                _cleanupInterval = value;
+                RestartCleanupTask();
+            }
+        }
 
-        private CancellationTokenSource CleanupTaskCancellationTokenSource { get; } = new CancellationTokenSource();
+        private Task CleanupTask { get; set; }
+
+        private CancellationTokenSource CleanupTaskCancellationTokenSource { get; set; }
 
         protected ConcurrentDictionary<string, CacheEntry<ErgastResponse>> Cache { get; } = new ConcurrentDictionary<string, CacheEntry<ErgastResponse>>();
 
@@ -21,13 +31,20 @@ namespace ErgastApi.Client.Caching
 
         public ErgastMemoryCache()
         {
-            CleanupTask = RemoveExpiredEntries(CleanupTaskCancellationTokenSource.Token);
+            RestartCleanupTask();
         }
 
         public ErgastMemoryCache(TimeSpan cacheEntryLifetime)
             : this()
         {
             CacheEntryLifetime = cacheEntryLifetime;
+        }
+
+        private void RestartCleanupTask()
+        {
+            CleanupTaskCancellationTokenSource?.Cancel();
+            CleanupTaskCancellationTokenSource = new CancellationTokenSource();
+            CleanupTask = RemoveExpiredEntries(CleanupTaskCancellationTokenSource.Token);
         }
 
         public void AddOrReplace(string url, ErgastResponse response)
@@ -67,21 +84,21 @@ namespace ErgastApi.Client.Caching
         {
             while (!cancellationToken.IsCancellationRequested)
             {
+                try
+                {
+                    await Task.Delay(CleanupInterval, cancellationToken).ConfigureAwait(false);
+                }
+                catch (OperationCanceledException)
+                {
+                    return;
+                }
+
                 var now = DateTimeOffset.UtcNow;
                 var expiredEntries = Cache.Where(x => x.Value.Expiration < now);
 
                 foreach (var entry in expiredEntries)
                 {
                     Cache.TryRemove(entry.Key, out _);
-                }
-
-                try
-                {
-                    await Task.Delay(CleanupTaskInterval, cancellationToken).ConfigureAwait(false);
-                }
-                catch (OperationCanceledException)
-                {
-                    return;
                 }
             }
         }
