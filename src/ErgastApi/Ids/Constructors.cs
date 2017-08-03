@@ -8,7 +8,7 @@
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public const string Ferrari = "ferrari";
         public const string ForceIndia = "force_india";
-        public const string Hass = "haas";
+        public const string Haas = "haas";
         public const string Mercedes = "mercedes";
         public const string Manor = "manor";
         public const string Marussia = "marussia";
