@@ -6,6 +6,6 @@ namespace ErgastApi.Client
 {
     public interface IErgastClient
     {
-        Task<T> ExecuteAsync<T>(ErgastRequest<T> request) where T : ErgastResponse;
+        Task<T> GetResponseAsync<T>(ErgastRequest<T> request) where T : ErgastResponse;
     }
 }

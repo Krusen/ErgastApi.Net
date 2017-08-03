@@ -30,7 +30,7 @@ PM> Install-Package ErgastApiClient
 The library is easy to use.
 
 Start by creating an `ErgastClient`. Then create on of the request types and set parameters to narrow down your query.
-Then execute the request throughe the client with the `ExecuteAsync(IErgastRequest)` method.
+Then execute the request throughe the client with the `GetResponseAsync(IErgastRequest)` method.
 
 Below is an example of how to get the race results of the 11th race of the 2017 season.
 
@@ -54,8 +54,9 @@ var request = new RaceResultsRequest
     Offset = 0      // Result offset (used for paging)
 };
 
-// RaceResultsRequest returns a RaceResultsResponse - other requests returns other response types
-RaceResultsResponse response = await client.ExecuteAsync(request
+// RaceResultsRequest returns a RaceResultsResponse
+// Other requests returns other response types
+RaceResultsResponse response = await client.GetResponseAsync(request);
 ```
 
 The following request types are available:
@@ -149,7 +150,7 @@ Here is how you could find the ID of Fernando Alonso:
 ```C#
 // Get drivers in current season (leave out season to get a list of all drivers ever (requires paging))
 var request = new DriverInfoRequest { Limit = 1000 }
-var response = await client.ExecuteAsync(request);
+var response = await client.GetResponseAsync(request);
 
 response.Drivers.Single(x => x.FullName == "Fernando Alonso").DriverId;
 ```
@@ -165,7 +166,7 @@ The maximum value is 1000 but please use the smallest value that you can. If not
 The `Offset` property specifies an offset into the result set (i.e. start from this position).
 If not set it defaults to zero.
 
-The response object returned from `ErgastClient.ExecuteAsync()` contains the following information to help you with paging:
+The response object returned from `ErgastClient.GetResponseAsync()` contains the following information to help you with paging:
 
 - `Limit` and `Offset` (the values used for the response)
 - `TotalResults`

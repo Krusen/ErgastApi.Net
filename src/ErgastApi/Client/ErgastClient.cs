@@ -63,7 +63,7 @@ namespace ErgastApi.Client
             UrlBuilder = urlBuilder;
         }
 
-        public async Task<T> ExecuteAsync<T>(ErgastRequest<T> request) where T : ErgastResponse
+        public async Task<T> GetResponseAsync<T>(ErgastRequest<T> request) where T : ErgastResponse
         {
             var url = ApiRoot + UrlBuilder.Build(request);
 
