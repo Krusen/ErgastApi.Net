@@ -65,7 +65,7 @@ The following request types are available:
   - `ConstructorInfoRequest` 
   - `DriverInfoRequest`
   - `FinishingStatusRequest`
-  - `QualifyingStatusRequest`
+  - `QualifyingResultsRequest`
   - `RaceListRequest`
   - `RaceResultsRequest`
   - `SeasonListRequest`
@@ -76,6 +76,60 @@ The following request types are available:
   - `LapTimesRequest`
   - `PitStopsRequest`
 
+Here are some other examples:
+
+```C#
+// List of seasons where Alonso won the WDC and Ferrari got second in the WCC
+new SeasonListRequest
+{
+    DriverId = Drivers.FernandoAlonso,
+    DriverStanding = 1,
+
+    ConstructorId = Constructors.Ferrari,
+    ConstructorStanding = 2
+}
+
+// List of races where Raikkonen retired because
+// of engine problems while racing for Ferrari
+new RaceListRequest
+{
+    DriverId = Drivers.KimiRaikkonen,
+    ConstructorId = Constructors.Ferrari,
+    FinishingStatus = FinishingStatusId.Engine
+}
+
+// Qualifying results from last round
+new QualifyingResultsRequest
+{
+    Season = Seasons.Current,
+    Round = Rounds.Last
+}
+
+// Driver standings after race 3 in 2017
+new DriverStandingsRequest
+{ 
+    Season = "2017", 
+    Round = "3"
+}
+
+// List of circuits where Hamilton got pole, won the race
+// and set fastest lap time while racing for McLaren
+new CircuitInfoRequest
+{
+    DriverId = Drivers.LewisHamilton,
+    ConstructorId = Constructors.McLaren,
+    QualifyingPosition = 1,
+    FinishingPosition = 1,
+    FastestLapRank = 1
+}
+
+// Drivers who have won the race at Baku
+new DriverInfoRequest
+{
+    CircuitId = Circuits.Baku,
+    FinishingPosition = 1
+}
+```
 
 ### Driver, constructor and circuit IDs
 
