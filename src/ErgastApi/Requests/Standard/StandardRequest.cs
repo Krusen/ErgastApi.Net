@@ -12,7 +12,7 @@ namespace ErgastApi.Requests
         [UrlSegment("circuits")]
         public virtual string CircuitId { get; set; }
 
-        [UrlSegment("fastests")]
+        [UrlSegment("fastest")]
         public virtual int? FastestLapRank { get; set; }
 
         [UrlSegment("results")]
