@@ -3,48 +3,33 @@ using System.Collections.Concurrent;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using ErgastApi.Extensions;
 using ErgastApi.Responses;
 
 namespace ErgastApi.Client.Caching
 {
     public class ErgastMemoryCache : IErgastCache
     {
-        private TimeSpan _cleanupInterval = TimeSpan.FromSeconds(60);
+        private static readonly TimeSpan CleanupInterval = TimeSpan.FromSeconds(60);
 
-        public TimeSpan CleanupInterval
-        {
-            get => _cleanupInterval;
-            set
-            {
-                _cleanupInterval = value;
-                RestartCleanupTask();
-            }
-        }
+        private static readonly TimeSpan DefaultCacheEntryLifetime = TimeSpan.FromHours(1);
 
-        private Task CleanupTask { get; set; }
-
-        private CancellationTokenSource CleanupTaskCancellationTokenSource { get; set; }
+        protected CleanupWorker Cleaner { get; set; }
 
         protected ConcurrentDictionary<string, CacheEntry<ErgastResponse>> Cache { get; } = new ConcurrentDictionary<string, CacheEntry<ErgastResponse>>();
 
-        public TimeSpan CacheEntryLifetime { get; set; } = TimeSpan.FromHours(1);
+        // TODO: Doc - does not affect already cached items
+        public TimeSpan CacheEntryLifetime { get; set; }
 
         public ErgastMemoryCache()
+            : this(DefaultCacheEntryLifetime)
         {
-            RestartCleanupTask();
         }
 
         public ErgastMemoryCache(TimeSpan cacheEntryLifetime)
-            : this()
         {
             CacheEntryLifetime = cacheEntryLifetime;
-        }
-
-        private void RestartCleanupTask()
-        {
-            CleanupTaskCancellationTokenSource?.Cancel();
-            CleanupTaskCancellationTokenSource = new CancellationTokenSource();
-            CleanupTask = RemoveExpiredEntries(CleanupTaskCancellationTokenSource.Token);
+            Cleaner = new CleanupWorker(Cache, CleanupInterval);
         }
 
         public void AddOrReplace(string url, ErgastResponse response)
@@ -57,7 +42,7 @@ namespace ErgastApi.Client.Caching
                 Expiration = expiration
             };
 
-            Cache.AddOrUpdate(url, key => entry, (key, value) => entry);
+            Cache[url] = entry;
         }
 
         public T Get<T>(string url) where T : ErgastResponse
@@ -80,29 +65,6 @@ namespace ErgastApi.Client.Caching
             Cache.Clear();
         }
 
-        private async Task RemoveExpiredEntries(CancellationToken cancellationToken)
-        {
-            while (!cancellationToken.IsCancellationRequested)
-            {
-                try
-                {
-                    await Task.Delay(CleanupInterval, cancellationToken).ConfigureAwait(false);
-                }
-                catch (OperationCanceledException)
-                {
-                    return;
-                }
-
-                var now = DateTimeOffset.UtcNow;
-                var expiredEntries = Cache.Where(x => x.Value.Expiration < now);
-
-                foreach (var entry in expiredEntries)
-                {
-                    Cache.TryRemove(entry.Key, out _);
-                }
-            }
-        }
-
         public void Dispose()
         {
             Dispose(true);
@@ -113,8 +75,73 @@ namespace ErgastApi.Client.Caching
         {
             if (!disposing) return;
 
-            CleanupTaskCancellationTokenSource.Cancel();
-            CleanupTask.Wait();
+            Cleaner.Dispose();
+        }
+
+        public class CleanupWorker : IDisposable
+        {
+            private ConcurrentDictionary<string, CacheEntry<ErgastResponse>> Collection { get; }
+
+            private TimeSpan Interval { get; }
+
+            private CancellationTokenSource CancellationTokenSource { get; set; }
+
+            public Task CleanupTask { get; private set; }
+
+            public CleanupWorker(ConcurrentDictionary<string, CacheEntry<ErgastResponse>> collection, TimeSpan interval)
+            {
+                Collection = collection;
+                Interval = interval;
+
+                Start();
+            }
+
+            public void Start()
+            {
+                CancellationTokenSource = new CancellationTokenSource();
+                var token = CancellationTokenSource.Token;
+                CleanupTask = RunTask(token);
+            }
+
+            private Task RunTask(CancellationToken cancellationToken)
+            {
+                return Task.Run(async () =>
+                {
+                    while (!cancellationToken.IsCancellationRequested)
+                    {
+                        await Task.Delay(Interval, cancellationToken).ConfigureAwait(false);
+
+                        var now = DateTimeOffset.UtcNow;
+                        var expiredEntries = Collection.Where(x => x.Value.Expiration < now);
+
+                        foreach (var entry in expiredEntries)
+                        {
+                            Collection.TryRemove(entry.Key, out _);
+                        }
+                    }
+                }, cancellationToken);
+            }
+
+            public void Stop()
+            {
+                CancellationTokenSource?.Cancel();
+            }
+
+            public void Dispose()
+            {
+                Dispose(true);
+                GC.SuppressFinalize(this);
+            }
+
+            protected virtual void Dispose(bool disposing)
+            {
+                if (!disposing) return;
+
+                CancellationTokenSource?.Cancel();
+                CancellationTokenSource?.Dispose();
+
+                CleanupTask?.WaitSafely();
+            }
         }
     }
 }
