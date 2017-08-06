@@ -1,37 +1,151 @@
-#addin "Cake.FileHelpers"
+// For inspiration see: https://github.com/Jericho/Picton/blob/develop/build.cake
 
-var target = Argument("target", "Default");
+// Install addins.
+#addin "nuget:?package=Cake.Coveralls&version=0.5.0"
 
-Task("Set-Build-Version")
-    .Does(() =>
+// Install tools.
+#tool "nuget:?package=GitVersion.CommandLine&version=4.0.0-beta0012"
+#tool "nuget:?package=OpenCover&version=4.6.519"
+#tool "nuget:?package=coveralls.io&version=1.3.4"
+#tool "nuget:?package=xunit.runner.console&version=2.2.0"
+
+
+///////////////////////////////////////////////////////////////////////////////
+// ARGUMENTS
+///////////////////////////////////////////////////////////////////////////////
+
+var target = Argument<string>("target", "Default");
+var configuration = Argument<string>("configuration", "Release");
+
+
+///////////////////////////////////////////////////////////////////////////////
+// GLOBAL VARIABLES
+///////////////////////////////////////////////////////////////////////////////
+
+var libraryName = "ErgastApi.Net";
+
+var sourceFolder = "./";
+
+var testProjectFile = "./src/ErgastApi.Tests/ErgastApi.Tests.csproj";
+var codeCoverageOutput = "coverage.xml";
+var codeCoverageFilter = "+[*]* -[*.Tests]*";
+
+var versionInfo = GitVersion(new GitVersionSettings() { OutputType = GitVersionOutput.Json });
+var milestone = string.Concat("v", versionInfo.MajorMinorPatch);
+var cakeVersion = typeof(ICakeContext).Assembly.GetName().Version.ToString();
+
+var isLocalBuild = BuildSystem.IsLocalBuild;
+var	isPullRequest = BuildSystem.AppVeyor.Environment.PullRequest.IsPullRequest;
+var	isTagged = (
+    BuildSystem.AppVeyor.Environment.Repository.Tag.IsTag &&
+    !string.IsNullOrWhiteSpace(BuildSystem.AppVeyor.Environment.Repository.Tag.Name)
+);
+
+///////////////////////////////////////////////////////////////////////////////
+// SETUP / TEARDOWN
+///////////////////////////////////////////////////////////////////////////////
+
+Setup(context =>
 {
-    var projectFile = "./src/ErgastApi/ErgastApi.csproj";
-    var versionPeekXpath = "/Project/PropertyGroup/Version/text()";
-    var versionPokeXpath = "/Project/PropertyGroup/Version";
+    Information($"Building version {versionInfo.NuGetVersionV2} of {libraryName} using version {cakeVersion} of Cake");
 
-    var version = XmlPeek(projectFile, versionPeekXpath);
-    var parts = version.Split('.');
+    Information("Variables:\r\n"
+        + $"\tIsLocalBuild: {isLocalBuild}\r\n"
+        + $"\tIsPullRequest: {isPullRequest}\r\n"
+        + $"\tIsTagged: {isTagged}"
+    );
 
-    var buildNumber = 0;
-
-    if (BuildSystem.IsRunningOnAppVeyor)
-    {
-        buildNumber = AppVeyor.Environment.Build.Number;
-    }
-
-    version = string.Join(".", parts[0], parts[1], buildNumber);
-
-    if (BuildSystem.IsRunningOnAppVeyor)
-    {
-        AppVeyor.UpdateBuildVersion(version);
-        Information("Updated AppVeyor build version to " + version);
-    }
-
-    XmlPoke(projectFile, versionPokeXpath, version);
-    Information("Set project version to " + version);
+    Information("GitVersion:\r\n"
+        + $"\tNuGetVersionV2: {versionInfo.NuGetVersionV2}\r\n"
+        + $"\tFullSemVer: {versionInfo.FullSemVer}"
+    );
 });
 
+
+///////////////////////////////////////////////////////////////////////////////
+// TASK DEFINITIONS
+///////////////////////////////////////////////////////////////////////////////
+
+Task("AppVeyor_Set-Build-Version")
+    .WithCriteria(() => AppVeyor.IsRunningOnAppVeyor)
+    .Does(() =>
+{
+    AppVeyor.UpdateBuildVersion(versionInfo.FullSemVer);
+});
+
+Task("Restore-NuGet-Packages")
+    .Does(() =>
+{
+    DotNetCoreRestore();
+});
+
+Task("Build")
+    .IsDependentOn("Restore-NuGet-Packages")
+    .Does(() =>
+{
+    DotNetCoreBuild(sourceFolder + libraryName + ".sln", new DotNetCoreBuildSettings
+    {
+        Configuration = configuration,
+        ArgumentCustomization = args => args.Append("/p:SemVer=" + versionInfo.NuGetVersionV2)
+    });
+});
+
+Task("Run-Unit-Tests")
+    .IsDependentOn("Build")
+    .Does(() =>
+{
+    DotNetCoreTest(testProjectFile, new DotNetCoreTestSettings
+    {
+        NoBuild = true,
+        Configuration = configuration
+    });
+});
+
+Task("Run-Code-Coverage")
+    .IsDependentOn("Build")
+    .Does(() =>
+{
+    Action<ICakeContext> testAction = ctx => ctx.DotNetCoreTest(testProjectFile, new DotNetCoreTestSettings
+    {
+        NoBuild = true,
+        Configuration = configuration
+    });
+
+    OpenCover(testAction,
+        codeCoverageOutput,
+        new OpenCoverSettings
+        {
+            OldStyle = true,
+            SkipAutoProps = true,
+            MergeOutput = false
+        }
+        .WithFilter(codeCoverageFilter)
+    );
+});
+
+Task("Upload-Coverage-Result")
+    .WithCriteria(() => !isLocalBuild)
+    .Does(() =>
+{
+    CoverallsIo(codeCoverageOutput);
+});
+
+
+///////////////////////////////////////////////////////////////////////////////
+// TARGETS
+///////////////////////////////////////////////////////////////////////////////
+
+Task("AppVeyor")
+    .IsDependentOn("AppVeyor_Set-Build-Version")
+    .IsDependentOn("Run-Code-Coverage")
+    .IsDependentOn("Upload-Coverage-Result");
+
 Task("Default")
-    .IsDependentOn("Set-Build-Version");
+    .IsDependentOn("AppVeyor");
+
+
+///////////////////////////////////////////////////////////////////////////////
+// EXECUTION
+///////////////////////////////////////////////////////////////////////////////
 
 RunTarget(target);
