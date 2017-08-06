@@ -2,6 +2,7 @@
 
 [![AppVeyor](https://ci.appveyor.com/api/projects/status/kaibsj29lcn9aqt1?svg=true)](https://ci.appveyor.com/project/Krusen/ergastapi-net)
 [![NuGet](https://buildstats.info/nuget/ergastapiclient?includePreReleases=false)](https://www.nuget.org/packages/ErgastApiClient/)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bhttps%3A%2F%2Fgithub.com%2FKrusen%2FErgastApi.Net.svg?type=shield)](https://app.fossa.io/projects/git%2Bhttps%3A%2F%2Fgithub.com%2FKrusen%2FErgastApi.Net?ref=badge_shield)
 
 This a C# library wrapping the Ergast Developer API (http://ergast.com/mrd).
 
@@ -189,3 +190,6 @@ You can clear the cache by calling `client.Cache.Clear()`.
 - Add helper methods for getting next/previous page
 - Add more XML documentation for better intellisense
 - Add more unit tests
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bhttps%3A%2F%2Fgithub.com%2FKrusen%2FErgastApi.Net.svg?type=large)](https://app.fossa.io/projects/git%2Bhttps%3A%2F%2Fgithub.com%2FKrusen%2FErgastApi.Net?ref=badge_large)
