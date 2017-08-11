@@ -5,7 +5,7 @@ namespace ErgastApi.Serialization.Converters
 {
     public class StringTimeSpanConverter : JsonConverter
     {
-        private static readonly string[] Formats =
+        protected virtual string[] Formats => new[]
         {
             "hh':'mm':'ss",
             "hh':'mm':'ss'.'fff",
