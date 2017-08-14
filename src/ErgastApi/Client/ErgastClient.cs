@@ -46,23 +46,6 @@ namespace ErgastApi.Client
             ApiRoot = apiRoot;
         }
 
-        public ErgastClient(HttpClient httpClient)
-        {
-            HttpClient = httpClient;
-        }
-
-        public ErgastClient(string apiRoot, HttpClient httpClient)
-        {
-            ApiRoot = apiRoot;
-            HttpClient = httpClient;
-        }
-
-        public ErgastClient(HttpClient httpClient, IUrlBuilder urlBuilder)
-        {
-            HttpClient = httpClient;
-            UrlBuilder = urlBuilder;
-        }
-
         public async Task<T> GetResponseAsync<T>(ErgastRequest<T> request) where T : ErgastResponse
         {
             var url = ApiRoot + UrlBuilder.Build(request);
