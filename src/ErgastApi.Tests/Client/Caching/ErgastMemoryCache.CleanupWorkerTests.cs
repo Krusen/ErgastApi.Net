@@ -30,13 +30,13 @@ namespace ErgastApi.Tests.Client.Caching
 
             // Act
             var worker = CreateCleanupWorker(TimeSpan.FromMilliseconds(10));
-            await Task.Delay(50);
+            await Task.Delay(100);
 
             // Assert
             Cache.Should().HaveCount(1);
 
             entry2.Expiration = DateTime.Now.AddDays(-1);
-            await Task.Delay(50);
+            await Task.Delay(100);
 
             Cache.Should().BeEmpty();
             worker.CleanupTask.IsCompleted.Should().BeFalse();
