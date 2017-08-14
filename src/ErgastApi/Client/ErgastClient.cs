@@ -71,7 +71,7 @@ namespace ErgastApi.Client
         protected void EnsureValidRequest(IErgastRequest request)
         {
             if (request.Round != null && request.Season == null)
-                throw new Exception("You cannot specify a round without also specifying a season.");
+                throw new InvalidOperationException("When specifying ErgastRequest.Round you also have to specify ErgastRequest.Season.");
         }
 
         public void Dispose()
