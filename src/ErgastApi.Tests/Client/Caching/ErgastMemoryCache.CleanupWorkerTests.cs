@@ -88,7 +88,7 @@ namespace ErgastApi.Tests.Client.Caching
         }
 
         [Fact]
-        public async Task CanBeStartedAndStoppedMultipleTimes()
+        public void CanBeStartedAndStoppedMultipleTimes()
         {
             // Arrange
             var worker = CreateCleanupWorker(TimeSpan.FromDays(1));
