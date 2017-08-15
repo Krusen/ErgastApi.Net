@@ -7,9 +7,9 @@ namespace ErgastApi.Requests
 {
     // ReSharper disable once UnusedTypeParameter
     /// <summary>
-    /// Base request class that contains properties for paging and limiting results to a season and/or round.
+    /// Base request class that contains properties for paging and limiting results to a season, round and/or driver.
     /// </summary>
-    /// <typeparam name="TResponse"></typeparam>
+    /// <typeparam name="TResponse">The response type returned for this kind of request.</typeparam>
     public abstract class ErgastRequest<TResponse> : IErgastRequest where TResponse : ErgastResponse
     {
         private int? _limit;
@@ -73,8 +73,8 @@ namespace ErgastApi.Requests
         /// <summary>
         /// Convenience method used for paging. Sets the limit and offset values for you.
         /// </summary>
-        /// <param name="page"></param>
-        /// <param name="pageSize"></param>
+        /// <param name="page">The page to get. Use 1 for the first page.</param>
+        /// <param name="pageSize">The results to return per page.</param>
         public virtual void Page(int page, int pageSize)
         {
             if (page < 1)
