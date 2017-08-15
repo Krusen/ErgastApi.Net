@@ -1,4 +1,6 @@
-﻿namespace ErgastApi.Requests
+﻿using ErgastApi.Requests;
+
+namespace ErgastApi.Client
 {
     public interface IUrlBuilder
     {
