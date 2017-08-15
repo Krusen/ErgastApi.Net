@@ -35,6 +35,16 @@ namespace ErgastApi.Tests.Client
             };
         }
 
+        [Fact]
+        public void Constructor_WithApiRoot_SetsApiRoot()
+        {
+            var apiRoot = "http://example.com";
+
+            var client = new ErgastClient(apiRoot);
+
+            client.ApiRoot.Should().Be(apiRoot);
+        }
+
         [Theory]
         [AutoMockedData("invalid string")]
         [AutoMockedData("C:\\")]
