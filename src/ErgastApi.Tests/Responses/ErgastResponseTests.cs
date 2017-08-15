@@ -70,6 +70,20 @@ namespace ErgastApi.Tests.Responses
         }
 
         [Theory]
+        [AutoMockedData(1, -1, 0)]
+        [AutoMockedData(1, 0, 0)]
+        [AutoMockedData(1, -1, 10)]
+        [AutoMockedData(1, 0, 10)]
+        public void Page_OffsetIsEqualToOrLessThanZero_ShouldBeOne(int expectedPage, int offset, int limit)
+        {
+            // Arrange
+            var response = new MockErgastResponse(offset, limit);
+
+            // Assert
+            response.Page.Should().Be(expectedPage);
+        }
+
+        [Theory]
         [AutoMockedData(2, 3, 4)]
         [AutoMockedData(2, 3, 7)]
         [AutoMockedData(3, 11, 10)]
@@ -91,13 +105,24 @@ namespace ErgastApi.Tests.Responses
         [AutoMockedData(2, 10, 20)]
         [AutoMockedData(3, 10, 30)]
         [AutoMockedData(11, 10, 101)]
-        public void TotalPages_(int expectedTotalPages, int limit, int totalResults)
+        public void TotalPages_WorksAsExpected(int expectedTotalPages, int limit, int totalResults)
         {
             // Arrange
             var response = new MockErgastResponse(limit: limit, totalResults: totalResults);
 
             // Assert
             response.TotalPages.Should().Be(expectedTotalPages);
+        }
+
+        [Theory]
+        [AutoMockedData(0, 10)]
+        public void TotalPages_ReturnsZeroIfLimitIsZeroOrBelow(int limit, int totalResults)
+        {
+            // Arrange
+            var response = new MockErgastResponse(limit: limit, totalResults: totalResults);
+
+            // Assert
+            response.TotalPages.Should().Be(0);
         }
 
         private class MockErgastResponse : ErgastResponse
