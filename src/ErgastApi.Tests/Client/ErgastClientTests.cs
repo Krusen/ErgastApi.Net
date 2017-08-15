@@ -36,11 +36,11 @@ namespace ErgastApi.Tests.Client
         }
 
         [Fact]
-        public void Constructor_WithApiRoot_SetsApiRoot()
+        public void Constructor_WithApiBase_SetsApiBase()
         {
             var apiRoot = "http://example.com";
             var client = new ErgastClient(apiRoot);
-            client.ApiRoot.Should().Be(apiRoot);
+            client.ApiBase.Should().Be(apiRoot);
         }
 
         [Theory]
@@ -52,28 +52,28 @@ namespace ErgastApi.Tests.Client
         [AutoMockedData("C:\\example.txt")]
         [AutoMockedData("/example/api")]
         [AutoMockedData("example/api")]
-        public void ApiRoot_Set_NonUrlShouldThrowArgumentException(string url)
+        public void ApiBase_Set_NonUrlShouldThrowArgumentException(string url)
         {
-            Action act = () => Client.ApiRoot = url;
+            Action act = () => Client.ApiBase = url;
             act.ShouldThrow<ArgumentException>();
         }
 
         [Theory]
         [AutoMockedData("http://example.com")]
         [AutoMockedData("https://example.com")]
-        public void ApiRoot_Set_ShouldAcceptHttpAndHttpsUrls(string url)
+        public void ApiBase_Set_ShouldAcceptHttpAndHttpsUrls(string url)
         {
-            Client.ApiRoot = url;
-            Client.ApiRoot.Should().Be(url);
+            Client.ApiBase = url;
+            Client.ApiBase.Should().Be(url);
         }
 
         [Theory]
         [AutoMockedData("http://example.com/api/")]
         [AutoMockedData("https://example.com/")]
-        public void ApiRoot_Set_ShouldRemoveTrailingSlash(string url)
+        public void ApiBase_Set_ShouldRemoveTrailingSlash(string url)
         {
-            Client.ApiRoot = url;
-            Client.ApiRoot.Should().Be(url.TrimEnd('/'));
+            Client.ApiBase = url;
+            Client.ApiBase.Should().Be(url.TrimEnd('/'));
         }
 
         [Theory]
