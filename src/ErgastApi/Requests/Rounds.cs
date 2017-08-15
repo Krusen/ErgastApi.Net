@@ -10,7 +10,15 @@
         /// This is the same as not specifying a round.
         /// </summary>
         public const string All = null;
+
+        /// <summary>
+        /// The last round.
+        /// </summary>
         public const string Last = "last";
+
+        /// <summary>
+        /// The next round.
+        /// </summary>
         public const string Next = "next";
     }
 }

@@ -10,6 +10,10 @@
         /// This is the same as not specifying a season.
         /// </summary>
         public const string All = null;
+
+        /// <summary>
+        /// The current season.
+        /// </summary>
         public const string Current = "current";
     }
 }
