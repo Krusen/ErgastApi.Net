@@ -90,6 +90,9 @@ namespace ErgastApi.Client
             var content = await responseMessage.Content.ReadAsStringAsync().ConfigureAwait(false);
             var rootResponse = JsonConvert.DeserializeObject<ErgastRootResponse<TResponse>>(content, SerializerSettings);
 
+            if (rootResponse == null)
+                throw new Exception("Received an invalid response." + Environment.NewLine + "Response: " + content);
+
             response = rootResponse.Data;
             Cache.AddOrReplace(url, response);
 
@@ -102,7 +105,7 @@ namespace ErgastApi.Client
         /// <exception cref="InvalidOperationException">The request is invalid</exception>
         protected void EnsureValidRequest(IErgastRequest request)
         {
-            if (request.Round != null && request.Season == null)
+            if (request?.Round != null && request?.Season == null)
                 throw new InvalidOperationException("When specifying ErgastRequest.Round you also have to specify ErgastRequest.Season.");
         }
 
