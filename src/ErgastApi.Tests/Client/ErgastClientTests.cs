@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using ErgastApi.Abstractions;
 using ErgastApi.Client;
 using ErgastApi.Client.Caching;
 using ErgastApi.Requests;
@@ -16,16 +17,20 @@ namespace ErgastApi.Tests.Client
 
         private IErgastCache Cache { get; }
 
+        private IHttpClient HttpClient { get; set; }
+
         private IUrlBuilder UrlBuilder { get; }
 
         public ErgastClientTests()
         {
             Cache = Substitute.For<IErgastCache>();
             UrlBuilder = Substitute.For<IUrlBuilder>();
+            HttpClient = Substitute.For<IHttpClient>();
 
             Client = new ErgastClient
             {
                 Cache = Cache,
+                HttpClient = HttpClient,
                 UrlBuilder = UrlBuilder
             };
         }

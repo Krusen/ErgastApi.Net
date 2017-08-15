@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Net.Http;
 using System.Threading.Tasks;
+using ErgastApi.Abstractions;
 using ErgastApi.Client.Caching;
 using ErgastApi.Requests;
 using ErgastApi.Responses;
@@ -30,8 +30,7 @@ namespace ErgastApi.Client
             }
         }
 
-        // TODO: Interface for unit tests?
-        public HttpClient HttpClient { get; set; } = new HttpClient();
+        public IHttpClient HttpClient { get; set; } = new DefaultHttpClient();
 
         public IUrlBuilder UrlBuilder { get; set; } = new UrlBuilder();
 
