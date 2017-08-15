@@ -8,7 +8,7 @@ namespace ErgastApi.Tests.Client.Caching
 {
     public class ErgastMemoryCacheTests
     {
-        private ErgastMemoryCache Cache { get; set; }
+        private ErgastMemoryCache Cache { get; }
 
         public ErgastMemoryCacheTests()
         {

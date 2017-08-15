@@ -14,9 +14,9 @@ namespace ErgastApi.Tests.Client
     {
         private ErgastClient Client { get; }
 
-        private IErgastCache Cache { get; set; }
+        private IErgastCache Cache { get; }
 
-        private IUrlBuilder UrlBuilder { get; set; }
+        private IUrlBuilder UrlBuilder { get; }
 
         public ErgastClientTests()
         {

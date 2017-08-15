@@ -1,5 +1,8 @@
 ﻿using System;
+
+#if NETSTANDARD
 using System.Reflection;
+#endif
 
 namespace ErgastApi.Extensions
 {

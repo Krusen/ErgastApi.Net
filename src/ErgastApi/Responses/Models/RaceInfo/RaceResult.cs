@@ -1,5 +1,4 @@
 using System;
-using ErgastApi.Ids;
 using ErgastApi.Serialization;
 using ErgastApi.Serialization.Converters;
 using Newtonsoft.Json;

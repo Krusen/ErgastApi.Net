@@ -150,7 +150,7 @@ namespace ErgastApi.Tests.Client
         {
             var request = new MockRequest { String = "str", Integer = 42, Object = new MockObject() };
             var url = UrlBuilder.Build(request);
-            url.Should().Be($"/int/42/object/{request.Object.ToString()}/string/str/last.json");
+            url.Should().Be($"/int/42/object/{request.Object}/string/str/last.json");
         }
 
         [Fact]

@@ -1,5 +1,4 @@
-﻿using ErgastApi.Ids;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace ErgastApi.Responses.Models
 {
