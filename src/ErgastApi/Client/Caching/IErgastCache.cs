@@ -12,7 +12,7 @@ namespace ErgastApi.Client.Caching
 
         T Get<T>(string url) where T : ErgastResponse;
 
-        bool Remove(string url);
+        void Remove(string url);
 
         void Clear();
     }
