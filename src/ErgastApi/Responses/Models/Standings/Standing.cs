@@ -10,7 +10,7 @@ namespace ErgastApi.Responses.Models.Standings
         /// </summary>
         public string PositionText { get; set; }
 
-        public int Points { get; set; }
+        public double Points { get; set; }
 
         public int Wins { get; set; }
     }

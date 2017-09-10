@@ -34,7 +34,7 @@ namespace ErgastApi.Responses.Models.RaceInfo
         public bool Classified => int.TryParse(PositionText, out _);
 
         [JsonProperty("points")]
-        public int Points { get; private set; }
+        public double Points { get; private set; }
 
         /// <summary>
         /// Grid position, i.e. starting position.
