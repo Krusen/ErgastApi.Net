@@ -20,7 +20,7 @@
     <Description>A client for querying the Ergast Developer API (http://ergast.com/mrd/)</Description>
     <PackageLicenseUrl>https://github.com/Krusen/ErgastApi.Net/blob/master/LICENSE.md</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/Krusen/ErgastApi.Net</PackageProjectUrl>
-    <!--<PackageIconUrl></PackageIconUrl>-->
+    <PackageIconUrl>https://raw.githubusercontent.com/Krusen/ErgastApi.Net/master/art/package-icon.png</PackageIconUrl>
     <RepositoryUrl>https://github.com/Krusen/ErgastApi.Net</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <!--<PackageReleaseNotes></PackageReleaseNotes>-->
