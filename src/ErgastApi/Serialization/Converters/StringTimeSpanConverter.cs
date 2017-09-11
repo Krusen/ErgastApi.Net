@@ -26,8 +26,10 @@ namespace ErgastApi.Serialization.Converters
 
             var value = (string) reader.Value;
 
-            TimeSpan result;
-            if (TimeSpan.TryParseExact(value, Formats, null, out result))
+            if (value == null)
+                return null;
+
+            if (TimeSpan.TryParseExact(value, Formats, null, out var result))
                 return result;
 
             return null;

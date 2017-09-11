@@ -14,6 +14,6 @@ namespace ErgastApi.Responses.Models.RaceInfo
 
         [JsonProperty("time")]
         [JsonConverter(typeof(StringTimeSpanConverter))]
-        public TimeSpan Time { get; private set; }
+        public TimeSpan? Time { get; private set; }
     }
 }
