@@ -1,6 +1,6 @@
-﻿using Ploeh.AutoFixture;
-using Ploeh.AutoFixture.AutoNSubstitute;
-using Ploeh.AutoFixture.Xunit2;
+﻿using AutoFixture;
+using AutoFixture.AutoNSubstitute;
+using AutoFixture.Xunit2;
 using Xunit;
 using Xunit.Sdk;
 
@@ -23,7 +23,7 @@ namespace ErgastApi.Tests
         public class AutoNSubstituteDataAttribute : AutoDataAttribute
         {
             public AutoNSubstituteDataAttribute()
-                : base(new Fixture().Customize(new AutoConfiguredNSubstituteCustomization()))
+                : base(() => new Fixture().Customize(new AutoNSubstituteCustomization { ConfigureMembers = true }))
             { }
         }
     }

@@ -65,7 +65,7 @@ namespace ErgastApi.Tests.Client
         public void ApiBase_Set_NonUrlShouldThrowArgumentException(string url)
         {
             Action act = () => Client.ApiBase = url;
-            act.ShouldThrow<ArgumentException>();
+            act.Should().Throw<ArgumentException>();
         }
 
         [Theory]
@@ -98,7 +98,7 @@ namespace ErgastApi.Tests.Client
             Func<Task> act = async () => await Client.GetResponseAsync(request);
 
             // Assert
-            act.ShouldThrow<InvalidOperationException>();
+            act.Should().Throw<InvalidOperationException>();
         }
 
         [Theory]
@@ -155,7 +155,7 @@ namespace ErgastApi.Tests.Client
 
             Func<Task> act = async () => await Client.GetResponseAsync(NullRequest);
 
-            act.ShouldThrow<HttpRequestException>();
+            act.Should().Throw<HttpRequestException>();
         }
 
         [Fact]
@@ -165,7 +165,7 @@ namespace ErgastApi.Tests.Client
 
             Func<Task> act = async () => await Client.GetResponseAsync(NullRequest);
 
-            act.ShouldThrowExactly<Exception>();
+            act.Should().ThrowExactly<Exception>();
         }
 
         [Fact]
