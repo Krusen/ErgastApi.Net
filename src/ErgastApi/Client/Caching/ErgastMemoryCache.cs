@@ -1,11 +1,6 @@
 using System;
 using ErgastApi.Responses;
-
-#if NETSTANDARD
 using Microsoft.Extensions.Caching.Memory;
-#else
-using System.Runtime.Caching;
-#endif
 
 namespace ErgastApi.Client.Caching
 {
@@ -13,11 +8,7 @@ namespace ErgastApi.Client.Caching
     {
         private static readonly TimeSpan DefaultCacheEntryLifetime = TimeSpan.FromHours(1);
 
-#if NETSTANDARD
         private MemoryCache Cache { get; set; } = new MemoryCache(new MemoryCacheOptions());
-#else
-        private MemoryCache Cache { get; set; } = new MemoryCache(nameof(ErgastMemoryCache));
-#endif
 
         // TODO: Doc - does not affect already cached items
         public TimeSpan CacheEntryLifetime { get; set; }
@@ -50,11 +41,7 @@ namespace ErgastApi.Client.Caching
         public void Clear()
         {
             Cache.Dispose();
-#if NETSTANDARD
             Cache = new MemoryCache(new MemoryCacheOptions());
-#else
-            Cache = new MemoryCache(nameof(ErgastMemoryCache));
-#endif
         }
 
         public void Dispose()
