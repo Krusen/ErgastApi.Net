@@ -8,14 +8,19 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{73C22FF1-1864-4A70-9FB9-0C46953B7A33}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
-		build.cake = build.cake
-		build.ps1 = build.ps1
 		GitVersion.yml = GitVersion.yml
 		LICENSE.md = LICENSE.md
 		README.md = README.md
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ErgastApi.Tests", "src\ErgastApi.Tests\ErgastApi.Tests.csproj", "{2F029135-A11D-4039-9CF8-7321253532D6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Cake", "Cake", "{605CC5A1-BD4D-441C-8F1A-7C1C2353B384}"
+	ProjectSection(SolutionItems) = preProject
+		build.cake = build.cake
+		build.ps1 = build.ps1
+		tools\packages.config = tools\packages.config
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -34,6 +39,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{605CC5A1-BD4D-441C-8F1A-7C1C2353B384} = {73C22FF1-1864-4A70-9FB9-0C46953B7A33}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2C3498FD-F16C-4CF2-BE0B-DD55053E2F40}
