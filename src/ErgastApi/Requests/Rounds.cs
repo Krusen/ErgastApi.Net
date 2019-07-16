@@ -20,5 +20,10 @@
         /// The next round.
         /// </summary>
         public const string Next = "next";
+
+        /// <summary>
+        /// Returns the string version of the round (a simple string conversion).
+        /// </summary>
+        public static string Number(int round) => round.ToString();
     }
 }

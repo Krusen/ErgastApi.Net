@@ -15,5 +15,10 @@
         /// The current season.
         /// </summary>
         public const string Current = "current";
+
+        /// <summary>
+        /// Returns the string version of the season (a simple string conversion).
+        /// </summary>
+        public static string Year(int year) => year.ToString();
     }
 }
