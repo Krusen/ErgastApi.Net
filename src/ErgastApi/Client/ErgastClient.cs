@@ -63,7 +63,7 @@ namespace ErgastApi.Client
         /// <summary>
         /// Creates an <see cref="ErgastClient"/> using the specified API base URL.
         /// </summary>
-        /// <param name="apiBase"></param>
+        /// <param name="apiBase">The Ergast API base URL. The default value is 'https://ergast.com/api/f1'.</param>
         public ErgastClient(string apiBase)
         {
             ApiBase = apiBase;
