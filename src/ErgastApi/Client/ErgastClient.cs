@@ -107,7 +107,7 @@ namespace ErgastApi.Client
         /// Ensures the request is valid and otherwise throws an exception.
         /// </summary>
         /// <exception cref="InvalidOperationException">The request is invalid</exception>
-        protected void EnsureValidRequest(IErgastRequest request)
+        protected virtual void EnsureValidRequest(IErgastRequest request)
         {
             if (request?.Round != null && request?.Season == null)
                 throw new InvalidOperationException("When specifying ErgastRequest.Round you also have to specify ErgastRequest.Season.");
