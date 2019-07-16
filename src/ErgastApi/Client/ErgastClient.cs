@@ -1,4 +1,5 @@
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 using ErgastApi.Abstractions;
 using ErgastApi.Client.Caching;
@@ -73,8 +74,9 @@ namespace ErgastApi.Client
         /// </summary>
         /// <typeparam name="TResponse">The type of the returned response.</typeparam>
         /// <param name="request">The request to execute.</param>
-        /// <returns></returns>
-        public async Task<TResponse> GetResponseAsync<TResponse>(ErgastRequest<TResponse> request) where TResponse : ErgastResponse
+        /// <param name="cancellationToken"></param>
+        public virtual async Task<TResponse> GetResponseAsync<TResponse>(ErgastRequest<TResponse> request, CancellationToken cancellationToken)
+            where TResponse : ErgastResponse
         {
             var url = ApiBase + UrlBuilder.Build(request);
 
@@ -84,19 +86,21 @@ namespace ErgastApi.Client
 
             EnsureValidRequest(request);
 
-            var responseMessage = await HttpClient.GetAsync(url).ConfigureAwait(false);
-            responseMessage.EnsureSuccessStatusCode();
+            using (var responseMessage = await HttpClient.GetAsync(url, cancellationToken).ConfigureAwait(false))
+            {
+                responseMessage.EnsureSuccessStatusCode();
 
-            var content = await responseMessage.Content.ReadAsStringAsync().ConfigureAwait(false);
-            var rootResponse = JsonConvert.DeserializeObject<ErgastRootResponse<TResponse>>(content, SerializerSettings);
+                var content = await responseMessage.Content.ReadAsStringAsync().ConfigureAwait(false);
+                var rootResponse = JsonConvert.DeserializeObject<ErgastRootResponse<TResponse>>(content, SerializerSettings);
 
-            if (rootResponse == null)
-                throw new Exception("Received an invalid response." + Environment.NewLine + "Response: " + content);
+                if (rootResponse == null)
+                    throw new Exception("Received an invalid response." + Environment.NewLine + "Response: " + content);
 
-            response = rootResponse.Data;
-            Cache.AddOrReplace(url, response);
+                response = rootResponse.Data;
+                Cache.AddOrReplace(url, response);
 
-            return response;
+                return response;
+            }
         }
 
         /// <summary>

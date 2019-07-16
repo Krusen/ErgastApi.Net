@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace ErgastApi.Abstractions
@@ -8,9 +9,9 @@ namespace ErgastApi.Abstractions
     {
         private HttpClient HttpClient { get; } = new HttpClient();
 
-        public Task<HttpResponseMessage> GetAsync(string requestUri)
+        public Task<HttpResponseMessage> GetAsync(string requestUri, CancellationToken token = default(CancellationToken))
         {
-            return HttpClient.GetAsync(requestUri);
+            return HttpClient.GetAsync(requestUri, token);
         }
 
         public void Dispose()
