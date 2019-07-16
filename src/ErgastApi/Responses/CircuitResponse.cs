@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using ErgastApi.Responses.Models;
-using ErgastApi.Serialization;
+using JsonExts.JsonPath;
 
 namespace ErgastApi.Responses
 {
     public class CircuitResponse : ErgastResponse
     {
-        [JsonPathProperty("CircuitTable.Circuits")]
+        [JsonPath("CircuitTable.Circuits")]
         public IList<Circuit> Circuits { get; private set; }
     }
 }

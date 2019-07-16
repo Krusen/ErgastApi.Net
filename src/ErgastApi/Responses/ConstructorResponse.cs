@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using ErgastApi.Responses.Models;
-using ErgastApi.Serialization;
+using JsonExts.JsonPath;
 
 namespace ErgastApi.Responses
 {
     public class ConstructorResponse : ErgastResponse
     {
-        [JsonPathProperty("ConstructorTable.Constructors")]
+        [JsonPath("ConstructorTable.Constructors")]
         public IList<Constructor> Constructors { get; private set; }
     }
 }

@@ -1,6 +1,6 @@
 using System;
-using ErgastApi.Serialization;
 using ErgastApi.Serialization.Converters;
+using JsonExts.JsonPath;
 using Newtonsoft.Json;
 
 namespace ErgastApi.Responses.Models.RaceInfo
@@ -63,14 +63,14 @@ namespace ErgastApi.Responses.Models.RaceInfo
         /// <summary>
         /// Total race time. This is null for lapped cars.
         /// </summary>
-        [JsonPathProperty("Time.millis")]
+        [JsonPath("Time.millis")]
         [JsonConverter(typeof(MillisecondsTimeSpanConverter))]
         public TimeSpan? TotalRaceTime { get; private set; }
 
         /// <summary>
         /// Gap to winner. This is null for the winner and lapped cars.
         /// </summary>
-        [JsonPathProperty("Time.time")]
+        [JsonPath("Time.time")]
         [JsonConverter(typeof(StringGapTimeSpanConverter))]
         public TimeSpan? GapToWinner { get; private set; }
     }

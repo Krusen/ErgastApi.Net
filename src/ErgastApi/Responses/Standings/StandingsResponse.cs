@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
-using ErgastApi.Serialization;
+using JsonExts.JsonPath;
 
 namespace ErgastApi.Responses
 {
     public abstract class StandingsResponse<T> : ErgastResponse
     {
-        [JsonPathProperty("StandingsTable.StandingsLists")]
+        [JsonPath("StandingsTable.StandingsLists")]
         public IList<T> StandingsLists { get; private set; }
     }
 }

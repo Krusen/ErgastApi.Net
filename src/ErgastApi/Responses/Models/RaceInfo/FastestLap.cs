@@ -1,6 +1,6 @@
 ﻿using System;
-using ErgastApi.Serialization;
 using ErgastApi.Serialization.Converters;
+using JsonExts.JsonPath;
 using Newtonsoft.Json;
 
 namespace ErgastApi.Responses.Models.RaceInfo
@@ -13,7 +13,7 @@ namespace ErgastApi.Responses.Models.RaceInfo
         [JsonProperty("lap")]
         public int LapNumber { get; private set; }
 
-        [JsonPathProperty("Time.time")]
+        [JsonPath("Time.time")]
         [JsonConverter(typeof(StringTimeSpanConverter))]
         public TimeSpan? LapTime { get; private set; }
 

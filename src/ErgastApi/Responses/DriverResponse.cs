@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using ErgastApi.Responses.Models;
-using ErgastApi.Serialization;
+using JsonExts.JsonPath;
 
 namespace ErgastApi.Responses
 {
     public class DriverResponse : ErgastResponse
     {
-        [JsonPathProperty("DriverTable.Drivers")]
+        [JsonPath("DriverTable.Drivers")]
         public IList<Driver> Drivers { get; private set; }
     }
 }

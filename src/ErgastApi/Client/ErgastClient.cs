@@ -1,10 +1,10 @@
-﻿using System;
+using System;
 using System.Threading.Tasks;
 using ErgastApi.Abstractions;
 using ErgastApi.Client.Caching;
 using ErgastApi.Requests;
 using ErgastApi.Responses;
-using ErgastApi.Serialization;
+using JsonExts.JsonPath;
 using Newtonsoft.Json;
 
 namespace ErgastApi.Client
@@ -17,7 +17,7 @@ namespace ErgastApi.Client
     {
         private string _apiBase = "https://ergast.com/api/f1";
 
-        private JsonSerializerSettings SerializerSettings { get; } = new JsonSerializerSettings { ContractResolver = new JsonPathContractResolver() };
+        private JsonSerializerSettings SerializerSettings { get; } = new JsonSerializerSettings {Converters = {new JsonPathObjectConverter()}};
 
         /// <summary>
         /// The Ergast API base URL. The default value is 'https://ergast.com/api/f1'.
