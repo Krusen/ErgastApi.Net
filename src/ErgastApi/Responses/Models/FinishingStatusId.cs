@@ -3,6 +3,7 @@
     public enum FinishingStatusId
     {
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+        None = 0,
         Finished = 1,
         Disqualified = 2,
         Accident = 3,
