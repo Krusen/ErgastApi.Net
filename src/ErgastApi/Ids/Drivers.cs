@@ -6,8 +6,10 @@
     public static class Drivers
     {
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+        public const string AlexanderAlbon = "albon";
         public const string AntonioGiovinazzi = "giovinazzi";
         public const string CarlosSainz = "sainz";
+        public const string CharlesLeclerc = "leclerc";
         /// <summary>#3 RIC</summary>
         public const string DanielRicciardo = "ricciardo";
         public const string DaniilKvyat = "kvyat";
@@ -17,6 +19,7 @@
         public const string FelipeMassa = "massa";
         public const string FelipeNasr = "nasr";
         public const string FernandoAlonso = "alonso";
+        public const string GeorgeRussell = "russell";
         public const string JeanEricVergne = "vergne";
         public const string JensonButton = "button";
         public const string JolyonPalmer = "jolyon_palmer";
@@ -26,9 +29,11 @@
         /// <summary>#7 RAI</summary>
         public const string KimiRaikkonen = "raikkonen";
         public const string LanceStroll = "stroll";
+        public const string LandoNorris = "norris";
         public const string LewisHamilton = "hamilton";
         public const string MarcusEricsson = "ericsson";
         public const string MaxChilton = "chilton";
+        /// <summary>#33 VER</summary>
         public const string MaxVerstappen = "max_verstappen";
         public const string NicoHulkenberg = "hulkenberg";
         /// <summary>#6 ROS</summary>
@@ -37,6 +42,7 @@
         /// <summary>#13 MAL</summary>
         public const string PastorMaldonado = "maldonado";
         public const string PaulDiResta = "resta";
+        public const string PierreGasly = "gasly";
         public const string RioHaryanto = "haryanto";
         public const string RomainGrosjean = "grosjean";
         /// <summary>#5 VET</summary>
