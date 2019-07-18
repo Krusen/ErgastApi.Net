@@ -14,7 +14,7 @@ using Xunit;
 
 namespace ErgastApi.Tests.Client
 {
-    public class ErgastClientTests
+    public class ErgastClientTests : IDisposable
     {
         private ErgastClient Client { get; }
 
@@ -42,6 +42,13 @@ namespace ErgastApi.Tests.Client
                 UrlBuilder = UrlBuilder,
                 HttpClient = HttpClient
             };
+        }
+
+        public void Dispose()
+        {
+            ResponseMessage?.Dispose();
+            HttpClient?.Dispose();
+            Client?.Dispose();
         }
 
         [Fact]
@@ -159,6 +166,13 @@ namespace ErgastApi.Tests.Client
             Func<Task> act = async () => await Client.GetResponseAsync(request, CancellationToken.None);
 
             act.Should().ThrowExactly<Exception>();
+        }
+
+        [Fact]
+        public async Task GetResponseAsync_HttpResponseMessageIsDisposed()
+        {
+            var response = await Client.GetResponseAsync(new DriverStandingsRequest());
+            ResponseMessage.Received().Dispose();
         }
 
         [Fact]
