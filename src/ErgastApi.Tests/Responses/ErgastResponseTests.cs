@@ -44,7 +44,6 @@ namespace ErgastApi.Tests.Responses
         [Theory]
         [AutoMockedData(1, 0, 0)]
         [AutoMockedData(1, 0, 10)]
-        [AutoMockedData(1, 0, 10)]
         [AutoMockedData(2, 10, 10)]
         public void Page(int expectedPage, int offset, int limit)
         {
