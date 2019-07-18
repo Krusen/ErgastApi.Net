@@ -1,12 +1,14 @@
-using System;
+﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
 using ErgastApi.Abstractions;
-using ErgastApi.Client.Caching;
 using ErgastApi.Requests;
 using ErgastApi.Responses;
 using JsonExts.JsonPath;
+using Microsoft.Extensions.Caching.Memory;
 using Newtonsoft.Json;
+using Polly;
+using Polly.Caching.Memory;
 
 namespace ErgastApi.Client
 {
@@ -17,6 +19,7 @@ namespace ErgastApi.Client
     public class ErgastClient : IErgastClient, IDisposable
     {
         private string _apiBase = "https://ergast.com/api/f1";
+        private IAsyncPolicy _pollyPolicy;
 
         private JsonSerializerSettings SerializerSettings { get; } = new JsonSerializerSettings {Converters = {new JsonPathObjectConverter()}};
 
@@ -49,24 +52,25 @@ namespace ErgastApi.Client
         public IUrlBuilder UrlBuilder { get; set; } = new UrlBuilder();
 
         /// <summary>
-        /// Gets or sets the <see cref="IErgastCache"/> used to cache the responses from the API.
+        /// The async Polly policy used to handle HTTP requests.
+        /// The default policy caches responses for 1 hour.
+        /// Change this to use a different strategy for retries, caching etc.
+        /// See https://github.com/App-vNext/Polly for more information.
         /// </summary>
-        public IErgastCache Cache { get; set; } = new ErgastMemoryCache();
+        public IAsyncPolicy PollyPolicy
+        {
+            get => _pollyPolicy;
+            set => _pollyPolicy = value ?? Policy.NoOpAsync();
+        }
 
         /// <summary>
         /// Creates an <see cref="ErgastClient"/> using the default API base URL.
         /// </summary>
         public ErgastClient()
         {
-        }
-
-        /// <summary>
-        /// Creates an <see cref="ErgastClient"/> using the specified API base URL.
-        /// </summary>
-        /// <param name="apiBase">The Ergast API base URL. The default value is 'https://ergast.com/api/f1'.</param>
-        public ErgastClient(string apiBase)
-        {
-            ApiBase = apiBase;
+            var memoryCache = new MemoryCache(new MemoryCacheOptions());
+            var memoryCacheProvider = new MemoryCacheProvider(memoryCache);
+            PollyPolicy = Policy.CacheAsync(memoryCacheProvider, TimeSpan.FromHours(1));
         }
 
         /// <summary>
@@ -75,17 +79,26 @@ namespace ErgastApi.Client
         /// <typeparam name="TResponse">The type of the returned response.</typeparam>
         /// <param name="request">The request to execute.</param>
         /// <param name="cancellationToken"></param>
-        public virtual async Task<TResponse> GetResponseAsync<TResponse>(ErgastRequest<TResponse> request, CancellationToken cancellationToken)
+        public virtual Task<TResponse> GetResponseAsync<TResponse>(ErgastRequest<TResponse> request, CancellationToken cancellationToken)
             where TResponse : ErgastResponse
         {
             var url = ApiBase + UrlBuilder.Build(request);
 
-            var response = Cache.Get<TResponse>(url);
-            if (response != null)
-                return response;
-
             request.Verify();
 
+            var executionContext = new Context(url);
+            return PollyPolicy.ExecuteAsync((context, token) => GetResponseAsync<TResponse>(url, token), executionContext, cancellationToken);
+        }
+
+        /// <summary>
+        /// Executes the HTTP request to the specified URL and deserializes the response.
+        /// </summary>
+        /// <typeparam name="TResponse">The type the response should be deserialized to.</typeparam>
+        /// <param name="url">The url being requested.</param>
+        /// <param name="cancellationToken"></param>
+        protected virtual async Task<TResponse> GetResponseAsync<TResponse>(string url, CancellationToken cancellationToken)
+            where TResponse : ErgastResponse
+        {
             using (var responseMessage = await HttpClient.GetAsync(url, cancellationToken).ConfigureAwait(false))
             {
                 responseMessage.EnsureSuccessStatusCode();
@@ -94,10 +107,9 @@ namespace ErgastApi.Client
                 var rootResponse = JsonConvert.DeserializeObject<ErgastRootResponse<TResponse>>(content, SerializerSettings);
 
                 if (rootResponse == null)
-                    throw new Exception("Received an invalid response." + Environment.NewLine + "Response: " + content);
+                    throw new Exception($"Received an invalid response.{Environment.NewLine}Response: {content}");
 
-                response = rootResponse.Data;
-                Cache.AddOrReplace(url, response);
+                var response = rootResponse.Data;
 
                 return response;
             }
@@ -118,7 +130,6 @@ namespace ErgastApi.Client
             if (!disposing) return;
 
             HttpClient?.Dispose();
-            Cache?.Dispose();
         }
 
         private class ErgastRootResponse<T>
