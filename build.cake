@@ -2,12 +2,10 @@
 
 // Install addins.
 #addin "nuget:?package=Cake.Coveralls&version=0.10.0"
-#addin "nuget:?package=Cake.Json&version=3.0.0"
-//#addin "nuget:?package=Newtonsoft.Json&version=11.0.0"
+#addin "nuget:?package=Cake.Coverlet&version=2.3.4"
 
 // Install tools.
 #tool "nuget:?package=GitVersion.CommandLine&version=4.0.0"
-#tool "nuget:?package=OpenCover&version=4.7.922"
 #tool "nuget:?package=coveralls.io&version=1.4.2"
 #tool "nuget:?package=xunit.runner.console&version=2.4.1"
 
@@ -28,10 +26,9 @@ var libraryName = "ErgastApi.Net";
 
 var sourceFolder = "./";
 
-var xunitRunnerJsonFile = "./src/ErgastApi.Tests/xunit.runner.json";
 var testProjectFile = "./src/ErgastApi.Tests/ErgastApi.Tests.csproj";
-var codeCoverageOutput = "coverage.xml";
-var codeCoverageFilter = "+[*]* -[*.Tests]*";
+var codeCoverageOutputDir = "../../";
+var codeCoverageInclude = "[ErgastApi]*";
 
 var cakeVersion = typeof(ICakeContext).Assembly.GetName().Version.ToString();
 var versionInfo = GitVersion(new GitVersionSettings() { OutputType = GitVersionOutput.Json });
@@ -101,51 +98,27 @@ Task("Run-Unit-Tests")
     .IsDependentOn("Build")
     .Does(() =>
 {
-    DotNetCoreTest(testProjectFile, new DotNetCoreTestSettings
+    var testSettings = new DotNetCoreTestSettings
     {
         NoBuild = true,
-        Configuration = configuration
-    });
-});
+        Configuration = configuration,
+        ArgumentCustomization = args => args
+            .Append("/p:CollectCoverage=true")
+            .Append("/p:CoverletOutputFormat=opencover") // Quotes needs to be escaped for 'dotnet test' (see https://github.com/Microsoft/msbuild/issues/2999)
+            .AppendSwitch("/p:CoverletOutput", "=", codeCoverageOutputDir)
+            .AppendSwitchQuoted("/p:Include", "=", codeCoverageInclude)
+            .Append("/p:ExcludeByAttribute=CompilerGenerated")
+            .Append("/p:UseSourceLink=true")
+    };
 
-Task("Disable-xUnit-ShadowCopy")
-    .Does(() =>
-{
-    Information("Disabling xUnit shadow copying assemblies for code coverage to work...");
-    SerializeJsonToFile(xunitRunnerJsonFile, new { shadowCopy = false });
-});
-
-Task("Run-Code-Coverage")
-    .IsDependentOn("Disable-xUnit-ShadowCopy")
-    .IsDependentOn("Build")
-    .Does(() =>
-{
-    Action<ICakeContext> testAction = ctx => ctx.DotNetCoreTest(testProjectFile, new DotNetCoreTestSettings
-    {
-        NoBuild = true,
-        Configuration = configuration
-    });
-
-    OpenCover(testAction,
-        codeCoverageOutput,
-        new OpenCoverSettings
-        {
-            OldStyle = true,
-            SkipAutoProps = true,
-            MergeOutput = false
-        }
-        .WithFilter(codeCoverageFilter)
-    );
-
-    if (FileExists(xunitRunnerJsonFile))
-        DeleteFile(xunitRunnerJsonFile);
+    DotNetCoreTest(testProjectFile, testSettings);
 });
 
 Task("Upload-Coverage-Result")
     .WithCriteria(() => !isLocalBuild)
     .Does(() =>
 {
-    CoverallsIo(codeCoverageOutput);
+    CoverallsIo("coverage.opencover.xml");
 });
 
 
@@ -155,7 +128,7 @@ Task("Upload-Coverage-Result")
 
 Task("AppVeyor")
     .IsDependentOn("AppVeyor_Set-Build-Version")
-    .IsDependentOn("Run-Code-Coverage")
+    .IsDependentOn("Run-Unit-Tests")
     .IsDependentOn("Upload-Coverage-Result");
 
 Task("Default")

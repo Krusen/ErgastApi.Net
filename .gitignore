@@ -290,5 +290,4 @@ tools/**
 
 
 
-/coverage.xml
-xunit.runner.json
+/coverage.opencover.xml
