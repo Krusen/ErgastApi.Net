@@ -1,5 +1,8 @@
 assembly-versioning-scheme: None
 mode: Mainline
-branches: {}
-ignore:
-  sha: []
+legacy-semver-padding: 2
+branches:
+  release:
+    regex: release
+    mode: ContinuousDeployment
+    tag: 'rc'

@@ -33,8 +33,8 @@ var codeCoverageInclude = "[ErgastApi]*";
 var cakeVersion = typeof(ICakeContext).Assembly.GetName().Version.ToString();
 var versionInfo = GitVersion(new GitVersionSettings() { OutputType = GitVersionOutput.Json });
 var milestone = string.Concat("v", versionInfo.MajorMinorPatch);
-var buildVersion = $"{versionInfo.SemVer}+{AppVeyor.Environment.Build.Number}";
-var packageVersion = versionInfo.SemVer;
+var buildVersion = $"{versionInfo.LegacySemVerPadded}+{AppVeyor.Environment.Build.Number}";
+var packageVersion = versionInfo.LegacySemVerPadded;
 
 var isLocalBuild = BuildSystem.IsLocalBuild;
 var	isPullRequest = BuildSystem.AppVeyor.Environment.PullRequest.IsPullRequest;
@@ -59,6 +59,7 @@ Setup(context =>
 
     Information("Versions:" + Environment.NewLine
         + $"\t Milestone: {milestone}" + Environment.NewLine
+        + $"\t SemVer: {versionInfo.SemVer}" + Environment.NewLine
         + $"\t BuildNumber: {AppVeyor.Environment.Build.Number}" + Environment.NewLine
         + $"\t BuildVersion: {buildVersion}" + Environment.NewLine
         + $"\t PackageVersion: {packageVersion}" + Environment.NewLine
