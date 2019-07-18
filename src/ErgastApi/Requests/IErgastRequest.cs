@@ -1,6 +1,4 @@
-﻿using ErgastApi.Ids;
-
-namespace ErgastApi.Requests
+﻿namespace ErgastApi.Requests
 {
     /// <summary>
     /// Common interface for all requests, which contains properties for paging and limiting results to a season, round and/or driver.
@@ -41,9 +39,8 @@ namespace ErgastApi.Requests
         string Round { get; set; }
 
         /// <summary>
-        /// Limits the results to the specified driver.
-        /// The static <see cref="Drivers"/> class contains the IDs for most recent and popular drivers.
+        /// Verify the request is valid. Implementing classes should throw an exception if the request is invalid.
         /// </summary>
-        string DriverId { get; set; }
+        void Verify();
     }
 }

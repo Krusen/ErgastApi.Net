@@ -6,6 +6,6 @@ namespace ErgastApi.Requests
     public class QualifyingResultsRequest : StandardRequest<QualifyingResultsResponse>
     {
         [UrlTerminator, UrlSegment("qualifying")]
-        public override int? QualifyingPosition { get; set; }
+        public int? QualifyingPosition { get; set; }
     }
 }

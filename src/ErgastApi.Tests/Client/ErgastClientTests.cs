@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -88,17 +88,10 @@ namespace ErgastApi.Tests.Client
 
         [Theory]
         [AutoMockedData]
-        public void GetResponseAsync_RequestWithRoundWithoutSeason_ThrowsInvalidOperationException(ErgastRequest<ErgastResponse> request)
+        public async Task GetResponseAsync_InvokesRequestVerifyMethod(ErgastRequest<ErgastResponse> request)
         {
-            // Arrange
-            request.Season = null;
-            request.Round = "1";
-
-            // Act
-            Func<Task> act = async () => await Client.GetResponseAsync(request);
-
-            // Assert
-            act.Should().Throw<InvalidOperationException>();
+            await Client.GetResponseAsync(request, CancellationToken.None);
+            request.Received().Verify();
         }
 
         [Theory]

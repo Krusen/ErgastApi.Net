@@ -1,6 +1,6 @@
 ﻿using System;
 using ErgastApi.Client.Attributes;
-using ErgastApi.Ids;
+using ErgastApi.Exceptions;
 using ErgastApi.Responses;
 
 namespace ErgastApi.Requests
@@ -64,13 +64,6 @@ namespace ErgastApi.Requests
         public virtual string Round { get; set; }
 
         /// <summary>
-        /// Limits the results to the specified driver.
-        /// The static <see cref="Drivers"/> class contains the IDs for most recent and popular drivers.
-        /// </summary>
-        [UrlSegment("drivers")]
-        public virtual string DriverId { get; set; }
-
-        /// <summary>
         /// Convenience method used for paging. Sets the limit and offset values for you.
         /// </summary>
         /// <param name="page">The page to get. Use 1 for the first page.</param>
@@ -86,5 +79,16 @@ namespace ErgastApi.Requests
             Limit = pageSize;
             Offset = (page - 1) * pageSize;
         }
+
+        /// <summary>
+        /// Verifies that the request is valid.
+        /// Throws an exception if the request is invalid.
+        /// </summary>
+        public virtual void Verify()
+        {
+            if (Round == null || Season != null) return;
+            throw new ErgastInvalidRequestException("When specifying round you also have to specify the season.");
+        }
+
     }
 }

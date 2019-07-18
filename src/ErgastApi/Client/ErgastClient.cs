@@ -84,7 +84,7 @@ namespace ErgastApi.Client
             if (response != null)
                 return response;
 
-            EnsureValidRequest(request);
+            request.Verify();
 
             using (var responseMessage = await HttpClient.GetAsync(url, cancellationToken).ConfigureAwait(false))
             {
@@ -101,16 +101,6 @@ namespace ErgastApi.Client
 
                 return response;
             }
-        }
-
-        /// <summary>
-        /// Ensures the request is valid and otherwise throws an exception.
-        /// </summary>
-        /// <exception cref="InvalidOperationException">The request is invalid</exception>
-        protected virtual void EnsureValidRequest(IErgastRequest request)
-        {
-            if (request?.Round != null && request?.Season == null)
-                throw new InvalidOperationException("When specifying ErgastRequest.Round you also have to specify ErgastRequest.Season.");
         }
 
         /// <inheritdoc />
