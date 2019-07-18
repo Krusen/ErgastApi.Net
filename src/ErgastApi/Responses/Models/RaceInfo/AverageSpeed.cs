@@ -3,6 +3,9 @@ using Newtonsoft.Json;
 
 namespace ErgastApi.Responses.Models.RaceInfo
 {
+    /// <summary>
+    /// The average speed during a race.
+    /// </summary>
     public class AverageSpeed
     {
         [JsonProperty("units")]

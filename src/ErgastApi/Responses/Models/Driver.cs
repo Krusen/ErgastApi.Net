@@ -1,10 +1,18 @@
 ﻿using System;
+using ErgastApi.Ids;
 using Newtonsoft.Json;
 
 namespace ErgastApi.Responses.Models
 {
+    /// <summary>
+    /// Contains information about a driver like his ID, name, nationality, date of birth, driver code etc.
+    /// </summary>
     public class Driver
     {
+        /// <summary>
+        /// The ID of the driver in the API. Used to make requests concerning a specific driver.
+        /// The static <see cref="Drivers"/> class contains the IDs of most recent and popular drivers.
+        /// </summary>
         [JsonProperty("driverId")]
         public string DriverId { get; private set; }
 
@@ -16,6 +24,9 @@ namespace ErgastApi.Responses.Models
         [JsonProperty("permanentNumber")]
         public int? PermanentNumber { get; private set; }
 
+        /// <summary>
+        /// 3-letter driver code, e.g. HAM, VER, RIC.
+        /// </summary>
         [JsonProperty("code")]
         public string Code { get; private set; }
 

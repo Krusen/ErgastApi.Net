@@ -4,6 +4,9 @@ using Newtonsoft.Json;
 
 namespace ErgastApi.Responses.Models.RaceInfo
 {
+    /// <summary>
+    /// Information about a specific race/grand prix.
+    /// </summary>
     public class Race
     {
         [JsonProperty("season")]
@@ -12,6 +15,9 @@ namespace ErgastApi.Responses.Models.RaceInfo
         [JsonProperty("round")]
         public int Round { get; private set; }
 
+        /// <summary>
+        /// The name of the race, e.g. The British Grand Prix.
+        /// </summary>
         [JsonProperty("raceName")]
         public string RaceName { get; private set; }
 
@@ -21,6 +27,9 @@ namespace ErgastApi.Responses.Models.RaceInfo
         [JsonProperty("circuit")]
         public Circuit Circuit { get; private set; }
 
+        /// <summary>
+        /// The time of race start.
+        /// </summary>
         public DateTime StartTime => DateTime.Parse(DateRaw + " " + TimeRaw, CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal);
 
         [JsonProperty("date")]

@@ -4,6 +4,9 @@ using JsonExts.JsonPath;
 
 namespace ErgastApi.Responses
 {
+    /// <summary>
+    /// A response containing a list of drivers matching the request.
+    /// </summary>
     public class DriverResponse : ErgastResponse
     {
         [JsonPath("DriverTable.Drivers")]

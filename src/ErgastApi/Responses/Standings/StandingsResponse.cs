@@ -3,6 +3,9 @@ using JsonExts.JsonPath;
 
 namespace ErgastApi.Responses
 {
+    /// <summary>
+    /// Base response for standings requests.
+    /// </summary>
     public abstract class StandingsResponse<T> : ErgastResponse
     {
         [JsonPath("StandingsTable.StandingsLists")]
