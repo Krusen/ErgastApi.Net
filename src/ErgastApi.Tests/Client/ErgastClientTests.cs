@@ -1,6 +1,7 @@
 using System;
 using System.Net;
 using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
 using ErgastApi.Abstractions;
 using ErgastApi.Client;
@@ -24,8 +25,6 @@ namespace ErgastApi.Tests.Client
         private IHttpClient HttpClient { get; }
 
         private HttpResponseMessage ResponseMessage { get; }
-
-        private ErgastRequest<ErgastResponse> NullRequest { get; } = null;
 
         public ErgastClientTests()
         {
@@ -96,25 +95,25 @@ namespace ErgastApi.Tests.Client
 
         [Theory]
         [AutoMockedData]
-        public async Task GetResponseAsync_ReturnsCachedResponse(ErgastResponse expectedResponse)
+        public async Task GetResponseAsync_ReturnsCachedResponse(ErgastResponse expectedResponse, ErgastRequest<ErgastResponse> request)
         {
             Cache.Get<ErgastResponse>(null).ReturnsForAnyArgs(expectedResponse);
 
-            var response = await Client.GetResponseAsync(NullRequest);
+            var response = await Client.GetResponseAsync(request, CancellationToken.None);
 
             response.Should().Be(expectedResponse);
         }
 
         [Theory]
         [AutoMockedData]
-        public async Task GetResponseAsync_CallsTheUrlFromUrlBuilder(string url)
+        public async Task GetResponseAsync_CallsTheUrlFromUrlBuilder(string url, ErgastRequest<ErgastResponse> request)
         {
             // Arrange
             var expectedUrl = Client.ApiBase + url;
-            UrlBuilder.Build(NullRequest).Returns(url);
+            UrlBuilder.Build(request).Returns(url);
 
             // Act
-            await Client.GetResponseAsync(NullRequest);
+            await Client.GetResponseAsync(request, CancellationToken.None);
 
             // Assert
             await HttpClient.Received().GetAsync(expectedUrl);
@@ -129,7 +128,7 @@ namespace ErgastApi.Tests.Client
             UrlBuilder.Build(request).Returns(url);
 
             // Act
-            await Client.GetResponseAsync(request);
+            await Client.GetResponseAsync(request, CancellationToken.None);
 
             // Assert
             Cache.Received().AddOrReplace(expectedUrl, Arg.Any<ErgastResponse>());
@@ -142,21 +141,22 @@ namespace ErgastApi.Tests.Client
         [AutoMockedData(HttpStatusCode.Forbidden)]
         [AutoMockedData(HttpStatusCode.Unauthorized)]
         [AutoMockedData(HttpStatusCode.NotFound)]
-        public void GetResponseAsync_ThrowsHttpRequestExceptionIfNotSuccessStatusCode(HttpStatusCode statusCode)
+        public void GetResponseAsync_ThrowsHttpRequestExceptionIfNotSuccessStatusCode(HttpStatusCode statusCode, ErgastRequest<ErgastResponse> request)
         {
             ResponseMessage.StatusCode = statusCode;
 
-            Func<Task> act = async () => await Client.GetResponseAsync(NullRequest);
+            Func<Task> act = async () => await Client.GetResponseAsync(request, CancellationToken.None);
 
             act.Should().Throw<HttpRequestException>();
         }
 
-        [Fact]
-        public void GetResponseAsync_ThrowsExceptionIfInvalidResponse()
+        [Theory]
+        [AutoMockedData]
+        public void GetResponseAsync_ThrowsExceptionIfInvalidResponse(ErgastRequest<ErgastResponse> request)
         {
             ResponseMessage.Content = new StringContent("");
 
-            Func<Task> act = async () => await Client.GetResponseAsync(NullRequest);
+            Func<Task> act = async () => await Client.GetResponseAsync(request, CancellationToken.None);
 
             act.Should().ThrowExactly<Exception>();
         }
