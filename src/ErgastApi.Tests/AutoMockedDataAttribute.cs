@@ -23,10 +23,7 @@ namespace ErgastApi.Tests
         public class AutoNSubstituteDataAttribute : AutoDataAttribute
         {
             public AutoNSubstituteDataAttribute()
-
-
-                : base(
-                      () =>
+                : base(() =>
                       {
                           var fixture = new Fixture();
                           fixture.Customize(new AutoNSubstituteCustomization { ConfigureMembers = true });
