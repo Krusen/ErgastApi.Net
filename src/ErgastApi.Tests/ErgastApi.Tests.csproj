@@ -1,35 +1,35 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net452</TargetFramework>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFrameworks>net472;net48;net481;net6.0;net7.0</TargetFrameworks>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <None Update="xunit.runner.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
+	<ItemGroup>
+		<None Update="xunit.runner.json">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\ErgastApi\ErgastApi.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\ErgastApi\ErgastApi.csproj" />
+	</ItemGroup>
+	
+	<ItemGroup>
+		<PackageReference Include="AutoFixture" Version="4.18.0" />
+		<PackageReference Include="AutoFixture.AutoNSubstitute" Version="4.18.0" />
+		<PackageReference Include="AutoFixture.Xunit2" Version="4.18.0" />
+		<PackageReference Include="FluentAssertions" Version="6.10.0" />
+		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.5.0" />
+		<PackageReference Include="NSubstitute" Version="5.0.0" />
+		<PackageReference Include="xunit" Version="2.4.2" />
+		<PackageReference Include="xunit.core" Version="2.4.2" />
+		<PackageReference Include="xunit.extensibility.execution" Version="2.4.2" />
+		<PackageReference Include="xunit.runner.visualstudio" Version="2.4.5" />
+		<DotNetCliToolReference Include="dotnet-xunit" Version="2.4.0-beta.1.build3958" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="AutoFixture" Version="3.50.3" />
-    <PackageReference Include="AutoFixture.AutoNSubstitute" Version="3.50.3" />
-    <PackageReference Include="AutoFixture.Xunit2" Version="3.50.3" />
-    <PackageReference Include="FluentAssertions" Version="4.19.3" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.3.0" />
-    <PackageReference Include="NSubstitute" Version="2.0.3" />
-    <PackageReference Include="xunit" Version="2.3.0-beta4-build3742" />
-    <PackageReference Include="xunit.core" Version="2.3.0-beta4-build3742" />
-    <PackageReference Include="xunit.extensibility.execution" Version="2.3.0-beta4-build3742" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.3.0-beta4-build3742" />
-    <DotNetCliToolReference Include="dotnet-xunit" Version="2.3.0-beta4-build3742" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Service Include="{82a7f48d-3b50-4b1e-b82e-3ada8210c358}" />
-  </ItemGroup>
+	<ItemGroup>
+		<Service Include="{82a7f48d-3b50-4b1e-b82e-3ada8210c358}" />
+	</ItemGroup>
 
 </Project>

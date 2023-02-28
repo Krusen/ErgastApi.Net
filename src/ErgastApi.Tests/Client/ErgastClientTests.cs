@@ -65,7 +65,7 @@ namespace ErgastApi.Tests.Client
         public void ApiBase_Set_NonUrlShouldThrowArgumentException(string url)
         {
             Action act = () => Client.ApiBase = url;
-            act.ShouldThrow<ArgumentException>();
+            act.Should().Throw<ArgumentException>();
         }
 
         [Theory]
@@ -88,7 +88,7 @@ namespace ErgastApi.Tests.Client
 
         [Theory]
         [AutoMockedData]
-        public void GetResponseAsync_RequestWithRoundWithoutSeason_ThrowsInvalidOperationException(ErgastRequest<ErgastResponse> request)
+        public async Task GetResponseAsync_RequestWithRoundWithoutSeason_ThrowsInvalidOperationException(ErgastRequest<ErgastResponse> request)
         {
             // Arrange
             request.Season = null;
@@ -98,7 +98,7 @@ namespace ErgastApi.Tests.Client
             Func<Task> act = async () => await Client.GetResponseAsync(request);
 
             // Assert
-            act.ShouldThrow<InvalidOperationException>();
+            await act.Should().ThrowAsync<InvalidOperationException>();
         }
 
         [Theory]
@@ -149,23 +149,23 @@ namespace ErgastApi.Tests.Client
         [AutoMockedData(HttpStatusCode.Forbidden)]
         [AutoMockedData(HttpStatusCode.Unauthorized)]
         [AutoMockedData(HttpStatusCode.NotFound)]
-        public void GetResponseAsync_ThrowsHttpRequestExceptionIfNotSuccessStatusCode(HttpStatusCode statusCode)
+        public async Task GetResponseAsync_ThrowsHttpRequestExceptionIfNotSuccessStatusCode(HttpStatusCode statusCode)
         {
             ResponseMessage.StatusCode = statusCode;
 
             Func<Task> act = async () => await Client.GetResponseAsync(NullRequest);
 
-            act.ShouldThrow<HttpRequestException>();
+            await act.Should().ThrowAsync<HttpRequestException>();
         }
 
         [Fact]
-        public void GetResponseAsync_ThrowsExceptionIfInvalidResponse()
+        public async Task GetResponseAsync_ThrowsExceptionIfInvalidResponse()
         {
             ResponseMessage.Content = new StringContent("");
 
             Func<Task> act = async () => await Client.GetResponseAsync(NullRequest);
 
-            act.ShouldThrowExactly<Exception>();
+            await act.Should().ThrowExactlyAsync<Exception>();
         }
 
         [Fact]

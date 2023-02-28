@@ -110,7 +110,7 @@ namespace ErgastApi.Tests.Client
         {
             var request = new MockMultipleTerminatorsRequest();
             Action act = () => UrlBuilder.Build(request);
-            act.ShouldThrow<Exception>();
+            act.Should().Throw<Exception>();
         }
 
         [Fact]
