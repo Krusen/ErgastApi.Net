@@ -174,8 +174,6 @@ namespace ErgastApi.Tests.Client
             };
             SprintResultsResponse response = await client.GetResponseAsync(request);
             response.Races.First().SprintResults.First().Points.Should().Be(8);
-
-            
         }
 
         private class MockRequest : ErgastRequest<ErgastResponse>

@@ -4,6 +4,5 @@ namespace ErgastApi.Responses
 {
     public class SprintListResponse : RaceResponse<Race>
     {
-        
     }
 }
