@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Drawing.Printing;
+using System.Linq;
+using System.Threading.Tasks;
 using ErgastApi.Client;
 using ErgastApi.Client.Attributes;
 using ErgastApi.Requests;
@@ -159,6 +162,18 @@ namespace ErgastApi.Tests.Client
             var request = new MockRequest { Enum = MockEnum.Two };
             var url = UrlBuilder.Build(request);
             url.Should().Be("/enum/2/last.json");
+        }
+
+        [Fact]
+        public async Task TestFromSprints()
+        {
+            var client = new ErgastClient();
+            var request = new SprintResultsRequest
+            {
+                Season = "2022"
+            };
+            SprintResultsResponse response = await client.GetResponseAsync(request);
+            response.Races.First().SprintResults.First().Points.Should().Be(8);
         }
 
         private class MockRequest : ErgastRequest<ErgastResponse>
