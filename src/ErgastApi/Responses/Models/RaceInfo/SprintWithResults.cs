@@ -5,7 +5,7 @@ namespace ErgastApi.Responses.Models.RaceInfo
 {
     public class SprintWithResults : Race
     {
-        [JsonProperty("sprint")]
-        public IList<RaceResult> Results { get; private set; }
+        [JsonProperty("SprintResults")]
+        public IList<RaceResult> SprintResults { get; private set; }
     }
 }

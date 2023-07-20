@@ -5,7 +5,7 @@ namespace ErgastApi.Requests
 {
     public class SprintResultsRequest : StandardRequest<SprintResultsResponse>
     {
-        [UrlTerminator]
+        [UrlTerminator, UrlSegment("sprint")]
         public override int? FinishingPosition { get; set; }
     }
 }

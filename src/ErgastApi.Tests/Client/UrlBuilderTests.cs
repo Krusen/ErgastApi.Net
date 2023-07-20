@@ -165,7 +165,7 @@ namespace ErgastApi.Tests.Client
         }
 
         [Fact]
-        public async Task MyTry()
+        public async Task TestFromSprints()
         {
             var client = new ErgastClient();
             var request = new SprintResultsRequest
@@ -173,7 +173,7 @@ namespace ErgastApi.Tests.Client
                 Season = "2022"
             };
             SprintResultsResponse response = await client.GetResponseAsync(request);
-            response.Races.First().Results.First().Points.Should().Be(8);
+            response.Races.First().SprintResults.First().Points.Should().Be(8);
 
             
         }
