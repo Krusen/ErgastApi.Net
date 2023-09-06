@@ -21,7 +21,7 @@ namespace ErgastApi.Tests.Requests
         public void Limit_BelowZero_ThrowsArgumentOutOfRangeException(int limit)
         {
             Action act = () => Request.Limit = limit;
-            act.ShouldThrow<ArgumentOutOfRangeException>();
+            act.Should().Throw<ArgumentOutOfRangeException>();
         }
 
         [Theory]
@@ -31,7 +31,7 @@ namespace ErgastApi.Tests.Requests
         public void Limit_AboveOneThousand_ThrowsArgumentOutOfRangeException(int limit)
         {
             Action act = () => Request.Limit = limit;
-            act.ShouldThrow<ArgumentOutOfRangeException>();
+            act.Should().Throw<ArgumentOutOfRangeException>();
         }
 
 
@@ -42,7 +42,7 @@ namespace ErgastApi.Tests.Requests
         public void Offset_BelowZero_ThrowsArgumentOutOfRangeException(int offset)
         {
             Action act = () => Request.Offset = offset;
-            act.ShouldThrow<ArgumentOutOfRangeException>();
+            act.Should().Throw<ArgumentOutOfRangeException>();
         }
 
         [Theory]
@@ -52,7 +52,7 @@ namespace ErgastApi.Tests.Requests
         public void Page_PageBelowOne_ThrowsArgumentOutOfRangeException(int page)
         {
             Action act = () => Request.Page(page, 10);
-            act.ShouldThrow<ArgumentOutOfRangeException>();
+            act.Should().Throw<ArgumentOutOfRangeException>();
         }
 
         [Theory]
@@ -62,7 +62,7 @@ namespace ErgastApi.Tests.Requests
         public void Page_PageSizeBelowZero_ThrowsArgumentOutOfRangeException(int pageSize)
         {
             Action act = () => Request.Page(1, pageSize);
-            act.ShouldThrow<ArgumentOutOfRangeException>();
+            act.Should().Throw<ArgumentOutOfRangeException>();
         }
 
         [Theory]
@@ -72,7 +72,7 @@ namespace ErgastApi.Tests.Requests
         public void Page_PageSizeAboveOneThousand_ThrowsArgumentOutOfRangeException(int pageSize)
         {
             Action act = () => Request.Page(1, pageSize);
-            act.ShouldThrow<ArgumentOutOfRangeException>();
+            act.Should().Throw<ArgumentOutOfRangeException>();
         }
 
         [Theory]

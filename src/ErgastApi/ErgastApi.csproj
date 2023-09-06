@@ -1,62 +1,56 @@
-﻿<?xml version="1.0" encoding="utf-8"?><Project Sdk="Microsoft.NET.Sdk">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFrameworks>net45;netstandard1.3</TargetFrameworks>
-    <NetStandardImplicitPackageVersion>1.6.0</NetStandardImplicitPackageVersion>
-    <GenerateDocumentationFile>True</GenerateDocumentationFile>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFrameworks>net472;net48;netstandard2.0;netstandard2.1;net6.0;net7.0</TargetFrameworks>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+	</PropertyGroup>
 
-  <!-- Needed for code coverage -->
-  <PropertyGroup>
-    <DebugType>full</DebugType>
-  </PropertyGroup>
+	<!-- Needed for code coverage -->
+	<PropertyGroup>
+		<DebugType>full</DebugType>
+	</PropertyGroup>
 
-  <PropertyGroup>
-    <PackageId>ErgastApiClient</PackageId>
-    <Version>$(SemVer)</Version>
-    <Authors>Søren Kruse</Authors>
-    <Company />
-    <Product>ErgastApiClient</Product>
-    <Description>A client for querying the Ergast Developer API (http://ergast.com/mrd/)</Description>
-    <PackageLicenseUrl>https://github.com/Krusen/ErgastApi.Net/blob/master/LICENSE.md</PackageLicenseUrl>
-    <PackageProjectUrl>https://github.com/Krusen/ErgastApi.Net</PackageProjectUrl>
-    <PackageIconUrl>https://raw.githubusercontent.com/Krusen/ErgastApi.Net/master/art/package-icon.png</PackageIconUrl>
-    <RepositoryUrl>https://github.com/Krusen/ErgastApi.Net</RepositoryUrl>
-    <RepositoryType>git</RepositoryType>
-    <!--<PackageReleaseNotes></PackageReleaseNotes>-->
-    <PackageTags>ergast;ergastapi;formula1;f1</PackageTags>
-    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <IncludeSource>True</IncludeSource>
-    <IncludeSymbols>True</IncludeSymbols>
-  </PropertyGroup>
+	<PropertyGroup>
+		<PackageId>ErgastApiClient</PackageId>
+		<Version>$(SemVer)</Version>
+		<Authors>Søren Kruse</Authors>
+		<Company />
+		<Product>ErgastApiClient</Product>
+		<Description>A client for querying the Ergast Developer API (http://ergast.com/mrd/)</Description>
+		<PackageLicense>https://github.com/Krusen/ErgastApi.Net/blob/master/LICENSE.md</PackageLicense>
+		<PackageProjectUrl>https://github.com/Krusen/ErgastApi.Net</PackageProjectUrl>
+		<Icon>https://raw.githubusercontent.com/Krusen/ErgastApi.Net/master/art/package-icon.png</Icon>
+		<RepositoryUrl>https://github.com/Krusen/ErgastApi.Net</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<!--<PackageReleaseNotes></PackageReleaseNotes>-->
+		<PackageTags>ergast;ergastapi;formula1;f1</PackageTags>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<IncludeSource>True</IncludeSource>
+		<IncludeSymbols>True</IncludeSymbols>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <None Remove="ErgastApi.csproj.DotSettings" />
-  </ItemGroup>
+	<ItemGroup>
+		<None Remove="ErgastApi.csproj.DotSettings" />
+	</ItemGroup>
+	
+	<ItemGroup>
+		<PackageReference Include="System.Net.Http" Version="4.3.4" />
+		<PackageReference Include="System.Reflection.TypeExtensions" Version="4.7.0" />
+		<PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="7.0.0" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
+		<PackageReference Include="System.Reflection" Version="4.3.0" />
+	</ItemGroup>
 
-  <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard1.3' ">
-    <DefineConstants>$(DefineConstants);NETSTANDARD</DefineConstants>
-  </PropertyGroup>
+	<PropertyGroup>
+		<CodeAnalysisRuleSet>ErgastApi.ruleset</CodeAnalysisRuleSet>
+	</PropertyGroup>
 
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net45' ">
-    <Reference Include="System.Runtime.Caching" />
-    <PackageReference Include="System.Net.Http" Version="4.3.4" />
-    <PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
-  </ItemGroup>
-
-  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard1.3' ">
-    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="1.0.0" />
-    <PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
-    <PackageReference Include="System.Reflection" Version="4.3.0" />
-    <PackageReference Include="System.Reflection.TypeExtensions" Version="4.3.0" />
-  </ItemGroup>
-
-  <PropertyGroup>
-    <CodeAnalysisRuleSet>ErgastApi.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
-
-  <ItemGroup>
-    <PackageReference Include="AsyncUsageAnalyzers" Version="1.0.0-alpha003" PrivateAssets="All" />
-  </ItemGroup>
-
+	<ItemGroup>
+		<PackageReference Include="Microsoft.VisualStudio.Threading.Analyzers" Version="17.5.22">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+	</ItemGroup>
+	
 </Project>
